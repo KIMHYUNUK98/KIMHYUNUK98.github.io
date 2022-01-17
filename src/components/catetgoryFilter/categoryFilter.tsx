@@ -7,6 +7,7 @@ import kebabCase from "lodash/kebabCase"
 import type { MarkdownRemarkGroupConnection } from "Types/GraphQL"
 import useScrollCenter from "./useScrollCenter"
 
+
 const ACTIVE = "active"
 
 interface CategoryFilterProps {
@@ -17,7 +18,7 @@ type LinkPropsGetter = GatsbyLinkProps<unknown>["getProps"]
 
 const CategoryFilter: React.FC<CategoryFilterProps> = ({ categoryList }) => {
   const categoryRef = useRef<HTMLUListElement>(null)
-  const ALL_CATEGORY_NAME = "All"
+  const ALL_CATEGORY_NAME = "Show All"
   const isActive: LinkPropsGetter = ({ isCurrent }) =>
     isCurrent ? { id: ACTIVE, tabIndex: -1 } : {}
 
@@ -78,7 +79,7 @@ const CategoryTitle = styled.em`
 
   flex-shrink: 0;
   font-size: var(--text-base);
-  font-weight: var(--font-weight-semi-bold);
+  font-weight: var(--font-weight-bold);
   font-style: initial;
   margin-right: var(--sizing-lg);
 
@@ -98,7 +99,7 @@ const CategoryButton = styled(Link)`
   background-color: var(--color-category-button);
   padding: var(--sizing-sm) var(--sizing-base);
   border-radius: var(--border-radius-base);
-  font-size: 0.875rem;
+  font-size: 1rem;
   font-weight: var(--font-weight-semi-bold);
 
   :focus {
@@ -127,7 +128,6 @@ const Divider = styled.div`
 const CategoryUl = styled.ul`
   display: flex;
   list-style: none;
-  overflow-x: scroll;
   -ms-overflow-style: none;
   scrollbar-width: none;
 

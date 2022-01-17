@@ -1,6 +1,6 @@
 ---
 title: "Getting Started"
-category: "Instruction"
+category: "Test"
 date: "2020-03-01 12:00:00 +09:00"
 desc: "Let's start making blogs step by step!"
 thumbnail: "./images/getting-started/thumbnail.jpg"
@@ -14,7 +14,7 @@ alt: "apple and shaking hands"
 ```md
 ---
 title: "Getting Started"  // Post title
-category: "Instruction"   // Post category
+category: "Test"   // Post category
 date: "2020-03-01 12:00:00 +09:00"  // Current time
 desc: "Let's start making blogs step by step!"  // Post desc
 thumbnail: "./images/getting-started/thumbnail.jpg" // Post thumbnail

@@ -56,7 +56,6 @@ const BlogPost: React.FC<BlogPostProps> = ({ data }) => {
 }
 
 const OuterWrapper = styled.div`
-  margin-top: var(--sizing-xl);
 
   @media (max-width: ${({ theme }) => theme.device.sm}) {
     margin-top: var(--sizing-lg);
@@ -64,9 +63,13 @@ const OuterWrapper = styled.div`
 `
 
 const InnerWrapper = styled.div`
-  width: var(--post-width);
+  width: 50vw;
   margin: 0 auto;
+  background-color: white;
   padding-bottom: var(--sizing-lg);
+  padding-top: var(--sizing-xl);
+  padding-left: 2%;
+  padding-right: 2%;
 
   @media (max-width: ${({ theme }) => theme.device.sm}) {
     width: 87.5%;
@@ -111,8 +114,8 @@ const Desc = styled.p`
 
 const Divider = styled.div`
   width: 100%;
-  height: 1px;
-  background-color: var(--color-gray-3);
+  height: 2px;
+  background-color: gray;
   margin-top: var(--sizing-lg);
   margin-bottom: var(--sizing-lg);
 `

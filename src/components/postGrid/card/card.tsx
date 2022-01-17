@@ -26,7 +26,6 @@ const Card: React.FC<CardProps> = ({
         <div>
           <Category>{category}</Category>
           <Title>{title}</Title>
-          <Desc>{desc}</Desc>
         </div>
         <DateTime dateTime={date}>{date}</DateTime>
       </Text>
@@ -40,8 +39,10 @@ const Wrapper = styled.div`
   flex-direction: column;
   overflow: hidden;
   height: 100%;
+  width: 100%;
   border-radius: var(--border-radius-base);
   background-color: var(--color-card);
+  box-shadow: 0 10px 10px var(--color-floating-button-shadow);
 
   /* Fix Safari overflow:hidden with border radius not working error */
   transform: translateZ(0);

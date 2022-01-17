@@ -17,14 +17,15 @@
 
 /** @type {MetaConfig} */
 const metaConfig = {
-  title: "Dev Ed",
-  description: `Ed's Blog`,
-  author: "Ed",
-  siteUrl: "https://gatsby-starter-apple.netlify.app",
+  title: "KHUniv",
+  description: `HyunUk's Blog`,
+  author: "Kim Hyun Uk",
+  siteUrl: "https://kimhyunuk98.github.io",
   lang: "en",
   utterances: "sungik-choi/gatsby-starter-apple-comment",
   links: {
-    github: "https://github.com/sungik-choi/gatsby-starter-apple",
+    github: "https://github.com/KIMHYUNUK98",
+    tistory: "https://handong201.tistory.com",
   },
   favicon: "src/images/icon.png",
 }

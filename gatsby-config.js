@@ -9,7 +9,7 @@ const siteMetadata = {
   utterances: {
     repo: meta.utterances,
   },
-  postTitle: "All",
+  postTitle: "Recent Post",
   menuLinks: [
     {
       link: "/",
@@ -22,6 +22,10 @@ const siteMetadata = {
     {
       link: meta.links.github,
       name: "Github",
+    },
+    {
+      link: meta.links.tistory,
+      name: "Tistory",
     },
   ],
 }
