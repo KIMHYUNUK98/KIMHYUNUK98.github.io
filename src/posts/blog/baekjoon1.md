@@ -1,5 +1,5 @@
 ---
-title: "23813"
+title: "23813번"
 category: "BaekJoon"
 date: "2022-01-18 11:46:00 +09:00"
 desc: "2021 POTECH Programming Contest"

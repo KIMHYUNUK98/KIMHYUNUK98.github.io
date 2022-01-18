@@ -73,7 +73,6 @@ const Main = styled.main`
 
 const Content = styled.div`
   box-sizing: content-box;
-  border-left: 1rem solid;
   width: 87.5%;
   max-width: var(--width);
   padding-top: var(--sizing-lg);
