@@ -26,6 +26,7 @@ const Card: React.FC<CardProps> = ({
         <div>
           <Category>{category}</Category>
           <Title>{title}</Title>
+          <Desc>{desc}</Desc>
         </div>
         <DateTime dateTime={date}>{date}</DateTime>
       </Text>
@@ -79,7 +80,7 @@ const Desc = styled.p`
   line-height: 1.5;
   margin-top: 8px;
   padding-bottom: var(--sizing-sm);
-  color: var(--color-text-2);
+  color: black;
   display: -webkit-box;
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;

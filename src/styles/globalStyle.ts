@@ -8,7 +8,7 @@ const GlobalStyle = createGlobalStyle`
     font-size: 100%;
 
     --width: 980px;
-    --min-width: 320px;
+    --min-width: 540px;
     --post-width: 650px;
     --nav-height: 54px;
     --footer-height: 60px;
@@ -99,10 +99,10 @@ const GlobalStyle = createGlobalStyle`
       --color-white: #e6e6e6;
       --color-nav-bar: rgba(29, 29, 29, 0.7);
       --color-nav-border: rgba(255, 255, 255, 0.2);
-      --color-category-button: #484848;
+      --color-category-button: #1c1c1c;
       --color-background: #1c1c1c;
       --color-post-background: #1c1c1c;
-      --color-card: #2c2c2c;
+      --color-card: #484848;
       --color-code: #3a3a3a;
       --color-code-block: #242424;
       --color-code-highlight: rgba(255, 255, 255, 0.05);

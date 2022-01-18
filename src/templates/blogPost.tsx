@@ -45,18 +45,18 @@ const BlogPost: React.FC<BlogPostProps> = ({ data }) => {
                 />
               </div>
             </InnerWrapper>
+            <CommentWrap>
+                <Comment />
+            </CommentWrap>
           </OuterWrapper>
         </article>
-        <CommentWrap>
-          <Comment />
-        </CommentWrap>
       </main>
     </Layout>
   )
 }
 
 const OuterWrapper = styled.div`
-
+  background-color: #FFCE54;
   @media (max-width: ${({ theme }) => theme.device.sm}) {
     margin-top: var(--sizing-lg);
   }
@@ -65,11 +65,15 @@ const OuterWrapper = styled.div`
 const InnerWrapper = styled.div`
   width: 50vw;
   margin: 0 auto;
-  background-color: white;
+  border-left: solid;
+  border-right: solid;
+  border-bottom: solid;
   padding-bottom: var(--sizing-lg);
   padding-top: var(--sizing-xl);
   padding-left: 2%;
   padding-right: 2%;
+  background-color: white;
+  box-shadow: rgba(0, 0, 0, 0.19) 0px 10px 20px, rgba(0, 0, 0, 0.23) 0px 6px 6px;
 
   @media (max-width: ${({ theme }) => theme.device.sm}) {
     width: 87.5%;
@@ -80,7 +84,7 @@ const CommentWrap = styled.section`
   width: 100%;
   padding: 0 var(--padding-sm);
   margin: 0 auto;
-  margin-bottom: var(--sizing-xl);
+  padding-bottom: var(--sizing-xl);
 
   @media (max-width: ${({ theme }) => theme.device.sm}) {
     width: auto;
