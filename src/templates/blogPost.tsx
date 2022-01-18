@@ -72,6 +72,7 @@ const InnerWrapper = styled.div`
   padding-top: var(--sizing-xl);
   padding-left: 2%;
   padding-right: 2%;
+  border-left: 1rem solid;
   background-color: white;
   box-shadow: rgba(0, 0, 0, 0.19) 0px 10px 20px, rgba(0, 0, 0, 0.23) 0px 6px 6px;
 
