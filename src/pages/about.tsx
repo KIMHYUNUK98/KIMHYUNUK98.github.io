@@ -1,6 +1,6 @@
 import React from "react"
 import { graphql, useStaticQuery } from "gatsby"
-import styled from "styled-components"
+import styled, {keyframes} from "styled-components"
 
 import { MarkdownHeadingLevels, Query } from "Types/GraphQL"
 import Layout from "Layouts/layout"
@@ -8,7 +8,7 @@ import SEO from "Components/seo"
 import Markdown from "Styles/markdown"
 import { rhythm } from "Styles/typography"
 import profile from "../images/profile.png"
-import line1 from "../images/line.png"
+import line1 from "../images/line1.png"
 
 const About = () => {
   const data = useStaticQuery<Query>(graphql`
@@ -23,44 +23,80 @@ const About = () => {
     }
   `)
 
-  const markdown = data.allMarkdownRemark.edges[0].node.html
-  const markdown1 = data.allMarkdownRemark.edges[1].node.html
-  const markdown2 = data.allMarkdownRemark.edges[2].node.html
+  const markdown2 = data.allMarkdownRemark.edges[0].node.html
+  const markdown = data.allMarkdownRemark.edges[1].node.html
+  const markdown1 = data.allMarkdownRemark.edges[2].node.html
 
   return (
     <Layout>
       <SEO title="About" />
         <Main>
-          <Introduce>
-            <img src={profile} alt="profile" style={{width: 250, float:"right"}}/>
-          </Introduce>
+          <Introduce><img src={profile} alt="profile" style={{width: 250, float:"right"}}/></Introduce>
+          <Typing>
+            <Listing>
+              <Item>꾸준히 성장하는 학부생</Item>
+              <Item>하나님의 방향을 따르는</Item>
+              <Item>돈보다 가치를 우선시하는</Item>
+            </Listing>
+          </Typing>
+          <TypingA></TypingA>
+
           <Container dangerouslySetInnerHTML={{ __html: markdown ?? "" }}
             rhythm={rhythm}
           ></Container>
-          <Line>
-            <img src={line1} alt="line" style={{width: 380, float:"left"}}/>
-            <img src={line1} alt="line" style={{width: 380, float:"right"}}/>
+
+          <LeftLine><img src={line1} alt="line"/></LeftLine>
+          <RightLine><img src={line1} alt="line"/></RightLine>
           <Container2 dangerouslySetInnerHTML={{ __html: markdown1 ?? "" }}
             rhythm={rhythm}
-          ></Container2>
-          </Line>
+          ></Container2>   
 
-          <Line>
-            <img src={line1} alt="line" style={{width: 380, float:"left"}}/>
-            <img src={line1} alt="line" style={{width: 380, float:"right"}}/>
+          <LeftLine><img src={line1} alt="line"/></LeftLine>
+          <RightLine><img src={line1} alt="line"/></RightLine>
           <Container2 dangerouslySetInnerHTML={{ __html: markdown2 ?? "" }}
             rhythm={rhythm}
           ></Container2>
-
-          </Line>
           
         </Main>
     </Layout>
   )
 }
 
-const Line = styled.div`
+const Typing = styled.div`
+  position: absolute;
+  left: 430px;
+  top: 166px;
+  font-size: 2.5rem;
+  font-weight: 800;
+  display: none;
+`
+
+const Listing = styled.ul`
+  list-style: none;
+`
+const Item = styled.li`
+`
+const cursor = keyframes`
+  0%{border-right: 1px solid #fff} 
+  50%{border-right: 1px solid #000} 
+  100%{border-right: 1px solid #fff}
+`;
+
+const TypingA = styled.p`
+  display: inline-block;
+  animation: ${cursor} 0.3s infinite;
+`
+
+const RightLine = styled.div`
+  padding-top:30px;
+  width: 40%;
+  float: right;
+`
+
+const LeftLine = styled.div`
   padding-top: 30px;
+  width: 40%;
+  float: left;
 `
 
 const Main = styled.div`
@@ -72,16 +108,15 @@ const Main = styled.div`
   margin: 0 auto;
 `
 const Introduce = styled.div`
-  padding-right: 12%;
+  padding-right: 8%;
 `
 const Container2 = styled(Markdown).attrs({
   as: "main",
 })`
   text-align: center;  
+  padding-top: 20px;
 
   h2 {
-    margin-top: 0;
-    padding-top: 0;
     font-size: 2rem;
 
     @media (max-width: ${({ theme }) => theme.device.sm}) {
@@ -109,6 +144,7 @@ const Container = styled(Markdown).attrs({
     margin-bottom: 0.5rem;
     letter-spacing: -2px;
     word-spacing: 10px;
+    font-weight: 400;
   }
 
   h2 {
