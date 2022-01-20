@@ -10,6 +10,7 @@ import Layout from "Layouts/layout"
 import SEO from "Components/seo"
 import PostGrid from "Components/postGrid"
 import CategoryFilter from "Components/catetgoryFilter"
+import profile from "../images/profile.png"
 
 const Home = ({
   pageContext,
@@ -55,8 +56,10 @@ const Home = ({
     <Layout>
       <SEO title="Home" />
       <Main>
-        <Content>
+        <Content1>
           <CategoryFilter categoryList={data.allMarkdownRemark.group} />
+        </Content1>
+        <Content>
           <PostTitle>{postTitle}</PostTitle>
           <PostGrid posts={posts} />
         </Content>
@@ -64,6 +67,25 @@ const Home = ({
     </Layout>
   )
 }
+
+const Intro = styled.div`
+  position: absolute;
+  left: 350px;
+  top: 200px;
+  font-size: 2.3rem;
+  letter-spacing: -2px;
+  word-spacing: 10px;
+  font-weight: 400;
+`
+
+const Content1 = styled.div`
+  box-sizing: content-box;
+  width: 87.5%;
+  max-width: var(--width);
+  padding-top: 30px;
+  padding-bottom: 0px;
+  margin: 0 auto;
+`
 
 const Main = styled.main`
   min-width: var(--min-width);
@@ -75,7 +97,7 @@ const Content = styled.div`
   box-sizing: content-box;
   width: 87.5%;
   max-width: var(--width);
-  padding-top: var(--sizing-lg);
+  padding-top: 10px;
   padding-bottom: var(--sizing-lg);
   margin: 0 auto;
 
