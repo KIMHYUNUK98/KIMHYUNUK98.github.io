@@ -67,6 +67,7 @@ const Nav = styled.nav`
 
   @media (max-width: ${({ theme }) => theme.device.sm}) {
     padding: 12px;
+    overflow: scroll;
   }
 `
 
@@ -130,6 +131,7 @@ const CategoryUl = styled.ul`
   list-style: none;
   -ms-overflow-style: none;
   scrollbar-width: none;
+  
 
   li + li {
     margin-left: 6px;

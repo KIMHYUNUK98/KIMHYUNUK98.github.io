@@ -48,10 +48,14 @@ const About = () => {
           </Typing>
 
           <BottomMessage>
+            <br></br><br></br><br></br>
             "네 마음을 다하고 목숨을 다하고 뜻을 다하여 주 너의 하나님을 사랑하라"
+            <br></br><br></br><br></br><br></br>
           </BottomMessage>
           <TopMessage>
+          <br></br><br></br><br></br>
             "네 마음을 다하고 목숨을 다하고 뜻을 다하여 주 너의 하나님을 사랑하라"
+            <br></br><br></br><br></br><br></br>
           </TopMessage>
           
 
@@ -90,7 +94,7 @@ const BottomMessage = styled.div`
   align-items: center;
   position: absolute;
   left: 370px;
-  top: 400px;
+  top: 320px;
   font-size: 1.5rem;
   font-weight: 500;
   letter-spacing: -2px;
@@ -104,13 +108,13 @@ const TopMessage = styled.div`
   align-items: center;
   position: absolute;
   left: 370px;
-  top: 400px;
+  top: 320px;
   font-size: 1.5rem;
   font-weight: 500;
   letter-spacing: -2px;
   word-spacing: 5px;
   font-weight: 500;
-  background-color: blue;
+  background-color: black;
   color: white;
   clip-path: circle(13% at 85% 50%);
   animation: ${circleMove} 20s ease-in-out infinite;

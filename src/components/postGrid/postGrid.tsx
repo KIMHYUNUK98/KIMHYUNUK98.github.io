@@ -56,7 +56,7 @@ const Grid = styled.ul`
   }
 
   @media (max-width: ${({ theme }) => theme.device.sm}) {
-    grid-gap: var(--grid-gap-lg);
+    grid-gap: var(--grid-gap-xl);
   }
 `
 

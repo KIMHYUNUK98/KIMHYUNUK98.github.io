@@ -10,6 +10,7 @@ import { rhythm } from "Styles/typography"
 import Category from "Styles/category"
 import DateTime from "Styles/dateTime"
 import Markdown from "Styles/markdown"
+import profile from "../images/profile.png"
 
 interface BlogPostProps {
   data: Query
@@ -28,6 +29,7 @@ const BlogPost: React.FC<BlogPostProps> = ({ data }) => {
       <main>
         <article>
           <OuterWrapper>
+          <Introduce><img src={profile} alt="profile" style={{width: 250, float:"right"}}/></Introduce>
             <InnerWrapper>
               <div>
                 <header>
@@ -55,15 +57,23 @@ const BlogPost: React.FC<BlogPostProps> = ({ data }) => {
   )
 }
 
+const Introduce = styled.div`
+  padding-right: 20%;
+  @media (max-width: ${({ theme }) => theme.device.sm}) {
+    padding-right: 5%;
+    width: 200;
+  }
+`
+
 const OuterWrapper = styled.div`
   background-color: #FFCE54;
   @media (max-width: ${({ theme }) => theme.device.sm}) {
-    margin-top: var(--sizing-lg);
+    
   }
 `
 
 const InnerWrapper = styled.div`
-  width: 50vw;
+  width: 60vw;
   margin: 0 auto;
   border-left: solid;
   border-right: solid;
