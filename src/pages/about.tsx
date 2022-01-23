@@ -13,7 +13,7 @@ import project2 from "../images/project2.png"
 import project3 from "../images/project3.png"
 import project4 from "../images/project4.png"
 import project5 from "../images/project5.png"
-import project6 from "../images/project6.png"
+import project7 from "../images/project7.png"
 
 const About = () => {
   const data = useStaticQuery<Query>(graphql`
@@ -32,6 +32,9 @@ const About = () => {
   const markdown1 = data.allMarkdownRemark.edges[1].node.html
   const markdown2 = data.allMarkdownRemark.edges[2].node.html
   const markdown3 = data.allMarkdownRemark.edges[3].node.html
+  const markdown4 = data.allMarkdownRemark.edges[4].node.html
+  const markdown5 = data.allMarkdownRemark.edges[5].node.html
+  const markdown6 = data.allMarkdownRemark.edges[6].node.html
 
   return (
     <Layout>
@@ -80,25 +83,25 @@ const About = () => {
             rhythm={rhythm}
           ></Container3>
 
+          <ContainerProjectDate dangerouslySetInnerHTML={{ __html: markdown3 ?? "" }}
+            rhythm={rhythm}
+          ></ContainerProjectDate>
           <ProjectImg>
-            <img src={project2} alt="project2" style={{width: 500}}/>
+            <img src={project2} alt="project2" style={{width: 780}}/>
           </ProjectImg>
-          <ProjectImg>
-          <img src={project3} alt="project3" style={{width: 470}}/>
-          </ProjectImg>
-          <ContainerProject dangerouslySetInnerHTML={{ __html: markdown3 ?? "" }}
+          <ContainerProject dangerouslySetInnerHTML={{ __html: markdown4 ?? "" }}
             rhythm={rhythm}
           ></ContainerProject>
 
+          <ContainerProjectDate dangerouslySetInnerHTML={{ __html: markdown5 ?? "" }}
+            rhythm={rhythm}
+          ></ContainerProjectDate>
           <ProjectImg>
-            <img src={project4} alt="project3" style={{width: 400}}/>
+            <img src={project7} alt="project7" style={{width: 780}}/>
           </ProjectImg>
-          <ProjectImg>
-            <img src={project5} alt="project3" style={{width: 400}}/>
-          </ProjectImg>
-          <ProjectImg>
-            <img src={project5} alt="project3" style={{width: 400}}/>
-          </ProjectImg>
+          <ContainerProject dangerouslySetInnerHTML={{ __html: markdown6 ?? "" }}
+            rhythm={rhythm}
+          ></ContainerProject>
           
 
         </Main>
@@ -114,6 +117,11 @@ const ProjectImg = styled.div`
   border: 3px solid;
   box-shadow: rgba(0, 0, 0, 0.19) 0px 10px 20px, rgba(0, 0, 0, 0.23) 0px 6px 6px;
   margin-bottom: 10px;
+
+  @media (max-width: ${({ theme }) => theme.device.sm}) {
+    margin-left: 0;
+    margin-right: 0;
+  }
 `
 
 const circleMove = keyframes`
@@ -291,6 +299,19 @@ const ContainerProject = styled(Markdown).attrs({
   padding-left: 5px;
   padding-top: 0px;
   margin-bottom: 12rem;
+  @media (max-width: ${({ theme }) => theme.device.sm}) {
+    padding-left: 0px;
+    width: 320px;
+  }
+`
+
+const ContainerProjectDate = styled(Markdown).attrs({
+  as: "main",
+})`
+  width: 800px;
+  margin: 0 auto;
+  padding-left: 5px;
+  padding-top: 0px;
   @media (max-width: ${({ theme }) => theme.device.sm}) {
     padding-left: 0px;
     width: 320px;

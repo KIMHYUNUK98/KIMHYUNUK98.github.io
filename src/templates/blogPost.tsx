@@ -29,7 +29,7 @@ const BlogPost: React.FC<BlogPostProps> = ({ data }) => {
       <main>
         <article>
           <OuterWrapper>
-          <Introduce><img src={profile} alt="profile" style={{width: 250, float:"right"}}/></Introduce>
+          <Introduce><img src={profile} alt="profile" style={{width: 150, float:"right"}}/></Introduce>
             <InnerWrapper>
               <div>
                 <header>
@@ -61,7 +61,7 @@ const Introduce = styled.div`
   padding-right: 20%;
   @media (max-width: ${({ theme }) => theme.device.sm}) {
     padding-right: 5%;
-    width: 200;
+    width: 100;
   }
 `
 
