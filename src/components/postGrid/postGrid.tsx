@@ -57,6 +57,7 @@ const Grid = styled.ul`
 
   @media (max-width: ${({ theme }) => theme.device.sm}) {
     grid-gap: var(--grid-gap-xl);
+    grid-template-colums: repeat(1, 1fr);
   }
 `
 
@@ -85,7 +86,9 @@ const List = styled.li`
   }
 
   @media (max-width: ${({ theme }) => theme.device.sm}) {
-    grid-column: span 2;
+    grid-column: span 3;
+    padding-right: 20px;
+    padding-left: 20px;
   }
 `
 

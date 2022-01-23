@@ -8,7 +8,7 @@ const GlobalStyle = createGlobalStyle`
     font-size: 100%;
 
     --width: 980px;
-    --min-width: 540px;
+    --min-width: 375px;
     --post-width: 650px;
     --nav-height: 54px;
     --footer-height: 60px;
@@ -39,12 +39,12 @@ const GlobalStyle = createGlobalStyle`
     --text-lg: 1.5rem; 
     --text-xl: 3rem;
 
-    --device-xs-max-width: 419px;
+    --device-xs-max-width: 375px;
     --device-sm-max-width: 767px;
     --device-md-max-width: 1023px;
     --device-lg-max-width: 1441px;
 
-    --device-xs-max-width-query: (max-width: 419px);
+    --device-xs-max-width-query: (max-width: 375px);
     --device-sm-max-width-query: (max-width: 767px);
     --device-md-max-width-query: (max-width: 1023px);
     --device-lg-max-width-query: (max-width: 1441px);

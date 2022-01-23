@@ -103,6 +103,10 @@ const CategoryButton = styled(Link)`
   font-size: 1rem;
   font-weight: var(--font-weight-semi-bold);
 
+  @media (max-width: ${({ theme }) => theme.device.sm}) {
+    font-size: 1rem;
+  }
+
   :focus {
     outline: none;
   }

@@ -9,6 +9,11 @@ import Markdown from "Styles/markdown"
 import { rhythm } from "Styles/typography"
 import profile from "../images/profile.png"
 import line1 from "../images/line1.png"
+import project2 from "../images/project2.png"
+import project3 from "../images/project3.png"
+import project4 from "../images/project4.png"
+import project5 from "../images/project5.png"
+import project6 from "../images/project6.png"
 
 const About = () => {
   const data = useStaticQuery<Query>(graphql`
@@ -23,18 +28,18 @@ const About = () => {
     }
   `)
 
-  const markdown1 = data.allMarkdownRemark.edges[0].node.html
-  const markdown = data.allMarkdownRemark.edges[1].node.html
+  const markdown = data.allMarkdownRemark.edges[0].node.html
+  const markdown1 = data.allMarkdownRemark.edges[1].node.html
   const markdown2 = data.allMarkdownRemark.edges[2].node.html
+  const markdown3 = data.allMarkdownRemark.edges[3].node.html
 
   return (
     <Layout>
       <SEO title="About" />
         <Main>
-          <Introduce><img src={profile} alt="profile" style={{width: 250, float:"right"}}/></Introduce>
+          <Introduce><img src={profile} alt="profile" style={{width: 230, float:"right"}}/></Introduce>
           <Typing>
-            <Wave>
-              <Item>꾸</Item>
+              <Item>꾸</Item> 
               <Item>준</Item>
               <Item>히</Item>
               <Item>성</Item>
@@ -44,93 +49,140 @@ const About = () => {
               <Item>학</Item>
               <Item>부</Item>
               <Item>생</Item>
-            </Wave>
           </Typing>
 
-          <BottomMessage>
-            <br></br><br></br><br></br>
-            "네 마음을 다하고 목숨을 다하고 뜻을 다하여 주 너의 하나님을 사랑하라"
-            <br></br><br></br><br></br><br></br>
-          </BottomMessage>
           <TopMessage>
           <br></br><br></br><br></br>
             "네 마음을 다하고 목숨을 다하고 뜻을 다하여 주 너의 하나님을 사랑하라"
             <br></br><br></br><br></br><br></br>
           </TopMessage>
+
+          <BottomMessage>
+          <br></br><br></br><br></br>
+            "네 마음을 다하고 목숨을 다하고 뜻을 다하여 주 너의 하나님을 사랑하라"
+            <br></br><br></br><br></br><br></br>
+          </BottomMessage>
           
 
           <Container dangerouslySetInnerHTML={{ __html: markdown ?? "" }}
             rhythm={rhythm}
           ></Container>
 
-          <LeftLine><img src={line1} alt="line"/></LeftLine>
-          <RightLine><img src={line1} alt="line"/></RightLine>
+          <LeftLine1><img src={line1} alt="line"/></LeftLine1>
+          <RightLine1><img src={line1} alt="line"/></RightLine1>
           <Container2 dangerouslySetInnerHTML={{ __html: markdown1 ?? "" }}
             rhythm={rhythm}
-          ></Container2>   
-
-          <LeftLine><img src={line1} alt="line"/></LeftLine>
-          <RightLine><img src={line1} alt="line"/></RightLine>
-          <Container2 dangerouslySetInnerHTML={{ __html: markdown2 ?? "" }}
-            rhythm={rhythm}
           ></Container2>
+
+          <LeftLine2><img src={line1} alt="line"/></LeftLine2>
+          <RightLine2><img src={line1} alt="line"/></RightLine2>
+          <Container3 dangerouslySetInnerHTML={{ __html: markdown2 ?? "" }}
+            rhythm={rhythm}
+          ></Container3>
+
+          <ProjectImg>
+            <img src={project2} alt="project2" style={{width: 500}}/>
+          </ProjectImg>
+          <ProjectImg>
+          <img src={project3} alt="project3" style={{width: 470}}/>
+          </ProjectImg>
+          <ContainerProject dangerouslySetInnerHTML={{ __html: markdown3 ?? "" }}
+            rhythm={rhythm}
+          ></ContainerProject>
+
+          <ProjectImg>
+            <img src={project4} alt="project3" style={{width: 400}}/>
+          </ProjectImg>
+          <ProjectImg>
+            <img src={project5} alt="project3" style={{width: 400}}/>
+          </ProjectImg>
+          <ProjectImg>
+            <img src={project5} alt="project3" style={{width: 400}}/>
+          </ProjectImg>
           
+
         </Main>
     </Layout>
   )
 }
 
+const ProjectImg = styled.div`
+  display: flex;
+  justify-content: center;
+  margin-left: 10%;
+  margin-right: 10%;
+  border: 3px solid;
+  box-shadow: rgba(0, 0, 0, 0.19) 0px 10px 20px, rgba(0, 0, 0, 0.23) 0px 6px 6px;
+  margin-bottom: 10px;
+`
+
 const circleMove = keyframes`
   0%, 100% {
-    clip-path: circle(13% at 85% 50%);
+    clip-path: circle(15% at 90% 50%);
   }
   50% {
-    clip-path: circle(13% at 15% 50%);
+    clip-path: circle(15% at 10% 50%);
   }
 `;
 
-const BottomMessage = styled.div`
-  justify-content: center;
-  align-items: center;
-  position: absolute;
-  left: 370px;
-  top: 320px;
-  font-size: 1.5rem;
-  font-weight: 500;
-  letter-spacing: -2px;
-  word-spacing: 5px;
-  font-weight: 500;
-  color: #232323;
-`
-
 const TopMessage = styled.div`
-  justify-content: center;
-  align-items: center;
   position: absolute;
   left: 370px;
   top: 320px;
   font-size: 1.5rem;
   font-weight: 500;
-  letter-spacing: -2px;
   word-spacing: 5px;
   font-weight: 500;
-  background-color: black;
+  background-color: blue;
   color: white;
-  clip-path: circle(13% at 85% 50%);
-  animation: ${circleMove} 20s ease-in-out infinite;
+  clip-path: circle(7% at 60% 85%);
+  animation: ${circleMove} 14s ease-in-out infinite;
+  @media (max-width: ${({ theme }) => theme.device.sm}) {
+    left: 0px;
+    font-size: 1.25rem;
+    padding-left: 40px;
+    padding-right: 40px;
+    top: 430px;
+    line-height: 1.75rem;
+    font-weight: 550;
+  }
 `
+const BottomMessage = styled.div`
+  position: absolute;
+  left: 370px;
+  top: 320px;
+  font-size: 1.5rem;
+  font-weight: 500;
+  word-spacing: 5px;
+  font-weight: 500;
+  background-color: red;
+  color: white;
+  clip-path: circle(7% at 60% 85%);
+  animation: ${circleMove} 18s ease-in-out infinite;
+  @media (max-width: ${({ theme }) => theme.device.sm}) {
+    left: 0px;
+    font-size: 1.25rem;
+    padding-left: 40px;
+    padding-right: 40px;
+    top: 430px;
+    line-height: 1.75rem;
+    font-weight: 550;
+  }
+  `
 
 const Typing = styled.div`
   position: absolute;
-  left: 428px;
-  top: 163px;
+  left: 430px;
+  top: 165px;
   font-size: 2.8rem;
   font-weight: 800;
+  @media (max-width: ${({ theme }) => theme.device.sm}) {
+    left: 33px;
+    top: 332px;
+    font-size: 2.0rem;
+  }
 `
 
-const Wave = styled.div`
-  position: relative;
-`
 const flip = keyframes`
   0%, 80% {
     transform: rotateY(360deg)
@@ -144,19 +196,48 @@ const Item = styled.span`
   animation-delay: calc(.2s * var(--i))
 `
 
-const RightLine = styled.div`
-  margin-top: 50px;
+const RightLine1 = styled.div`
+  margin-top: 48px;
   padding-top:100px;
   width: 40%;
   float: right;
+  @media (max-width: ${({ theme }) => theme.device.sm}) {
+    width: 90px;
+  }
 `
 
-const LeftLine = styled.div`
-  margin-top: 50px;
+const LeftLine1 = styled.div`
+  margin-top: 48px;
   padding-top: 100px;
+  margin-left: 0;
   width: 40%;
   float: left;
+  @media (max-width: ${({ theme }) => theme.device.sm}) {
+    width: 90px;
+  }
 `
+
+const RightLine2 = styled.div`
+  margin-top: 2px;
+  padding-top: 100px;
+  width: 40%;
+  float: right;
+  @media (max-width: ${({ theme }) => theme.device.sm}) {
+    width: 90px;
+  }
+`
+
+const LeftLine2 = styled.div`
+  margin-top: 2px;
+  padding-top: 100px;
+  margin-left: 0;
+  width: 40%;
+  float: left;
+  @media (max-width: ${({ theme }) => theme.device.sm}) {
+    width: 90px;
+  }
+`
+
 
 const Main = styled.div`
   box-sizing: content-box;
@@ -168,22 +249,53 @@ const Main = styled.div`
 `
 const Introduce = styled.div`
   padding-right: 8%;
-`
-const Container2 = styled(Markdown).attrs({
-  as: "main",
-})`
-  text-align: center;  
-  padding-top: 140px;
-
-  h2 {
-    font-size: 2rem;
-
-    @media (max-width: ${({ theme }) => theme.device.sm}) {
-      font-size: 1.75rem;
-    }
+  @media (max-width: ${({ theme }) => theme.device.sm}) {
+    padding-right: 15%;
   }
 `
 
+
+const Container2 = styled(Markdown).attrs({
+  as: "main",
+})`
+  width: 80px;
+  margin: 0 auto;
+  margin-top: 40px;
+  padding-left: 10px;
+  padding-top: 120px;
+  margin-bottom: 6rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`
+
+const Container3 = styled(Markdown).attrs({
+  as: "main",
+})`
+  width: 100px;
+  margin: 0 auto;
+  margin-top: 40px;
+  padding-left: 5px;
+  padding-top: 70px;
+  margin-bottom: 0rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`
+
+const ContainerProject = styled(Markdown).attrs({
+  as: "main",
+})`
+  width: 800px;
+  margin: 0 auto;
+  padding-left: 5px;
+  padding-top: 0px;
+  margin-bottom: 12rem;
+  @media (max-width: ${({ theme }) => theme.device.sm}) {
+    padding-left: 0px;
+    width: 320px;
+  }
+`
 
 const Container = styled(Markdown).attrs({
   as: "main",
@@ -196,6 +308,8 @@ const Container = styled(Markdown).attrs({
 
   @media (max-width: ${({ theme }) => theme.device.sm}) {
     margin-top: var(--sizing-xl);
+    padding-left: 0px;
+    margin-left: 0px;
     width: 87.5%;
   }
 
