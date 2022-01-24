@@ -25,104 +25,106 @@ M, N과 K 그리고 K개의 직사각형의 좌표가 주어질 때, K개의 직
 ## 출력
 첫째 줄에 분리되어 나누어지는 영역의 개수를 출력한다. 둘째 줄에는 각 영역의 넓이를 오름차순으로 정렬하여 빈칸을 사이에 두고 출력한다.
 
-    #include <iostream> 
-    #include <string>
-    #include <algorithm> 
-    #include <queue>
-    #include <cstring>
+```cpp
+#include <iostream> 
+#include <string>
+#include <algorithm> 
+#include <queue>
+#include <cstring>
 
-    using namespace std; 
+using namespace std; 
 
-    int dx[4] = {0,0,-1,1};
-    int dy[4] = {1,-1,0,0};
+int dx[4] = {0,0,-1,1};
+int dy[4] = {1,-1,0,0};
 
-    int main(void) { 
-        cin.tie(NULL); 
-        
-        int row, col ;
-        int num;
-        cin >> row >> col >> num;
+int main(void) { 
+    cin.tie(NULL); 
+    
+    int row, col ;
+    int num;
+    cin >> row >> col >> num;
 
-        int visited[row][col] = {0,};
-        memset(visited, 0, sizeof(visited));
+    int visited[row][col] = {0,};
+    memset(visited, 0, sizeof(visited));
 
-        vector<int> x1 ;
-        vector<int> x2 ;
-        vector<int> y1 ;
-        vector<int> y2 ;
+    vector<int> x1 ;
+    vector<int> x2 ;
+    vector<int> y1 ;
+    vector<int> y2 ;
 
-        for(int i = 0 ; i < num ; i++) {
-            int tempx1, tempy1, tempx2, tempy2;
-            cin >> tempx1 >> tempy1 >> tempx2 >> tempy2;
-            x1.push_back(tempx1);
-            y1.push_back(tempy1);
-            x2.push_back(tempx2);
-            y2.push_back(tempy2);
+    for(int i = 0 ; i < num ; i++) {
+        int tempx1, tempy1, tempx2, tempy2;
+        cin >> tempx1 >> tempy1 >> tempx2 >> tempy2;
+        x1.push_back(tempx1);
+        y1.push_back(tempy1);
+        x2.push_back(tempx2);
+        y2.push_back(tempy2);
+    }
+    
+    for(int i = 0 ; i < num ; i++) {
+
+        queue<pair<int,int>> q;
+
+        q.push({y1[i],x1[i]});
+        visited[y1[i]][x1[i]] = 1;
+
+
+        while(!q.empty()) {
+            int nodey = q.front().first;
+            int nodex = q.front().second;
+            q.pop();
+
+            for(int m = 0; m < 4 ; m++) {
+                int tempx = nodex + dx[m];
+                int tempy = nodey + dy[m];
+                if(tempx >= x1[i] && tempx <= x2[i]-1 && tempy >= y1[i] && tempy <= y2[i]-1
+                    && visited[tempy][tempx] <= i) {
+                    visited[tempy][tempx]++;
+                    q.push({tempy, tempx});
+                }
+            }
         }
-        
-        for(int i = 0 ; i < num ; i++) {
+    }
 
+    vector<int> answer;
+    int area = 0;
+    for(int i = 0 ; i < row ; i++) {
+        for(int j = 0 ; j < col ; j++) {
+
+            if(visited[i][j] != 0) continue;
+            area++;
+            
             queue<pair<int,int>> q;
+            q.push({i,j});
+            visited[i][j] = 1;
 
-            q.push({y1[i],x1[i]});
-            visited[y1[i]][x1[i]] = 1;
-
-
+            int area_count = 1;
+            
             while(!q.empty()) {
                 int nodey = q.front().first;
                 int nodex = q.front().second;
                 q.pop();
 
-                for(int m = 0; m < 4 ; m++) {
-                    int tempx = nodex + dx[m];
-                    int tempy = nodey + dy[m];
-                    if(tempx >= x1[i] && tempx <= x2[i]-1 && tempy >= y1[i] && tempy <= y2[i]-1
-                        && visited[tempy][tempx] <= i) {
-                        visited[tempy][tempx]++;
-                        q.push({tempy, tempx});
-                    }
+                for(int k = 0 ; k < 4 ; k++) {
+                    int tempy = nodey + dy[k];
+                    int tempx = nodex + dx[k];
+                    if(tempy >= 0 && tempy <= row-1 && tempx >= 0 && tempx <= col-1
+                        && visited[tempy][tempx] == 0) {
+                            visited[tempy][tempx] = 1;
+                            q.push({tempy, tempx});
+                            area_count++;
+                        }
                 }
             }
+        answer.push_back(area_count);
         }
-
-        vector<int> answer;
-        int area = 0;
-        for(int i = 0 ; i < row ; i++) {
-            for(int j = 0 ; j < col ; j++) {
-
-                if(visited[i][j] != 0) continue;
-                area++;
-                
-                queue<pair<int,int>> q;
-                q.push({i,j});
-                visited[i][j] = 1;
-
-                int area_count = 1;
-                
-                while(!q.empty()) {
-                    int nodey = q.front().first;
-                    int nodex = q.front().second;
-                    q.pop();
-
-                    for(int k = 0 ; k < 4 ; k++) {
-                        int tempy = nodey + dy[k];
-                        int tempx = nodex + dx[k];
-                        if(tempy >= 0 && tempy <= row-1 && tempx >= 0 && tempx <= col-1
-                            && visited[tempy][tempx] == 0) {
-                                visited[tempy][tempx] = 1;
-                                q.push({tempy, tempx});
-                                area_count++;
-                            }
-                    }
-                }
-            answer.push_back(area_count);
-            }
-        }
-        
-        sort(answer.begin(), answer.end(), less<int>());
-        cout << area << endl;
-        for(int i = 0 ; i < area ; i++)
-            cout << answer[i] << " ";
-
-        return 0; 
     }
+    
+    sort(answer.begin(), answer.end(), less<int>());
+    cout << area << endl;
+    for(int i = 0 ; i < area ; i++)
+        cout << answer[i] << " ";
+
+    return 0; 
+}
+```

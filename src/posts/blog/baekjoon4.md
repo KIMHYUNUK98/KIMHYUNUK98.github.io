@@ -31,45 +31,47 @@ alt: "markdown logo"
 - 🌱 **count 된 것을 전체 문자열의 길이의 합에서 빼주면 answer**
 - 
 
-    #include <iostream>
-    #include <vector>
-    #include <string>
-    #include <cstring>
+```cpp
+#include <iostream>
+#include <vector>
+#include <string>
+#include <cstring>
 
-    using namespace std;
+using namespace std;
 
-    int main() {
-        ios::sync_with_stdio(0);
-        cin.tie(0);
-        
-        vector<pair<char,int>> arr1;
-        vector<pair<char,int>> arr2;
-        
-        string temp1 = "";
-        string temp2 = "";
-        cin >> temp1 >> temp2;
-        
-        for(int i = 0 ; i < temp1.size() ; i++) 
-            arr1.push_back(make_pair(temp1[i], 0));
-        
-        for(int i = 0 ; i < temp2.size() ; i++)
-            arr2.push_back(make_pair(temp2[i], 0));
+int main() {
+    ios::sync_with_stdio(0);
+    cin.tie(0);
+    
+    vector<pair<char,int>> arr1;
+    vector<pair<char,int>> arr2;
+    
+    string temp1 = "";
+    string temp2 = "";
+    cin >> temp1 >> temp2;
+    
+    for(int i = 0 ; i < temp1.size() ; i++) 
+        arr1.push_back(make_pair(temp1[i], 0));
+    
+    for(int i = 0 ; i < temp2.size() ; i++)
+        arr2.push_back(make_pair(temp2[i], 0));
 
-        int count = 0;
+    int count = 0;
 
-        for(int i = 0 ; i < temp1.size() ; i++) {
-            for(int j = 0 ; j < temp2.size() ; j++) {
-                if(arr1[i].first == arr2[j].first && arr2[j].second == 0 && arr1[i].second ==0) {
-                    arr1[i].second++;
-                    arr2[j].second++;
-                    count++;
-                }
+    for(int i = 0 ; i < temp1.size() ; i++) {
+        for(int j = 0 ; j < temp2.size() ; j++) {
+            if(arr1[i].first == arr2[j].first && arr2[j].second == 0 && arr1[i].second ==0) {
+                arr1[i].second++;
+                arr2[j].second++;
+                count++;
             }
         }
-
-        int answer = arr1.size() + arr2.size() - 2*count;
-
-        cout << answer << endl;
-
-        return 0;
     }
+
+    int answer = arr1.size() + arr2.size() - 2*count;
+
+    cout << answer << endl;
+
+    return 0;
+}
+```

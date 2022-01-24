@@ -26,86 +26,87 @@ alt: "markdown logo"
 
 ##### 시간 초과 풀이
 
+```cpp
+#include <iostream>
+#include <vector>
+#include <string>
+#include <cstring>
 
-    #include <iostream>
-    #include <vector>
-    #include <string>
-    #include <cstring>
+using namespace std;
 
-    using namespace std;
+int main() {
+    ios::sync_with_stdio(0);
+    cin.tie(0);
+    
+    string temp1 = "";
+    string temp2 = "";
+    cin >> temp1 >> temp2;
+    int answer = 0;
+    int count = 1;
+    int max = 0;
+    
+    for(int i = 0 ; i < temp1.size() ; i++) {
+        for(int j = 0 ; j < temp2.size() ; j++) {
+            if(temp1[i] == temp2[j]) {
+                answer++;
 
-    int main() {
-        ios::sync_with_stdio(0);
-        cin.tie(0);
-        
-        string temp1 = "";
-        string temp2 = "";
-        cin >> temp1 >> temp2;
-        int answer = 0;
-        int count = 1;
-        int max = 0;
-        
-        for(int i = 0 ; i < temp1.size() ; i++) {
-            for(int j = 0 ; j < temp2.size() ; j++) {
-                if(temp1[i] == temp2[j]) {
-                    answer++;
-
-                    while(true) {
-                        if(temp1[i+count] == '\0' || temp2[j+count] == '\0') break;
-                        if(temp1[i+count] == temp2[j+count]) 
-                            answer++;
-                        else 
-                            break;
-                        count++;
-                    }
+                while(true) {
+                    if(temp1[i+count] == '\0' || temp2[j+count] == '\0') break;
+                    if(temp1[i+count] == temp2[j+count]) 
+                        answer++;
+                    else 
+                        break;
+                    count++;
                 }
-                if(max < answer)
-                    max = answer;
-
-                // cout << temp1[i]  << max << " " ;
-                count = 1;
-                answer = 0;
             }
-            //cout << endl;
+            if(max < answer)
+                max = answer;
+
+            // cout << temp1[i]  << max << " " ;
+            count = 1;
+            answer = 0;
         }
-
-        cout << max << endl;
-
-        return 0;
+        //cout << endl;
     }
+
+    cout << max << endl;
+
+    return 0;
+}
 
 ##### DP 풀이
 
-    #include <iostream> 
-    #include <string>
-    #include <algorithm> 
+#include <iostream> 
+#include <string>
+#include <algorithm> 
 
-    #define MAX 4002 
-    using namespace std; 
-    string a, b; 
-    int answer; 
-    int dp[MAX][MAX]; 
+#define MAX 4002 
+using namespace std; 
+string a, b; 
+int answer; 
+int dp[MAX][MAX]; 
 
-    int main(void) { 
-        cin.tie(NULL); 
-        answer = 0; 
-        
-        cin >> a; cin >> b; 
-        for (int i = 0; i < a.size(); i++) { 
-            for (int j = 0; j < b.size(); j++) { 
-                if (a[i] == b[j]) { 
-                    if (i == 0 || j == 0) { 
-                        dp[i][j] = 1; 
-                        answer = max(answer, dp[i][j]); 
-                        continue; 
-                    } 
-                dp[i][j] = dp[i - 1][j - 1] + 1; 
-                answer = max(answer, dp[i][j]); 
+int main(void) { 
+    cin.tie(NULL); 
+    answer = 0; 
+    
+    cin >> a; cin >> b; 
+    for (int i = 0; i < a.size(); i++) { 
+        for (int j = 0; j < b.size(); j++) { 
+            if (a[i] == b[j]) { 
+                if (i == 0 || j == 0) { 
+                    dp[i][j] = 1; 
+                    answer = max(answer, dp[i][j]); 
+                    continue; 
                 } 
+            dp[i][j] = dp[i - 1][j - 1] + 1; 
+            answer = max(answer, dp[i][j]); 
             } 
         } 
-        
-        cout << answer << endl; 
-        
-        return 0; 
-    }
+    } 
+    
+    cout << answer << endl; 
+    
+    return 0; 
+}
+```

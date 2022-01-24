@@ -19,28 +19,30 @@ alt: "markdown logo"
 ## 출력
 각 테스트 케이스에 대해 오타를 지운 문자열을 출력한다.
 
-    #include <iostream> 
-    #include <string>
-    #include <algorithm> 
+```cpp
+#include <iostream> 
+#include <string>
+#include <algorithm> 
 
-    using namespace std; 
+using namespace std; 
 
-    int main(void) { 
-        cin.tie(NULL); 
-        
-        int num = 0;
-        cin >> num;
+int main(void) { 
+    cin.tie(NULL); 
+    
+    int num = 0;
+    cin >> num;
 
-        for(int i = 0 ; i < num ; i++) {
-            int index = 0;
-            string arr = "";
-            cin >> index >> arr;
+    for(int i = 0 ; i < num ; i++) {
+        int index = 0;
+        string arr = "";
+        cin >> index >> arr;
 
-            arr.erase(index-1,1);
+        arr.erase(index-1,1);
 
-            cout << arr << endl;
-        }
-
-        
-        return 0; 
+        cout << arr << endl;
     }
+
+    
+    return 0; 
+}
+```

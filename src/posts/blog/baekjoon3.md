@@ -23,29 +23,30 @@ alt: "markdown logo"
 🌱
 
 
+```cpp
+#include <iostream>
+#include <vector>
+#include <string>
+#include <cstring>
 
-    #include <iostream>
-    #include <vector>
-    #include <string>
-    #include <cstring>
+using namespace std;
 
-    using namespace std;
+int main() {
+    ios::sync_with_stdio(0);
+    cin.tie(0);
+    
+    int num = 0;
+    cin >> num;
 
-    int main() {
-        ios::sync_with_stdio(0);
-        cin.tie(0);
-        
-        int num = 0;
-        cin >> num;
-
-        for(int i = 0 ; i < num ; i++) {
-            string arr = "";
-            cin >> arr;
-            if(arr.size() != 1) 
-                cout << arr[0] << arr[arr.size()-1] << endl;
-            else 
-                cout << arr[0] << arr[0] << endl;
-        }
-
-        return 0;
+    for(int i = 0 ; i < num ; i++) {
+        string arr = "";
+        cin >> arr;
+        if(arr.size() != 1) 
+            cout << arr[0] << arr[arr.size()-1] << endl;
+        else 
+            cout << arr[0] << arr[0] << endl;
     }
+
+    return 0;
+}
+```

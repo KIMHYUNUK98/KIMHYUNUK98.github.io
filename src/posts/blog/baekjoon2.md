@@ -33,72 +33,74 @@ alt: "markdown logo"
 🌱🌱🌱🌱🌱🌱🌱🌱🌱🌱🌱🌱🌱🌱🌱🌱🌱🌱🌱🌱🌱🌱🌱🌱🌱🌱🌱🌱🌱
 > <b> BFS를 하면서 Visited 말고 Color라는 배열을 하나 더 만들어서 해당 조건을 충족시키도록 만들어주면 금방 해결할 수 있는 문제였다. 여기서 처음에 q.push로 뭐를 해야할지 에서 막혔는데, Node가 연결되지 않은 경우도 존재하므로 모든 Node에 대해서 한 번씩 탐색할 수 있도록 for문을 이용해야 했다. </b>
 
-    #include <iostream>
-    #include <vector>
-    #include <string>
-    #include <queue>
+```cpp
+#include <iostream>
+#include <vector>
+#include <string>
+#include <queue>
 
-    using namespace std;
+using namespace std;
 
-    int main() {
-        ios::sync_with_stdio(0);
-        cin.tie(0);
-        
-        int run = 0;
-        cin >> run;
+int main() {
+    ios::sync_with_stdio(0);
+    cin.tie(0);
+    
+    int run = 0;
+    cin >> run;
 
-        for(int i = 0 ; i < run ; i++) {
-            int circle = 0, line = 0;
-            cin >> circle >> line;
-            vector<vector<int>> arr(circle+1);
+    for(int i = 0 ; i < run ; i++) {
+        int circle = 0, line = 0;
+        cin >> circle >> line;
+        vector<vector<int>> arr(circle+1);
 
-            for(int j = 0 ; j < line ; j++) {
-                int x = 0, y = 0;
-                cin >> x >> y;
-                
-                arr[x].push_back(y);
-                arr[y].push_back(x);
-            }
-
-            int error = 0;
-
-            for(int m = 1 ; m <= circle ; m++) {
-                int visited[circle+1] = {0,};
-                int color[circle+1] = {0,};
-                
-                queue<int> q;
-
-                q.push(m);
-                visited[m] = 0;
-                color[m] = 0;
-
-                while(!q.empty()) {
-                    int node = q.front();
-                    q.pop();
-
-                    error = 0;
-                    for(int j = 0 ; j < arr[node].size(); j++) {
-                        if(visited[arr[node][j]] == 0) {
-                            visited[arr[node][j]] = 1;
-                            if(color[node] == 1)
-                                color[arr[node][j]] = 0;
-                            else if(color[node] == 0)
-                                color[arr[node][j]] = 1;
-                            q.push(arr[node][j]);
-                        }
-
-                        if(color[node] == color[arr[node][j]]) 
-                            error++;
-                    }
-
-                    if(error > 0) break;
-                }
-                if(error > 0) break;
-            }
-
-            if(error != 0) cout << "impossible" << endl;
-            else cout << "possible" << endl;
+        for(int j = 0 ; j < line ; j++) {
+            int x = 0, y = 0;
+            cin >> x >> y;
+            
+            arr[x].push_back(y);
+            arr[y].push_back(x);
         }
 
-        return 0;
+        int error = 0;
+
+        for(int m = 1 ; m <= circle ; m++) {
+            int visited[circle+1] = {0,};
+            int color[circle+1] = {0,};
+            
+            queue<int> q;
+
+            q.push(m);
+            visited[m] = 0;
+            color[m] = 0;
+
+            while(!q.empty()) {
+                int node = q.front();
+                q.pop();
+
+                error = 0;
+                for(int j = 0 ; j < arr[node].size(); j++) {
+                    if(visited[arr[node][j]] == 0) {
+                        visited[arr[node][j]] = 1;
+                        if(color[node] == 1)
+                            color[arr[node][j]] = 0;
+                        else if(color[node] == 0)
+                            color[arr[node][j]] = 1;
+                        q.push(arr[node][j]);
+                    }
+
+                    if(color[node] == color[arr[node][j]]) 
+                        error++;
+                }
+
+                if(error > 0) break;
+            }
+            if(error > 0) break;
+        }
+
+        if(error != 0) cout << "impossible" << endl;
+        else cout << "possible" << endl;
     }
+
+    return 0;
+}
+```

@@ -30,42 +30,44 @@ S는 I와 O로만 이루어져 있다.
 
 ----
 
-    #include <iostream> 
-    #include <string>
-    #include <algorithm> 
+```cpp
+#include <iostream> 
+#include <string>
+#include <algorithm> 
 
-    using namespace std; 
+using namespace std; 
 
-    int main(void) { 
-        cin.tie(NULL); 
-        
-        int num;
-        cin >> num;
+int main(void) { 
+    cin.tie(NULL); 
+    
+    int num;
+    cin >> num;
 
-        string answer = "";
-        for(int i = 0 ; i < 2*num + 1 ; i++) {
-            if(i % 2 == 0)
-                answer += 'I';
-            else 
-                answer += 'O';
-        }
-
-        int len;
-        cin >> len;
-
-        string arr = "";
-        cin >> arr;
-        
-        int count = 0;
-
-        for(int i = 0 ; i < len - 2*num ; i++) {
-            if(answer == arr.substr(i,2*num+1)) {
-                count++;
-            }
-        }
-
-
-        cout << count << endl;
-        
-        return 0; 
+    string answer = "";
+    for(int i = 0 ; i < 2*num + 1 ; i++) {
+        if(i % 2 == 0)
+            answer += 'I';
+        else 
+            answer += 'O';
     }
+
+    int len;
+    cin >> len;
+
+    string arr = "";
+    cin >> arr;
+    
+    int count = 0;
+
+    for(int i = 0 ; i < len - 2*num ; i++) {
+        if(answer == arr.substr(i,2*num+1)) {
+            count++;
+        }
+    }
+
+
+    cout << count << endl;
+    
+    return 0; 
+}
+```

@@ -43,125 +43,127 @@ alt: "markdown logo"
 ### 출력
 첫 줄에 빙산이 분리되는 최초의 시간(년)을 출력한다. 만일 빙산이 다 녹을 때까지 분리되지 않으면 0을 출력한다.
 
-    #include <iostream>
-    #include <vector>
-    #include <algorithm>
-    #include <queue>
-    #include <stack>
-    #include <cstring>
+```cpp
+#include <iostream>
+#include <vector>
+#include <algorithm>
+#include <queue>
+#include <stack>
+#include <cstring>
 
-    using namespace std;
+using namespace std;
 
-    int dx[4] = {0,0,-1,1};
-    int dy[4] = {1,-1,0,0};
+int dx[4] = {0,0,-1,1};
+int dy[4] = {1,-1,0,0};
 
-    int main() {
-        ios_base::sync_with_stdio(false); cin.tie(NULL);
+int main() {
+    ios_base::sync_with_stdio(false); cin.tie(NULL);
+    
+    int row, col;
+    cin >> row >> col;
+
+    int visited[row+1][col+1] = {0,};
+    int arr[row+1][col+1];
+    int minus_arr[row+1][col+1];
+
+    for(int i = 0 ; i < row ; i++) {
+        for(int j = 0 ; j < col ; j++) {
+            cin >> arr[i][j];
+        }
+    }
+
+    int zero_count = 0;
+    int continent_count = 0;
+    int time_count = 0;
+
+    while(true) {
         
-        int row, col;
-        cin >> row >> col;
+        memset(visited, 0, sizeof(visited));
+        memset(minus_arr, 0, sizeof(minus_arr));
+        // 탈출하기 위해 다 녹았는지 확인
+        for(int i = 0  ; i < row ; i++) {
+            for(int j = 0 ; j < col ; j++) {
+                if(arr[i][j] == 0)
+                    zero_count++;
+            }
+        }
 
-        int visited[row+1][col+1] = {0,};
-        int arr[row+1][col+1];
-        int minus_arr[row+1][col+1];
+        // 전부 녹았으면 break
+        if(zero_count == row*col) break;
+
+        queue<pair<int,int>> q;
+        for(int i = 0 ; i < row ; i++) {
+            for(int j = 0 ; j < col ; j++) {
+                if(arr[i][j] != 0 && visited[i][j] == 0) {
+                    q.push({i,j});
+                    visited[i][j] = 1;
+                    continent_count++;
+
+                    while(!q.empty()) {
+                        int r_row = q.front().first;
+                        int r_col = q.front().second;
+                        q.pop();
+
+                        for(int m = 0 ; m < 4 ; m++) {
+                            int n_row = r_row + dy[m];
+                            int n_col = r_col + dx[m];
+
+                            if(n_row >= 0 && n_row < row && n_col >= 0 && n_col < col
+                                && visited[n_row][n_col] == 0 && arr[n_row][n_col] != 0) {
+                                    q.push({n_row, n_col});
+                                    visited[n_row][n_col] = 1;
+                                }
+                        }
+                    }
+                }
+            }
+        }
+
+        if(continent_count >= 2) break;
+        zero_count = 0;
+        continent_count = 0;
+
+        queue<pair<int,int>> qq;
+        for(int i = 0 ; i < row ; i++) {
+            for(int j = 0 ; j < col ; j++) {
+                if(arr[i][j] != 0) {
+                    for(int m = 0 ; m < 4 ; m++) {
+                        int nn_row = i + dy[m];
+                        int nn_col = j + dx[m];
+                        
+                        if(arr[nn_row][nn_col] == 0){
+                            minus_arr[i][j]++;
+                        }
+                    }
+                }
+            }
+        }
 
         for(int i = 0 ; i < row ; i++) {
             for(int j = 0 ; j < col ; j++) {
-                cin >> arr[i][j];
+                if(minus_arr[i][j] != 0) {
+                    if(arr[i][j] - minus_arr[i][j] < 0)
+                        arr[i][j] = 0;
+                    else 
+                        arr[i][j] -= minus_arr[i][j];
+                }
             }
         }
 
-        int zero_count = 0;
-        int continent_count = 0;
-        int time_count = 0;
-
-        while(true) {
-            
-            memset(visited, 0, sizeof(visited));
-            memset(minus_arr, 0, sizeof(minus_arr));
-            // 탈출하기 위해 다 녹았는지 확인
-            for(int i = 0  ; i < row ; i++) {
-                for(int j = 0 ; j < col ; j++) {
-                    if(arr[i][j] == 0)
-                        zero_count++;
-                }
-            }
-
-            // 전부 녹았으면 break
-            if(zero_count == row*col) break;
-
-            queue<pair<int,int>> q;
-            for(int i = 0 ; i < row ; i++) {
-                for(int j = 0 ; j < col ; j++) {
-                    if(arr[i][j] != 0 && visited[i][j] == 0) {
-                        q.push({i,j});
-                        visited[i][j] = 1;
-                        continent_count++;
-
-                        while(!q.empty()) {
-                            int r_row = q.front().first;
-                            int r_col = q.front().second;
-                            q.pop();
-
-                            for(int m = 0 ; m < 4 ; m++) {
-                                int n_row = r_row + dy[m];
-                                int n_col = r_col + dx[m];
-
-                                if(n_row >= 0 && n_row < row && n_col >= 0 && n_col < col
-                                    && visited[n_row][n_col] == 0 && arr[n_row][n_col] != 0) {
-                                        q.push({n_row, n_col});
-                                        visited[n_row][n_col] = 1;
-                                    }
-                            }
-                        }
-                    }
-                }
-            }
-
-            if(continent_count >= 2) break;
-            zero_count = 0;
-            continent_count = 0;
-
-            queue<pair<int,int>> qq;
-            for(int i = 0 ; i < row ; i++) {
-                for(int j = 0 ; j < col ; j++) {
-                    if(arr[i][j] != 0) {
-                        for(int m = 0 ; m < 4 ; m++) {
-                            int nn_row = i + dy[m];
-                            int nn_col = j + dx[m];
-                            
-                            if(arr[nn_row][nn_col] == 0){
-                                minus_arr[i][j]++;
-                            }
-                        }
-                    }
-                }
-            }
-
-            for(int i = 0 ; i < row ; i++) {
-                for(int j = 0 ; j < col ; j++) {
-                    if(minus_arr[i][j] != 0) {
-                        if(arr[i][j] - minus_arr[i][j] < 0)
-                            arr[i][j] = 0;
-                        else 
-                            arr[i][j] -= minus_arr[i][j];
-                    }
-                }
-            }
-
-            // for(int i = 0 ; i < row ; i++) {
-            //     for(int j = 0 ; j < col ; j++) {
-            //         cout << arr[i][j] << " ";
-            //     }
-            //     cout << endl;
-            // }
-            // cout << endl;
-            time_count++;
-        }
-
-        if(continent_count >= 2) cout << time_count;
-        else cout << "0";
-
-
-        return 0;
+        // for(int i = 0 ; i < row ; i++) {
+        //     for(int j = 0 ; j < col ; j++) {
+        //         cout << arr[i][j] << " ";
+        //     }
+        //     cout << endl;
+        // }
+        // cout << endl;
+        time_count++;
     }
+
+    if(continent_count >= 2) cout << time_count;
+    else cout << "0";
+
+
+    return 0;
+}
+```
