@@ -1,9 +1,9 @@
 ---
 title: "PyTorch: nn Module"
-category: "PyTorch"
+category: "PyTorch_Study"
 date: "2022-01-20 15:26:00 +09:00"
 desc: "nn.Module"
-thumbnail: "./images/deeplearning/deeplearning_basic.jpg"
+thumbnail: "./images/deeplearning/pytorch_study.jpg"
 alt: "markdown logo"
 ---
 

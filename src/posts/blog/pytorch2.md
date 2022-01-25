@@ -1,9 +1,9 @@
 ---
 title: "PyTorch: Optimizer"
-category: "PyTorch"
+category: "PyTorch_Study"
 date: "2022-01-20 15:40:00 +09:00"
 desc: "Optimizer"
-thumbnail: "./images/deeplearning/deeplearning_basic.jpg"
+thumbnail: "./images/deeplearning/pytorch_study.jpg"
 alt: "markdown logo"
 ---
 

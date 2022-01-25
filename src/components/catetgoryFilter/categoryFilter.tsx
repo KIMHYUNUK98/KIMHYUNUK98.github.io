@@ -6,6 +6,7 @@ import kebabCase from "lodash/kebabCase"
 
 import type { MarkdownRemarkGroupConnection } from "Types/GraphQL"
 import useScrollCenter from "./useScrollCenter"
+import { constant } from "lodash"
 
 
 const ACTIVE = "active"
@@ -28,7 +29,7 @@ const CategoryFilter: React.FC<CategoryFilterProps> = ({ categoryList }) => {
     <Nav aria-label="Category Filter">
       <CategoryTitle>Category</CategoryTitle>
       <CategoryButton getProps={isActive} to="/">
-        {ALL_CATEGORY_NAME}
+        {ALL_CATEGORY_NAME} 
       </CategoryButton>
       <Divider />
       <CategoryUl ref={categoryRef} className="invisible-scrollbar">
@@ -36,6 +37,7 @@ const CategoryFilter: React.FC<CategoryFilterProps> = ({ categoryList }) => {
           .sort((a, b) => b.totalCount - a.totalCount)
           .map(category => {
             const { fieldValue } = category
+            const fieldCount  = category.totalCount
             return (
               <li key={fieldValue}>
                 <CategoryButton

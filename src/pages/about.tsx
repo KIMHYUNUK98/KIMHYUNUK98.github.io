@@ -38,6 +38,7 @@ const About = () => {
 
   return (
     <Layout>
+      <Back>
       <SEO title="About" />
         <Main>
           <Introduce><img src={profile} alt="profile" style={{width: 230, float:"right"}}/></Introduce>
@@ -89,7 +90,7 @@ const About = () => {
           <ProjectImg>
             <img src={project2} alt="project2" style={{width: 780}}/>
           </ProjectImg>
-          <ContainerProject dangerouslySetInnerHTML={{ __html: markdown4 ?? "" }}
+          <ContainerProject dangerouslySetInnerHTML={{ __html: markdown6 ?? "" }}
             rhythm={rhythm}
           ></ContainerProject>
 
@@ -99,15 +100,20 @@ const About = () => {
           <ProjectImg>
             <img src={project7} alt="project7" style={{width: 780}}/>
           </ProjectImg>
-          <ContainerProject dangerouslySetInnerHTML={{ __html: markdown6 ?? "" }}
+          <ContainerProject dangerouslySetInnerHTML={{ __html: markdown4 ?? "" }}
             rhythm={rhythm}
           ></ContainerProject>
           
 
         </Main>
+        </Back>
     </Layout>
   )
 }
+
+const Back = styled.div`
+background: linear-gradient(to bottom, #dae2f8, #d6a4a4);
+`
 
 const ProjectImg = styled.div`
   display: flex;
@@ -126,10 +132,19 @@ const ProjectImg = styled.div`
 
 const circleMove = keyframes`
   0%, 100% {
-    clip-path: circle(15% at 90% 50%);
+    clip-path: circle(12% at 90% 50%);
   }
   50% {
-    clip-path: circle(15% at 10% 50%);
+    clip-path: circle(12% at 10% 50%);
+  }
+`;
+
+const circleMoveSmall = keyframes`
+  0%, 100% {
+    clip-path: circle(16% at 90% 50%);
+  }
+  50% {
+    clip-path: circle(16% at 10% 50%);
   }
 `;
 
@@ -141,7 +156,7 @@ const TopMessage = styled.div`
   font-weight: 500;
   word-spacing: 5px;
   font-weight: 500;
-  background-color: blue;
+  background: linear-gradient(to top, #ff4e50, #f9d423);
   color: white;
   clip-path: circle(7% at 60% 85%);
   animation: ${circleMove} 14s ease-in-out infinite;
@@ -153,6 +168,7 @@ const TopMessage = styled.div`
     top: 430px;
     line-height: 1.75rem;
     font-weight: 550;
+    animation: ${circleMoveSmall} 14s ease-in-out infinite;
   }
 `
 const BottomMessage = styled.div`
@@ -163,7 +179,7 @@ const BottomMessage = styled.div`
   font-weight: 500;
   word-spacing: 5px;
   font-weight: 500;
-  background-color: red;
+  background: linear-gradient(to top, #ff4e50, #f9d423);
   color: white;
   clip-path: circle(7% at 60% 85%);
   animation: ${circleMove} 18s ease-in-out infinite;
@@ -175,6 +191,7 @@ const BottomMessage = styled.div`
     top: 430px;
     line-height: 1.75rem;
     font-weight: 550;
+    animation: ${circleMoveSmall} 18s ease-in-out infinite;
   }
   `
 
@@ -258,7 +275,7 @@ const Main = styled.div`
 const Introduce = styled.div`
   padding-right: 8%;
   @media (max-width: ${({ theme }) => theme.device.sm}) {
-    padding-right: 15%;
+    padding-right: 18%;
   }
 `
 
@@ -301,7 +318,7 @@ const ContainerProject = styled(Markdown).attrs({
   margin-bottom: 12rem;
   @media (max-width: ${({ theme }) => theme.device.sm}) {
     padding-left: 0px;
-    width: 320px;
+    width: 300px;
   }
 `
 

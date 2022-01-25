@@ -1,9 +1,9 @@
 ---
 title: "PyTorch: Control Flow + Weight Sharing"
-category: "PyTorch"
+category: "PyTorch_Study"
 date: "2022-01-20 16:09:00 +09:00"
 desc: "Control Flow + Weight Sharing"
-thumbnail: "./images/deeplearning/deeplearning_basic.jpg"
+thumbnail: "./images/deeplearning/pytorch_study.jpg"
 alt: "markdown logo"
 ---
 
