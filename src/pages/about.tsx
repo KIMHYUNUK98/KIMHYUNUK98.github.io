@@ -35,6 +35,8 @@ const About = () => {
   const markdown4 = data.allMarkdownRemark.edges[4].node.html
   const markdown5 = data.allMarkdownRemark.edges[5].node.html
   const markdown6 = data.allMarkdownRemark.edges[6].node.html
+  const markdown7 = data.allMarkdownRemark.edges[7].node.html
+  const markdown8 = data.allMarkdownRemark.edges[8].node.html
 
   return (
     <Layout>
@@ -74,23 +76,30 @@ const About = () => {
 
           <LeftLine1><img src={line1} alt="line"/></LeftLine1>
           <RightLine1><img src={line1} alt="line"/></RightLine1>
-          <Container2 dangerouslySetInnerHTML={{ __html: markdown1 ?? "" }}
+          <Container2 dangerouslySetInnerHTML={{ __html: markdown6 ?? "" }}
             rhythm={rhythm}
           ></Container2>
 
+          <ContainerStudy dangerouslySetInnerHTML={{ __html: markdown7 ?? "" }}
+            rhythm={rhythm}
+          ></ContainerStudy>
+          <ContainerStudy dangerouslySetInnerHTML={{ __html: markdown8 ?? "" }}
+            rhythm={rhythm}
+          ></ContainerStudy>
+
           <LeftLine2><img src={line1} alt="line"/></LeftLine2>
           <RightLine2><img src={line1} alt="line"/></RightLine2>
-          <Container3 dangerouslySetInnerHTML={{ __html: markdown2 ?? "" }}
+          <Container3 dangerouslySetInnerHTML={{ __html: markdown1 ?? "" }}
             rhythm={rhythm}
           ></Container3>
 
-          <ContainerProjectDate dangerouslySetInnerHTML={{ __html: markdown3 ?? "" }}
+          <ContainerProjectDate dangerouslySetInnerHTML={{ __html: markdown4 ?? "" }}
             rhythm={rhythm}
           ></ContainerProjectDate>
           <ProjectImg>
             <img src={project2} alt="project2" style={{width: 780}}/>
           </ProjectImg>
-          <ContainerProject dangerouslySetInnerHTML={{ __html: markdown6 ?? "" }}
+          <ContainerProject dangerouslySetInnerHTML={{ __html: markdown3 ?? "" }}
             rhythm={rhythm}
           ></ContainerProject>
 
@@ -100,7 +109,7 @@ const About = () => {
           <ProjectImg>
             <img src={project7} alt="project7" style={{width: 780}}/>
           </ProjectImg>
-          <ContainerProject dangerouslySetInnerHTML={{ __html: markdown4 ?? "" }}
+          <ContainerProject dangerouslySetInnerHTML={{ __html: markdown2 ?? "" }}
             rhythm={rhythm}
           ></ContainerProject>
           
@@ -111,8 +120,24 @@ const About = () => {
   )
 }
 
+const ContainerStudy = styled(Markdown).attrs({
+  as: "main",
+})`
+  display: flex;
+  justify-content: center;
+  width: 800px;
+  margin: 0 auto;
+  padding-left: 5px;
+  padding-top: 0px;
+  margin-bottom: 0rem;
+  @media (max-width: ${({ theme }) => theme.device.sm}) {
+    padding-left: 0px;
+    width: 320px;
+  }
+`
+
 const Back = styled.div`
-background: linear-gradient(to bottom, #dae2f8, #d6a4a4);
+background: linear-gradient(to right, #fc354c, #0abfbc);
 `
 
 const ProjectImg = styled.div`
@@ -288,7 +313,7 @@ const Container2 = styled(Markdown).attrs({
   margin-top: 40px;
   padding-left: 10px;
   padding-top: 120px;
-  margin-bottom: 6rem;
+  margin-bottom: 0rem;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -301,8 +326,8 @@ const Container3 = styled(Markdown).attrs({
   margin: 0 auto;
   margin-top: 40px;
   padding-left: 5px;
-  padding-top: 70px;
-  margin-bottom: 0rem;
+  padding-top: 35px;
+  margin-bottom: 3rem;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -315,7 +340,7 @@ const ContainerProject = styled(Markdown).attrs({
   margin: 0 auto;
   padding-left: 5px;
   padding-top: 0px;
-  margin-bottom: 12rem;
+  margin-bottom: 6rem;
   @media (max-width: ${({ theme }) => theme.device.sm}) {
     padding-left: 0px;
     width: 300px;

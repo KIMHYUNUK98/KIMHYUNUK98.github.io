@@ -1,4 +1,3 @@
-## Timeline
-
+## Study
 
 <br/><br/><br/>
