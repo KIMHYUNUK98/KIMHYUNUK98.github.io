@@ -70,13 +70,13 @@ const About = () => {
           </BottomMessage>
           
 
-          <Container dangerouslySetInnerHTML={{ __html: markdown ?? "" }}
+          <Container dangerouslySetInnerHTML={{ __html: markdown4 ?? "" }}
             rhythm={rhythm}
           ></Container>
 
           <LeftLine1><img src={line1} alt="line"/></LeftLine1>
           <RightLine1><img src={line1} alt="line"/></RightLine1>
-          <Container2 dangerouslySetInnerHTML={{ __html: markdown6 ?? "" }}
+          <Container2 dangerouslySetInnerHTML={{ __html: markdown ?? "" }}
             rhythm={rhythm}
           ></Container2>
 
@@ -89,17 +89,17 @@ const About = () => {
 
           <LeftLine2><img src={line1} alt="line"/></LeftLine2>
           <RightLine2><img src={line1} alt="line"/></RightLine2>
-          <Container3 dangerouslySetInnerHTML={{ __html: markdown1 ?? "" }}
+          <Container3 dangerouslySetInnerHTML={{ __html: markdown2 ?? "" }}
             rhythm={rhythm}
           ></Container3>
 
-          <ContainerProjectDate dangerouslySetInnerHTML={{ __html: markdown4 ?? "" }}
+          <ContainerProjectDate dangerouslySetInnerHTML={{ __html: markdown6 ?? "" }}
             rhythm={rhythm}
           ></ContainerProjectDate>
           <ProjectImg>
             <img src={project2} alt="project2" style={{width: 780}}/>
           </ProjectImg>
-          <ContainerProject dangerouslySetInnerHTML={{ __html: markdown3 ?? "" }}
+          <ContainerProject dangerouslySetInnerHTML={{ __html: markdown1 ?? "" }}
             rhythm={rhythm}
           ></ContainerProject>
 
@@ -109,7 +109,7 @@ const About = () => {
           <ProjectImg>
             <img src={project7} alt="project7" style={{width: 780}}/>
           </ProjectImg>
-          <ContainerProject dangerouslySetInnerHTML={{ __html: markdown2 ?? "" }}
+          <ContainerProject dangerouslySetInnerHTML={{ __html: markdown3 ?? "" }}
             rhythm={rhythm}
           ></ContainerProject>
           

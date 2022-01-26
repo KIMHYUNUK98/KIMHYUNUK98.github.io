@@ -46,10 +46,10 @@ const BlogPost: React.FC<BlogPostProps> = ({ data }) => {
                   rhythm={rhythm}
                 />
               </div>
-            </InnerWrapper>
-            <CommentWrap>
+              <CommentWrap>
                 <Comment />
             </CommentWrap>
+            </InnerWrapper>
           </OuterWrapper>
         </article>
       </main>
@@ -67,6 +67,7 @@ const Introduce = styled.div`
 
 const OuterWrapper = styled.div`
   background-color: #FFCE54;
+  padding-bottom: 10%;
   @media (max-width: ${({ theme }) => theme.device.sm}) {
     
   }
@@ -78,7 +79,8 @@ const InnerWrapper = styled.div`
   border-left: solid;
   border-right: solid;
   border-bottom: solid;
-  padding-bottom: var(--sizing-lg);
+  margin-bottom: 0;
+  padding-bottom: var(--sizing-xl);
   padding-top: var(--sizing-xl);
   padding-left: 2%;
   padding-right: 2%;

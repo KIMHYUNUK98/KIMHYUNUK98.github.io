@@ -27,7 +27,7 @@ const metaConfig = {
     github: "https://github.com/KIMHYUNUK98",
     tistory: "https://handong201.tistory.com",
   },
-  favicon: "src/images/icon.png",
+  favicon: "src/images/profile.png",
 }
 
 // eslint-disable-next-line no-undef
