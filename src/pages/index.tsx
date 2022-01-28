@@ -90,7 +90,7 @@ const Content1 = styled.div`
 const Main = styled.main`
   min-width: var(--min-width);
   min-height: calc(100vh - var(--nav-height) - var(--footer-height));
-  background-color: var(--color-background);
+  background: linear-gradient(to right, #fc354c, #0abfbc);
 `
 
 const Content = styled.div`
