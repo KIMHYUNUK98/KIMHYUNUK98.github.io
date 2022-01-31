@@ -1,4 +1,740 @@
-<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[KHUniv's RSS Feed]]></title><description><![CDATA[HyunUk's Blog]]></description><link>https://kimhyunuk98.github.io</link><generator>GatsbyJS</generator><lastBuildDate>Mon, 31 Jan 2022 07:19:05 GMT</lastBuildDate><item><title><![CDATA[5014번]]></title><description><![CDATA[문제 유형이 같고 수능 수학 문제 행동영역 정리했던 기분이다.]]></description><link>https://kimhyunuk98.github.io/blog/baekjoon15/</link><guid isPermaLink="false">https://kimhyunuk98.github.io/blog/baekjoon15/</guid><pubDate>Sun, 30 Jan 2022 07:46:00 GMT</pubDate><content:encoded>&lt;p&gt;문제 유형이 같고 수능 수학 문제 행동영역 정리했던 기분이다.&lt;/p&gt;
+<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[KHUniv's RSS Feed]]></title><description><![CDATA[HyunUk's Blog]]></description><link>https://kimhyunuk98.github.io</link><generator>GatsbyJS</generator><lastBuildDate>Mon, 31 Jan 2022 07:48:18 GMT</lastBuildDate><item><title><![CDATA[Network에 대한 연구]]></title><description><![CDATA[MLPconv Layer 일반적인 Convolution Layer는 Mask가 하나 있고 weighted sum을 해서 집어넣게 된다.
+Linear 필터 뒤에 MLP를 붙여서 Nonlinear한 필터를 학습할 수 있게 만들 수 있다.
+Layer…]]></description><link>https://kimhyunuk98.github.io/blog/deeplearning15/</link><guid isPermaLink="false">https://kimhyunuk98.github.io/blog/deeplearning15/</guid><pubDate>Mon, 31 Jan 2022 07:21:00 GMT</pubDate><content:encoded>&lt;p&gt;&lt;span
+      class=&quot;gatsby-resp-image-wrapper&quot;
+      style=&quot;position: relative; display: block; margin-left: auto; margin-right: auto; max-width: 650px; &quot;
+    &gt;
+      &lt;span
+    class=&quot;gatsby-resp-image-background-image&quot;
+    style=&quot;padding-bottom: 69.32515337423312%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/jpeg;base64,/9j/2wBDABALDA4MChAODQ4SERATGCgaGBYWGDEjJR0oOjM9PDkzODdASFxOQERXRTc4UG1RV19iZ2hnPk1xeXBkeFxlZ2P/2wBDARESEhgVGC8aGi9jQjhCY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2P/wgARCAAOABQDASIAAhEBAxEB/8QAGAAAAgMAAAAAAAAAAAAAAAAAAAMBAgX/xAAUAQEAAAAAAAAAAAAAAAAAAAAA/9oADAMBAAIQAxAAAAHcsiBogP/EABkQAAMAAwAAAAAAAAAAAAAAAAABEgIQE//aAAgBAQABBQJ6hFplI7Yo/8QAFBEBAAAAAAAAAAAAAAAAAAAAEP/aAAgBAwEBPwE//8QAFBEBAAAAAAAAAAAAAAAAAAAAEP/aAAgBAgEBPwE//8QAGRAAAgMBAAAAAAAAAAAAAAAAABEBEEEh/9oACAEBAAY/Aq0fTRKT/8QAGxAAAgIDAQAAAAAAAAAAAAAAAREAITFBkRD/2gAIAQEAAT8hZ77ATuCwuxeYOQ8DpwJ//9oADAMBAAIAAwAAABADz//EABQRAQAAAAAAAAAAAAAAAAAAABD/2gAIAQMBAT8QP//EABQRAQAAAAAAAAAAAAAAAAAAABD/2gAIAQIBAT8QP//EABoQAQEAAwEBAAAAAAAAAAAAAAERACFRQWH/2gAIAQEAAT8QAe9nxZRsGFbCyrx9kgsa81kI2nmLSq4oHL37n//Z&apos;); background-size: cover; display: block;&quot;
+  &gt;&lt;/span&gt;
+  &lt;img
+        class=&quot;gatsby-resp-image-image&quot;
+        alt=&quot;img&quot;
+        title=&quot;img&quot;
+        src=&quot;/static/c2c27c4462a819ab14b1105eff94e05c/6aca1/15_1.jpg&quot;
+        srcset=&quot;/static/c2c27c4462a819ab14b1105eff94e05c/d2f63/15_1.jpg 163w,
+/static/c2c27c4462a819ab14b1105eff94e05c/c989d/15_1.jpg 325w,
+/static/c2c27c4462a819ab14b1105eff94e05c/6aca1/15_1.jpg 650w,
+/static/c2c27c4462a819ab14b1105eff94e05c/7c09c/15_1.jpg 975w,
+/static/c2c27c4462a819ab14b1105eff94e05c/bb3bf/15_1.jpg 1132w&quot;
+        sizes=&quot;(max-width: 650px) 100vw, 650px&quot;
+        style=&quot;width:100%;height:100%;margin:0;vertical-align:middle;position:absolute;top:0;left:0;&quot;
+        loading=&quot;lazy&quot;
+        decoding=&quot;async&quot;
+      /&gt;
+    &lt;/span&gt;&lt;/p&gt;
+&lt;h3&gt;MLPconv Layer&lt;/h3&gt;
+&lt;p&gt;일반적인 Convolution Layer는 Mask가 하나 있고 weighted sum을 해서 집어넣게 된다.
+Linear 필터 뒤에 MLP를 붙여서 Nonlinear한 필터를 학습할 수 있게 만들 수 있다.
+Layer 속에 Network가 있는 것이다. &quot;Network in Network&quot;라고 불린다.
+&lt;strong&gt;일반 Conv를 붙이고 1 * 1 Conv를 붙이면 MLP와 똑같은 Operation을 가질 수 있다.&lt;/strong&gt;
+실제적인 구현은 conv + CCCP + CCCP + ... 이렇게 구현할 수 있다.
+&lt;strong&gt;1*1 Conv의 사용은 Feature Map의 개수를 줄이는 데 사용이 된다.&lt;/strong&gt;  전체적으로
+Dimension을 줄이는 역할을 한다.&lt;strong&gt;Max-Pool은 크기를 줄이지만 CCCP는 개수를 줄인다.&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;span
+      class=&quot;gatsby-resp-image-wrapper&quot;
+      style=&quot;position: relative; display: block; margin-left: auto; margin-right: auto; max-width: 650px; &quot;
+    &gt;
+      &lt;span
+    class=&quot;gatsby-resp-image-background-image&quot;
+    style=&quot;padding-bottom: 71.77914110429448%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/jpeg;base64,/9j/2wBDABALDA4MChAODQ4SERATGCgaGBYWGDEjJR0oOjM9PDkzODdASFxOQERXRTc4UG1RV19iZ2hnPk1xeXBkeFxlZ2P/2wBDARESEhgVGC8aGi9jQjhCY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2P/wgARCAAOABQDASIAAhEBAxEB/8QAGAAAAwEBAAAAAAAAAAAAAAAAAAEDAgX/xAAUAQEAAAAAAAAAAAAAAAAAAAAA/9oADAMBAAIQAxAAAAHuOehEg//EABoQAAIDAQEAAAAAAAAAAAAAAAABAgMSEBH/2gAIAQEAAQUC5gi9j9J3xrf/xAAUEQEAAAAAAAAAAAAAAAAAAAAQ/9oACAEDAQE/AT//xAAUEQEAAAAAAAAAAAAAAAAAAAAQ/9oACAECAQE/AT//xAAaEAACAgMAAAAAAAAAAAAAAAAAARExEBKR/9oACAEBAAY/AsW+myoshyf/xAAaEAEBAQEBAQEAAAAAAAAAAAABEQAhQTFR/9oACAEBAAE/IW33FNNV645Fn5d8g9dwA2y8N//aAAwDAQACAAMAAAAQEw//xAAUEQEAAAAAAAAAAAAAAAAAAAAQ/9oACAEDAQE/ED//xAAUEQEAAAAAAAAAAAAAAAAAAAAQ/9oACAECAQE/ED//xAAdEAEBAAIDAAMAAAAAAAAAAAABEQAhMUFhUXHR/9oACAEBAAE/EBUo30uSN2euVoSrtD6xWKCARo850FKScnxjdFsD98z/2Q==&apos;); background-size: cover; display: block;&quot;
+  &gt;&lt;/span&gt;
+  &lt;img
+        class=&quot;gatsby-resp-image-image&quot;
+        alt=&quot;img&quot;
+        title=&quot;img&quot;
+        src=&quot;/static/2e889b3264968928ea169e77bc9ca062/6aca1/15_2.jpg&quot;
+        srcset=&quot;/static/2e889b3264968928ea169e77bc9ca062/d2f63/15_2.jpg 163w,
+/static/2e889b3264968928ea169e77bc9ca062/c989d/15_2.jpg 325w,
+/static/2e889b3264968928ea169e77bc9ca062/6aca1/15_2.jpg 650w,
+/static/2e889b3264968928ea169e77bc9ca062/7c09c/15_2.jpg 975w,
+/static/2e889b3264968928ea169e77bc9ca062/2b36a/15_2.jpg 1102w&quot;
+        sizes=&quot;(max-width: 650px) 100vw, 650px&quot;
+        style=&quot;width:100%;height:100%;margin:0;vertical-align:middle;position:absolute;top:0;left:0;&quot;
+        loading=&quot;lazy&quot;
+        decoding=&quot;async&quot;
+      /&gt;
+    &lt;/span&gt;&lt;/p&gt;
+&lt;h3&gt;Global Average Pooling&lt;/h3&gt;
+&lt;p&gt;맨 마지막 Layer의 &lt;strong&gt;Classification을 위한 Layer&lt;/strong&gt;이다. 다음과 같이 Fearture map이 있으면
+전체의 평균을 구해서 Node 하나에 집어넣는다. output Node 하나로 Mapping이된다.
+이것이 어떻게 Classification을 해결해주는 것인가? &lt;strong&gt;각 채널이 클래스를 대표하므로 그 클래스를 평균화 하면 범주화할 수 있다는 이론&lt;/strong&gt;이다.&lt;/p&gt;
+&lt;p&gt;&lt;span
+      class=&quot;gatsby-resp-image-wrapper&quot;
+      style=&quot;position: relative; display: block; margin-left: auto; margin-right: auto; max-width: 650px; &quot;
+    &gt;
+      &lt;span
+    class=&quot;gatsby-resp-image-background-image&quot;
+    style=&quot;padding-bottom: 69.32515337423312%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/jpeg;base64,/9j/2wBDABALDA4MChAODQ4SERATGCgaGBYWGDEjJR0oOjM9PDkzODdASFxOQERXRTc4UG1RV19iZ2hnPk1xeXBkeFxlZ2P/2wBDARESEhgVGC8aGi9jQjhCY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2P/wgARCAAOABQDASIAAhEBAxEB/8QAFwABAQEBAAAAAAAAAAAAAAAAAAQBBf/EABQBAQAAAAAAAAAAAAAAAAAAAAD/2gAMAwEAAhADEAAAAe4jwsTj/8QAGhAAAgIDAAAAAAAAAAAAAAAAAAIBFAQRQf/aAAgBAQABBQLuyFJyVLCuWEg//8QAFBEBAAAAAAAAAAAAAAAAAAAAEP/aAAgBAwEBPwE//8QAFBEBAAAAAAAAAAAAAAAAAAAAEP/aAAgBAgEBPwE//8QAGBAAAwEBAAAAAAAAAAAAAAAAAAEREEH/2gAIAQEABj8C3pIyRn//xAAcEAADAAIDAQAAAAAAAAAAAAAAARFh4SExkcH/2gAIAQEAAT8hdQoSq6+XexV2edi+abME4P/aAAwDAQACAAMAAAAQw8//xAAUEQEAAAAAAAAAAAAAAAAAAAAQ/9oACAEDAQE/ED//xAAUEQEAAAAAAAAAAAAAAAAAAAAQ/9oACAECAQE/ED//xAAaEAEBAAMBAQAAAAAAAAAAAAABEQAhMVFx/9oACAEBAAE/EKSK3lqZpXQHaJl4VZN4+0xknF9OPaTVwsriNDz7n//Z&apos;); background-size: cover; display: block;&quot;
+  &gt;&lt;/span&gt;
+  &lt;img
+        class=&quot;gatsby-resp-image-image&quot;
+        alt=&quot;img&quot;
+        title=&quot;img&quot;
+        src=&quot;/static/cc57eebe141f798183cc69619882ceb1/6aca1/15_3.jpg&quot;
+        srcset=&quot;/static/cc57eebe141f798183cc69619882ceb1/d2f63/15_3.jpg 163w,
+/static/cc57eebe141f798183cc69619882ceb1/c989d/15_3.jpg 325w,
+/static/cc57eebe141f798183cc69619882ceb1/6aca1/15_3.jpg 650w,
+/static/cc57eebe141f798183cc69619882ceb1/7c09c/15_3.jpg 975w,
+/static/cc57eebe141f798183cc69619882ceb1/b3430/15_3.jpg 1122w&quot;
+        sizes=&quot;(max-width: 650px) 100vw, 650px&quot;
+        style=&quot;width:100%;height:100%;margin:0;vertical-align:middle;position:absolute;top:0;left:0;&quot;
+        loading=&quot;lazy&quot;
+        decoding=&quot;async&quot;
+      /&gt;
+    &lt;/span&gt;&lt;/p&gt;
+&lt;h3&gt;VGG Net&lt;/h3&gt;
+&lt;p&gt;Depth를 키운 Net이다. mask가 크면 넓은 Context를 볼 수 있지만 작은 특징을
+뽑아야 하는 경우 간섭을 많이 받게 되고 반대도 마찬가지로 안좋은 점이 존재한다.
+&lt;strong&gt;3x3을 겹쳐서 사용하면 전체적으로 5x5 영역을 커버할 수 있다&lt;/strong&gt;. NonLinearity가 더
+강력해 진다는 특징이 있다. 파라미터의 숫자도 줄어든다. 실험적으로 봤을 때
+3x3을 여러 개 겹쳐서 사용하는 것이 더 좋은 성능을 낸다는 것이 확인되었다.
+Classification인 경우 3x3을 겹쳐서 사용하는 것이 좋고
+한번에 큰 경우를 봐야 하는 경우는 큰 Filter를 사용하는 것이 불가피 하다.&lt;/p&gt;
+&lt;p&gt;&lt;span
+      class=&quot;gatsby-resp-image-wrapper&quot;
+      style=&quot;position: relative; display: block; margin-left: auto; margin-right: auto; max-width: 650px; &quot;
+    &gt;
+      &lt;span
+    class=&quot;gatsby-resp-image-background-image&quot;
+    style=&quot;padding-bottom: 69.32515337423312%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/jpeg;base64,/9j/2wBDABALDA4MChAODQ4SERATGCgaGBYWGDEjJR0oOjM9PDkzODdASFxOQERXRTc4UG1RV19iZ2hnPk1xeXBkeFxlZ2P/2wBDARESEhgVGC8aGi9jQjhCY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2P/wgARCAAOABQDASIAAhEBAxEB/8QAFwAAAwEAAAAAAAAAAAAAAAAAAAIEBf/EABQBAQAAAAAAAAAAAAAAAAAAAAD/2gAMAwEAAhADEAAAAdxokLCUP//EABsQAAEEAwAAAAAAAAAAAAAAAAABAgMUBBJB/9oACAEBAAEFAumiC5DCzGWoz//EABQRAQAAAAAAAAAAAAAAAAAAABD/2gAIAQMBAT8BP//EABQRAQAAAAAAAAAAAAAAAAAAABD/2gAIAQIBAT8BP//EABoQAAICAwAAAAAAAAAAAAAAAAAxAQIQQZH/2gAIAQEABj8CxvopFIrH/8QAGxAAAgIDAQAAAAAAAAAAAAAAAAERITHR8ZH/2gAIAQEAAT8hc9ExkvbmzkI2/NHLQlals//aAAwDAQACAAMAAAAQ0w//xAAUEQEAAAAAAAAAAAAAAAAAAAAQ/9oACAEDAQE/ED//xAAUEQEAAAAAAAAAAAAAAAAAAAAQ/9oACAECAQE/ED//xAAdEAEAAgICAwAAAAAAAAAAAAABABEhMUFxobHR/9oACAEBAAE/EALjfIK9RqNLxuWWxuZR5wGzd5i3H19oRRAf/9k=&apos;); background-size: cover; display: block;&quot;
+  &gt;&lt;/span&gt;
+  &lt;img
+        class=&quot;gatsby-resp-image-image&quot;
+        alt=&quot;img&quot;
+        title=&quot;img&quot;
+        src=&quot;/static/79e767d8b33ab6ee8d40133eea4e5d8d/6aca1/15_5.jpg&quot;
+        srcset=&quot;/static/79e767d8b33ab6ee8d40133eea4e5d8d/d2f63/15_5.jpg 163w,
+/static/79e767d8b33ab6ee8d40133eea4e5d8d/c989d/15_5.jpg 325w,
+/static/79e767d8b33ab6ee8d40133eea4e5d8d/6aca1/15_5.jpg 650w,
+/static/79e767d8b33ab6ee8d40133eea4e5d8d/7c09c/15_5.jpg 975w,
+/static/79e767d8b33ab6ee8d40133eea4e5d8d/0d6a8/15_5.jpg 1113w&quot;
+        sizes=&quot;(max-width: 650px) 100vw, 650px&quot;
+        style=&quot;width:100%;height:100%;margin:0;vertical-align:middle;position:absolute;top:0;left:0;&quot;
+        loading=&quot;lazy&quot;
+        decoding=&quot;async&quot;
+      /&gt;
+    &lt;/span&gt;&lt;/p&gt;
+&lt;h3&gt;GoogLeNet&lt;/h3&gt;
+&lt;p&gt;Inception Module에 대해서 알아보자. 1x1 3x3 5x5, 경우에 따라 선택하면 좋은 Filter
+가 존재하므로 선택지를 주는 것이다. &lt;strong&gt;(b)에 1x1을 넣는 이유는 Feature Map의 개수를 줄일 수 있기 때문이다.&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;span
+      class=&quot;gatsby-resp-image-wrapper&quot;
+      style=&quot;position: relative; display: block; margin-left: auto; margin-right: auto; max-width: 650px; &quot;
+    &gt;
+      &lt;span
+    class=&quot;gatsby-resp-image-background-image&quot;
+    style=&quot;padding-bottom: 68.09815950920245%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/jpeg;base64,/9j/2wBDABALDA4MChAODQ4SERATGCgaGBYWGDEjJR0oOjM9PDkzODdASFxOQERXRTc4UG1RV19iZ2hnPk1xeXBkeFxlZ2P/2wBDARESEhgVGC8aGi9jQjhCY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2P/wgARCAAOABQDASIAAhEBAxEB/8QAGAAAAgMAAAAAAAAAAAAAAAAAAAQBAgX/xAAUAQEAAAAAAAAAAAAAAAAAAAAA/9oADAMBAAIQAxAAAAHclSg4Kh//xAAaEAACAgMAAAAAAAAAAAAAAAAAAgEUBBIx/9oACAEBAAEFAp6aQNkIWkLSH//EABQRAQAAAAAAAAAAAAAAAAAAABD/2gAIAQMBAT8BP//EABQRAQAAAAAAAAAAAAAAAAAAABD/2gAIAQIBAT8BP//EABgQAQADAQAAAAAAAAAAAAAAAAACMUEQ/9oACAEBAAY/Aua1UlSf/8QAGxABAAIDAQEAAAAAAAAAAAAAAQAhEVHRMUH/2gAIAQEAAT8hy2gsuX6c+wDZV1FeB2C8Cf/aAAwDAQACAAMAAAAQUM//xAAUEQEAAAAAAAAAAAAAAAAAAAAQ/9oACAEDAQE/ED//xAAUEQEAAAAAAAAAAAAAAAAAAAAQ/9oACAECAQE/ED//xAAdEAEAAgICAwAAAAAAAAAAAAABABEhMVFxQWHw/9oACAEBAAE/EBZWDws0L15RgKlNzOKOnDrmGg424DMfR7n/2Q==&apos;); background-size: cover; display: block;&quot;
+  &gt;&lt;/span&gt;
+  &lt;img
+        class=&quot;gatsby-resp-image-image&quot;
+        alt=&quot;img&quot;
+        title=&quot;img&quot;
+        src=&quot;/static/8326f8e01192c045e3c5433b4acb5a7c/6aca1/15_6.jpg&quot;
+        srcset=&quot;/static/8326f8e01192c045e3c5433b4acb5a7c/d2f63/15_6.jpg 163w,
+/static/8326f8e01192c045e3c5433b4acb5a7c/c989d/15_6.jpg 325w,
+/static/8326f8e01192c045e3c5433b4acb5a7c/6aca1/15_6.jpg 650w,
+/static/8326f8e01192c045e3c5433b4acb5a7c/7c09c/15_6.jpg 975w,
+/static/8326f8e01192c045e3c5433b4acb5a7c/cb4d6/15_6.jpg 1129w&quot;
+        sizes=&quot;(max-width: 650px) 100vw, 650px&quot;
+        style=&quot;width:100%;height:100%;margin:0;vertical-align:middle;position:absolute;top:0;left:0;&quot;
+        loading=&quot;lazy&quot;
+        decoding=&quot;async&quot;
+      /&gt;
+    &lt;/span&gt;&lt;/p&gt;
+&lt;h3&gt;Residual Learning&lt;/h3&gt;
+&lt;p&gt;Depth가 깊으면 깊을 수록 Power가 깊어진다. 하지만 학습이 잘 안돼는 경우가 발생한다.
+보통 30~40 Layer를 사용했고 그 보다 많으면 학습이 잘 안됐다. &lt;strong&gt;처음 제안된 아이디어는 마지막 Layer에 Identity function을 사용하면 된다는 것이다.&lt;/strong&gt; 학습하려는 Function을 H라고
+표현을 한다. x는 입력이고 입력에 하나의 Term을 거쳐 H를 구성하게 된다. &lt;strong&gt;Neural Net은 x를 학습하는 것이 아니라 F를 학습한다.&lt;/strong&gt; Residual Function에서 입력과 H의 차이를 구한다.
+입력에서 Connection을 뽑아서 마지막에 더해버리면 전체 H Function을 구할 수 있다.
+F Function이 작은 값을 내주도록만 해주면 Identity function과 동일하게 만들 수 있다.&lt;/p&gt;
+&lt;p&gt;&lt;span
+      class=&quot;gatsby-resp-image-wrapper&quot;
+      style=&quot;position: relative; display: block; margin-left: auto; margin-right: auto; max-width: 650px; &quot;
+    &gt;
+      &lt;span
+    class=&quot;gatsby-resp-image-background-image&quot;
+    style=&quot;padding-bottom: 69.93865030674846%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/jpeg;base64,/9j/2wBDABALDA4MChAODQ4SERATGCgaGBYWGDEjJR0oOjM9PDkzODdASFxOQERXRTc4UG1RV19iZ2hnPk1xeXBkeFxlZ2P/2wBDARESEhgVGC8aGi9jQjhCY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2P/wgARCAAOABQDASIAAhEBAxEB/8QAGQAAAgMBAAAAAAAAAAAAAAAAAAQBAgMF/8QAFAEBAAAAAAAAAAAAAAAAAAAAAP/aAAwDAQACEAMQAAAB7kr2NBYP/8QAGhAAAgIDAAAAAAAAAAAAAAAAAAECEgQTIf/aAAgBAQABBQI6URtUi48mMX//xAAUEQEAAAAAAAAAAAAAAAAAAAAQ/9oACAEDAQE/AT//xAAUEQEAAAAAAAAAAAAAAAAAAAAQ/9oACAECAQE/AT//xAAZEAACAwEAAAAAAAAAAAAAAAAAARARQZH/2gAIAQEABj8CjelxTTP/xAAcEAEAAgIDAQAAAAAAAAAAAAABABEhYTFBUZH/2gAIAQEAAT8hRt5+yx5DI3k3AIA1uJemZsOif//aAAwDAQACAAMAAAAQgM//xAAUEQEAAAAAAAAAAAAAAAAAAAAQ/9oACAEDAQE/ED//xAAUEQEAAAAAAAAAAAAAAAAAAAAQ/9oACAECAQE/ED//xAAaEAADAQEBAQAAAAAAAAAAAAABESEAMbGB/9oACAEBAAE/EJ6DzjQAj6OaI1ytdHRL7kzhnbwDYCPd/9k=&apos;); background-size: cover; display: block;&quot;
+  &gt;&lt;/span&gt;
+  &lt;img
+        class=&quot;gatsby-resp-image-image&quot;
+        alt=&quot;img&quot;
+        title=&quot;img&quot;
+        src=&quot;/static/ed336fcc36e7203204bbe4d88fce646b/6aca1/15_7.jpg&quot;
+        srcset=&quot;/static/ed336fcc36e7203204bbe4d88fce646b/d2f63/15_7.jpg 163w,
+/static/ed336fcc36e7203204bbe4d88fce646b/c989d/15_7.jpg 325w,
+/static/ed336fcc36e7203204bbe4d88fce646b/6aca1/15_7.jpg 650w,
+/static/ed336fcc36e7203204bbe4d88fce646b/7c09c/15_7.jpg 975w,
+/static/ed336fcc36e7203204bbe4d88fce646b/58406/15_7.jpg 1110w&quot;
+        sizes=&quot;(max-width: 650px) 100vw, 650px&quot;
+        style=&quot;width:100%;height:100%;margin:0;vertical-align:middle;position:absolute;top:0;left:0;&quot;
+        loading=&quot;lazy&quot;
+        decoding=&quot;async&quot;
+      /&gt;
+    &lt;/span&gt;&lt;/p&gt;
+&lt;h3&gt;Residual Learning&lt;/h3&gt;
+&lt;p&gt;구조적인 변화는 Skip Connection 하나인테 성능을 어떻게 개선을 시킨 것일까?
+Shellow Network를 병렬적으로 연결된 효과를 낸다는 것이다.&lt;/p&gt;
+&lt;p&gt;&lt;span
+      class=&quot;gatsby-resp-image-wrapper&quot;
+      style=&quot;position: relative; display: block; margin-left: auto; margin-right: auto; max-width: 650px; &quot;
+    &gt;
+      &lt;span
+    class=&quot;gatsby-resp-image-background-image&quot;
+    style=&quot;padding-bottom: 69.32515337423312%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/jpeg;base64,/9j/2wBDABALDA4MChAODQ4SERATGCgaGBYWGDEjJR0oOjM9PDkzODdASFxOQERXRTc4UG1RV19iZ2hnPk1xeXBkeFxlZ2P/2wBDARESEhgVGC8aGi9jQjhCY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2P/wgARCAAOABQDASIAAhEBAxEB/8QAGAAAAgMAAAAAAAAAAAAAAAAAAAQBAwX/xAAUAQEAAAAAAAAAAAAAAAAAAAAA/9oADAMBAAIQAxAAAAHdF5LBUP/EABoQAAICAwAAAAAAAAAAAAAAAAECABMDEBT/2gAIAQEAAQUC1WIMysbQq9aT/8QAFBEBAAAAAAAAAAAAAAAAAAAAEP/aAAgBAwEBPwE//8QAFBEBAAAAAAAAAAAAAAAAAAAAEP/aAAgBAgEBPwE//8QAHBAAAQMFAAAAAAAAAAAAAAAAAAECERASITFB/9oACAEBAAY/AqdIyXLJpx//xAAdEAADAAEFAQAAAAAAAAAAAAAAAREhMWFxodHx/9oACAEBAAE/IY7b2JumVu5O6kdV8DYYC2PiL0//2gAMAwEAAgADAAAAEEPP/8QAFBEBAAAAAAAAAAAAAAAAAAAAEP/aAAgBAwEBPxA//8QAFBEBAAAAAAAAAAAAAAAAAAAAEP/aAAgBAgEBPxA//8QAHBABAAICAwEAAAAAAAAAAAAAAQARITEQYYGx/9oACAEBAAE/EEHo7UXRrG8MUerczlIba0Vj2XQStAL948f/2Q==&apos;); background-size: cover; display: block;&quot;
+  &gt;&lt;/span&gt;
+  &lt;img
+        class=&quot;gatsby-resp-image-image&quot;
+        alt=&quot;img&quot;
+        title=&quot;img&quot;
+        src=&quot;/static/2227720b5025b72334fadcc566764dc3/6aca1/15_8.jpg&quot;
+        srcset=&quot;/static/2227720b5025b72334fadcc566764dc3/d2f63/15_8.jpg 163w,
+/static/2227720b5025b72334fadcc566764dc3/c989d/15_8.jpg 325w,
+/static/2227720b5025b72334fadcc566764dc3/6aca1/15_8.jpg 650w,
+/static/2227720b5025b72334fadcc566764dc3/7c09c/15_8.jpg 975w,
+/static/2227720b5025b72334fadcc566764dc3/58406/15_8.jpg 1110w&quot;
+        sizes=&quot;(max-width: 650px) 100vw, 650px&quot;
+        style=&quot;width:100%;height:100%;margin:0;vertical-align:middle;position:absolute;top:0;left:0;&quot;
+        loading=&quot;lazy&quot;
+        decoding=&quot;async&quot;
+      /&gt;
+    &lt;/span&gt;
+&lt;span
+      class=&quot;gatsby-resp-image-wrapper&quot;
+      style=&quot;position: relative; display: block; margin-left: auto; margin-right: auto; max-width: 650px; &quot;
+    &gt;
+      &lt;span
+    class=&quot;gatsby-resp-image-background-image&quot;
+    style=&quot;padding-bottom: 70.5521472392638%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/jpeg;base64,/9j/2wBDABALDA4MChAODQ4SERATGCgaGBYWGDEjJR0oOjM9PDkzODdASFxOQERXRTc4UG1RV19iZ2hnPk1xeXBkeFxlZ2P/2wBDARESEhgVGC8aGi9jQjhCY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2P/wgARCAAOABQDASIAAhEBAxEB/8QAFwAAAwEAAAAAAAAAAAAAAAAAAAIEBf/EABQBAQAAAAAAAAAAAAAAAAAAAAD/2gAMAwEAAhADEAAAAdxpEKyYP//EABoQAAICAwAAAAAAAAAAAAAAAAABAhQEEiH/2gAIAQEAAQUCZ00HkwRZgi1A/8QAFBEBAAAAAAAAAAAAAAAAAAAAEP/aAAgBAwEBPwE//8QAFBEBAAAAAAAAAAAAAAAAAAAAEP/aAAgBAgEBPwE//8QAGhAAAgIDAAAAAAAAAAAAAAAAADEBAhARIv/aAAgBAQAGPwLDkVjfQrH/xAAdEAADAAEFAQAAAAAAAAAAAAAAARExQXGBkbHR/9oACAEBAAE/IUdeZucCK3ldyVPA0DohN+CP/9oADAMBAAIAAwAAABCAD//EABQRAQAAAAAAAAAAAAAAAAAAABD/2gAIAQMBAT8QP//EABQRAQAAAAAAAAAAAAAAAAAAABD/2gAIAQIBAT8QP//EAB8QAAICAQQDAAAAAAAAAAAAAAERACFxMVFhobHR8P/aAAgBAQABPxAEjwQKAeUDgYsXQxBDUVQe4wxhtrdwIx9HM//Z&apos;); background-size: cover; display: block;&quot;
+  &gt;&lt;/span&gt;
+  &lt;img
+        class=&quot;gatsby-resp-image-image&quot;
+        alt=&quot;img&quot;
+        title=&quot;img&quot;
+        src=&quot;/static/b91f29d97e414e292e954fc7ab6168a4/6aca1/15_9.jpg&quot;
+        srcset=&quot;/static/b91f29d97e414e292e954fc7ab6168a4/d2f63/15_9.jpg 163w,
+/static/b91f29d97e414e292e954fc7ab6168a4/c989d/15_9.jpg 325w,
+/static/b91f29d97e414e292e954fc7ab6168a4/6aca1/15_9.jpg 650w,
+/static/b91f29d97e414e292e954fc7ab6168a4/7c09c/15_9.jpg 975w,
+/static/b91f29d97e414e292e954fc7ab6168a4/12286/15_9.jpg 1120w&quot;
+        sizes=&quot;(max-width: 650px) 100vw, 650px&quot;
+        style=&quot;width:100%;height:100%;margin:0;vertical-align:middle;position:absolute;top:0;left:0;&quot;
+        loading=&quot;lazy&quot;
+        decoding=&quot;async&quot;
+      /&gt;
+    &lt;/span&gt;
+&lt;span
+      class=&quot;gatsby-resp-image-wrapper&quot;
+      style=&quot;position: relative; display: block; margin-left: auto; margin-right: auto; max-width: 650px; &quot;
+    &gt;
+      &lt;span
+    class=&quot;gatsby-resp-image-background-image&quot;
+    style=&quot;padding-bottom: 69.32515337423312%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/jpeg;base64,/9j/2wBDABALDA4MChAODQ4SERATGCgaGBYWGDEjJR0oOjM9PDkzODdASFxOQERXRTc4UG1RV19iZ2hnPk1xeXBkeFxlZ2P/2wBDARESEhgVGC8aGi9jQjhCY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2P/wgARCAAOABQDASIAAhEBAxEB/8QAFwABAQEBAAAAAAAAAAAAAAAAAAQCBf/EABQBAQAAAAAAAAAAAAAAAAAAAAD/2gAMAwEAAhADEAAAAe2lyVpR/8QAGxAAAgIDAQAAAAAAAAAAAAAAAAECFAMEEjH/2gAIAQEAAQUCfpwh7ES1AtYz/8QAFBEBAAAAAAAAAAAAAAAAAAAAEP/aAAgBAwEBPwE//8QAFBEBAAAAAAAAAAAAAAAAAAAAEP/aAAgBAgEBPwE//8QAGhABAAEFAAAAAAAAAAAAAAAAAEICEDFBkf/aAAgBAQAGPwK2+pJMVP/EAB8QAQACAQMFAAAAAAAAAAAAAAEAEZEhMdFBYbHB4f/aAAgBAQABPyHvOYanXMHttXBbfD7ADbE5gR6jmf/aAAwDAQACAAMAAAAQQA//xAAUEQEAAAAAAAAAAAAAAAAAAAAQ/9oACAEDAQE/ED//xAAUEQEAAAAAAAAAAAAAAAAAAAAQ/9oACAECAQE/ED//xAAaEAEAAgMBAAAAAAAAAAAAAAABABEhMWFB/9oACAEBAAE/EEiNnRLoq2vFGLY7ctxagA6BDwW7BUiI/9k=&apos;); background-size: cover; display: block;&quot;
+  &gt;&lt;/span&gt;
+  &lt;img
+        class=&quot;gatsby-resp-image-image&quot;
+        alt=&quot;img&quot;
+        title=&quot;img&quot;
+        src=&quot;/static/3dd7c11e64e71f68100142f6a1566a69/6aca1/15_10.jpg&quot;
+        srcset=&quot;/static/3dd7c11e64e71f68100142f6a1566a69/d2f63/15_10.jpg 163w,
+/static/3dd7c11e64e71f68100142f6a1566a69/c989d/15_10.jpg 325w,
+/static/3dd7c11e64e71f68100142f6a1566a69/6aca1/15_10.jpg 650w,
+/static/3dd7c11e64e71f68100142f6a1566a69/7c09c/15_10.jpg 975w,
+/static/3dd7c11e64e71f68100142f6a1566a69/b3d5a/15_10.jpg 1114w&quot;
+        sizes=&quot;(max-width: 650px) 100vw, 650px&quot;
+        style=&quot;width:100%;height:100%;margin:0;vertical-align:middle;position:absolute;top:0;left:0;&quot;
+        loading=&quot;lazy&quot;
+        decoding=&quot;async&quot;
+      /&gt;
+    &lt;/span&gt;
+&lt;span
+      class=&quot;gatsby-resp-image-wrapper&quot;
+      style=&quot;position: relative; display: block; margin-left: auto; margin-right: auto; max-width: 650px; &quot;
+    &gt;
+      &lt;span
+    class=&quot;gatsby-resp-image-background-image&quot;
+    style=&quot;padding-bottom: 70.5521472392638%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/jpeg;base64,/9j/2wBDABALDA4MChAODQ4SERATGCgaGBYWGDEjJR0oOjM9PDkzODdASFxOQERXRTc4UG1RV19iZ2hnPk1xeXBkeFxlZ2P/2wBDARESEhgVGC8aGi9jQjhCY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2P/wgARCAAOABQDASIAAhEBAxEB/8QAGAAAAgMAAAAAAAAAAAAAAAAAAAQBAgX/xAAUAQEAAAAAAAAAAAAAAAAAAAAA/9oADAMBAAIQAxAAAAHbspAyKh//xAAaEAACAwEBAAAAAAAAAAAAAAAAAQIRFAQS/9oACAEBAAEFArp2eB9EGaYo1wP/xAAUEQEAAAAAAAAAAAAAAAAAAAAQ/9oACAEDAQE/AT//xAAUEQEAAAAAAAAAAAAAAAAAAAAQ/9oACAECAQE/AT//xAAbEAABBAMAAAAAAAAAAAAAAAAAAQIQMUFCkf/aAAgBAQAGPwKM9KU2Kcf/xAAeEAEAAgAHAQAAAAAAAAAAAAABABEhMUFRcZHR8f/aAAgBAQABPyF3Es5Sqqt1uMCeuasRwT5x7P/aAAwDAQACAAMAAAAQ4M//xAAUEQEAAAAAAAAAAAAAAAAAAAAQ/9oACAEDAQE/ED//xAAUEQEAAAAAAAAAAAAAAAAAAAAQ/9oACAECAQE/ED//xAAdEAACAgIDAQAAAAAAAAAAAAABEQAhMXEQQVGx/9oACAEBAAE/EDFellQYBwWjkDVGB1HxRHeYptVn3hR//9k=&apos;); background-size: cover; display: block;&quot;
+  &gt;&lt;/span&gt;
+  &lt;img
+        class=&quot;gatsby-resp-image-image&quot;
+        alt=&quot;img&quot;
+        title=&quot;img&quot;
+        src=&quot;/static/660f1f239231686044087412eaa7eb6e/6aca1/15_11.jpg&quot;
+        srcset=&quot;/static/660f1f239231686044087412eaa7eb6e/d2f63/15_11.jpg 163w,
+/static/660f1f239231686044087412eaa7eb6e/c989d/15_11.jpg 325w,
+/static/660f1f239231686044087412eaa7eb6e/6aca1/15_11.jpg 650w,
+/static/660f1f239231686044087412eaa7eb6e/7c09c/15_11.jpg 975w,
+/static/660f1f239231686044087412eaa7eb6e/c60c2/15_11.jpg 1117w&quot;
+        sizes=&quot;(max-width: 650px) 100vw, 650px&quot;
+        style=&quot;width:100%;height:100%;margin:0;vertical-align:middle;position:absolute;top:0;left:0;&quot;
+        loading=&quot;lazy&quot;
+        decoding=&quot;async&quot;
+      /&gt;
+    &lt;/span&gt;&lt;/p&gt;
+&lt;h3&gt;Inception-ResNet: Activation Scaling&lt;/h3&gt;
+&lt;p&gt;ResNet을 사용하더라도 Filter를 1000개 이상 사용하면 Network가 죽는다는 것이다.
+&lt;strong&gt;이때 Activation Scaling에 0.1 ~ 0.3 을 곱하면 학습이 더 잘된다라는 것이다.&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;span
+      class=&quot;gatsby-resp-image-wrapper&quot;
+      style=&quot;position: relative; display: block; margin-left: auto; margin-right: auto; max-width: 650px; &quot;
+    &gt;
+      &lt;span
+    class=&quot;gatsby-resp-image-background-image&quot;
+    style=&quot;padding-bottom: 70.5521472392638%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/jpeg;base64,/9j/2wBDABALDA4MChAODQ4SERATGCgaGBYWGDEjJR0oOjM9PDkzODdASFxOQERXRTc4UG1RV19iZ2hnPk1xeXBkeFxlZ2P/2wBDARESEhgVGC8aGi9jQjhCY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2P/wgARCAAOABQDASIAAhEBAxEB/8QAGAAAAgMAAAAAAAAAAAAAAAAAAAQBAgX/xAAUAQEAAAAAAAAAAAAAAAAAAAAA/9oADAMBAAIQAxAAAAHbspAyKh//xAAaEAACAwEBAAAAAAAAAAAAAAAAAQIRFAQS/9oACAEBAAEFArp2eB9EGaYo1wP/xAAUEQEAAAAAAAAAAAAAAAAAAAAQ/9oACAEDAQE/AT//xAAUEQEAAAAAAAAAAAAAAAAAAAAQ/9oACAECAQE/AT//xAAbEAABBAMAAAAAAAAAAAAAAAAAAQIQMUFCkf/aAAgBAQAGPwKM9KU2Kcf/xAAeEAEAAgAHAQAAAAAAAAAAAAABABEhMUFRcZHR8f/aAAgBAQABPyF3Es5Sqqt1uMCeuasRwT5x7P/aAAwDAQACAAMAAAAQ4M//xAAUEQEAAAAAAAAAAAAAAAAAAAAQ/9oACAEDAQE/ED//xAAUEQEAAAAAAAAAAAAAAAAAAAAQ/9oACAECAQE/ED//xAAdEAACAgIDAQAAAAAAAAAAAAABEQAhMXEQQVGx/9oACAEBAAE/EDFellQYBwWjkDVGB1HxRHeYptVn3hR//9k=&apos;); background-size: cover; display: block;&quot;
+  &gt;&lt;/span&gt;
+  &lt;img
+        class=&quot;gatsby-resp-image-image&quot;
+        alt=&quot;img&quot;
+        title=&quot;img&quot;
+        src=&quot;/static/660f1f239231686044087412eaa7eb6e/6aca1/15_11.jpg&quot;
+        srcset=&quot;/static/660f1f239231686044087412eaa7eb6e/d2f63/15_11.jpg 163w,
+/static/660f1f239231686044087412eaa7eb6e/c989d/15_11.jpg 325w,
+/static/660f1f239231686044087412eaa7eb6e/6aca1/15_11.jpg 650w,
+/static/660f1f239231686044087412eaa7eb6e/7c09c/15_11.jpg 975w,
+/static/660f1f239231686044087412eaa7eb6e/c60c2/15_11.jpg 1117w&quot;
+        sizes=&quot;(max-width: 650px) 100vw, 650px&quot;
+        style=&quot;width:100%;height:100%;margin:0;vertical-align:middle;position:absolute;top:0;left:0;&quot;
+        loading=&quot;lazy&quot;
+        decoding=&quot;async&quot;
+      /&gt;
+    &lt;/span&gt;&lt;/p&gt;
+&lt;h3&gt;Dense Net&lt;/h3&gt;
+&lt;p&gt;자기 앞에 있는 모든 Layer하고 연결이 되어있다. 모든 Layer에서 모든 Layer로 가는
+Connection이 존재하게 된다. Dense Net처럼 만든 이유는, ResNET에서 기대하는
+효과를 얻을 수 있기 때문이다. Skip Path를 통한 학습이 되기 때문이다.
+Low Level Feature가 중요한 경우 계속적인 학습을 거치는 것보다 &lt;strong&gt;Skip Path를 통해 추가적인 High Feature를 학습시키면 성능이 더 좋아진다는 것이다.&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;span
+      class=&quot;gatsby-resp-image-wrapper&quot;
+      style=&quot;position: relative; display: block; margin-left: auto; margin-right: auto; max-width: 650px; &quot;
+    &gt;
+      &lt;span
+    class=&quot;gatsby-resp-image-background-image&quot;
+    style=&quot;padding-bottom: 69.93865030674846%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/jpeg;base64,/9j/2wBDABALDA4MChAODQ4SERATGCgaGBYWGDEjJR0oOjM9PDkzODdASFxOQERXRTc4UG1RV19iZ2hnPk1xeXBkeFxlZ2P/2wBDARESEhgVGC8aGi9jQjhCY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2P/wgARCAAOABQDASIAAhEBAxEB/8QAGAAAAgMAAAAAAAAAAAAAAAAAAAQBAgX/xAAUAQEAAAAAAAAAAAAAAAAAAAAA/9oADAMBAAIQAxAAAAHclKo4Kh//xAAaEAACAgMAAAAAAAAAAAAAAAAAAQIEEBIU/9oACAEBAAEFAnjRDsQOqArUD//EABQRAQAAAAAAAAAAAAAAAAAAABD/2gAIAQMBAT8BP//EABQRAQAAAAAAAAAAAAAAAAAAABD/2gAIAQIBAT8BP//EABkQAAMAAwAAAAAAAAAAAAAAAAACMQEQQf/aAAgBAQAGPwLXSZIxGP/EAB4QAAIBAwUAAAAAAAAAAAAAAAABESExYaHB0eHx/9oACAEBAAE/IbuxPJVblpc3Eq6KPEXJB2Ef/9oADAMBAAIAAwAAABBzD//EABQRAQAAAAAAAAAAAAAAAAAAABD/2gAIAQMBAT8QP//EABQRAQAAAAAAAAAAAAAAAAAAABD/2gAIAQIBAT8QP//EAB4QAQACAgEFAAAAAAAAAAAAAAEAESExQWFxgdHw/9oACAEBAAE/EA2pXsyUAU87gymXM5aKm+PZNEQLqvrM/9k=&apos;); background-size: cover; display: block;&quot;
+  &gt;&lt;/span&gt;
+  &lt;img
+        class=&quot;gatsby-resp-image-image&quot;
+        alt=&quot;img&quot;
+        title=&quot;img&quot;
+        src=&quot;/static/7485a501e7b8f391cf029e6d0fc9fbbd/6aca1/15_12.jpg&quot;
+        srcset=&quot;/static/7485a501e7b8f391cf029e6d0fc9fbbd/d2f63/15_12.jpg 163w,
+/static/7485a501e7b8f391cf029e6d0fc9fbbd/c989d/15_12.jpg 325w,
+/static/7485a501e7b8f391cf029e6d0fc9fbbd/6aca1/15_12.jpg 650w,
+/static/7485a501e7b8f391cf029e6d0fc9fbbd/7c09c/15_12.jpg 975w,
+/static/7485a501e7b8f391cf029e6d0fc9fbbd/cdec4/15_12.jpg 1108w&quot;
+        sizes=&quot;(max-width: 650px) 100vw, 650px&quot;
+        style=&quot;width:100%;height:100%;margin:0;vertical-align:middle;position:absolute;top:0;left:0;&quot;
+        loading=&quot;lazy&quot;
+        decoding=&quot;async&quot;
+      /&gt;
+    &lt;/span&gt;&lt;/p&gt;
+&lt;h3&gt;Dual-Path Network&lt;/h3&gt;
+&lt;p&gt;ResNET과 DenseNET의 장점을 둘 다 취한 network이다. Densely Connected Network
+가면 갈 수 록 더 많은 Feature Map이 저장된다. ResNET은 재사용을 하게 해주고
+DenseNet은 새로운 Feature를 활용할 수 있게 해준다고 정리한다.&lt;/p&gt;
+&lt;p&gt;&lt;span
+      class=&quot;gatsby-resp-image-wrapper&quot;
+      style=&quot;position: relative; display: block; margin-left: auto; margin-right: auto; max-width: 650px; &quot;
+    &gt;
+      &lt;span
+    class=&quot;gatsby-resp-image-background-image&quot;
+    style=&quot;padding-bottom: 69.32515337423312%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/jpeg;base64,/9j/2wBDABALDA4MChAODQ4SERATGCgaGBYWGDEjJR0oOjM9PDkzODdASFxOQERXRTc4UG1RV19iZ2hnPk1xeXBkeFxlZ2P/2wBDARESEhgVGC8aGi9jQjhCY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2P/wgARCAAOABQDASIAAhEBAxEB/8QAFwABAQEBAAAAAAAAAAAAAAAAAAQCBf/EABQBAQAAAAAAAAAAAAAAAAAAAAD/2gAMAwEAAhADEAAAAe6kwVpB/8QAGxAAAgIDAQAAAAAAAAAAAAAAAAECBAMQEhT/2gAIAQEAAQUC1wh2YHqxitQS/8QAFBEBAAAAAAAAAAAAAAAAAAAAEP/aAAgBAwEBPwE//8QAFBEBAAAAAAAAAAAAAAAAAAAAEP/aAAgBAgEBPwE//8QAGhAAAgIDAAAAAAAAAAAAAAAAAAIQMREiQf/aAAgBAQAGPwKOlMUxjY//xAAcEAEAAgIDAQAAAAAAAAAAAAABABEhMUFRYbH/2gAIAQEAAT8hyLuW9TMrkt7gL+EUNPtEL0dctT//2gAMAwEAAgADAAAAEEMP/8QAFBEBAAAAAAAAAAAAAAAAAAAAEP/aAAgBAwEBPxA//8QAFBEBAAAAAAAAAAAAAAAAAAAAEP/aAAgBAgEBPxA//8QAHRABAAMAAQUAAAAAAAAAAAAAAQARIXExkaHR4f/aAAgBAQABPxBaYV8sH6Lt9g6CtNy7OGYPcQFxEpYeZlLqpS87P//Z&apos;); background-size: cover; display: block;&quot;
+  &gt;&lt;/span&gt;
+  &lt;img
+        class=&quot;gatsby-resp-image-image&quot;
+        alt=&quot;img&quot;
+        title=&quot;img&quot;
+        src=&quot;/static/f5b15dad3bdcb44953d9c9b09c535ca9/6aca1/15_13.jpg&quot;
+        srcset=&quot;/static/f5b15dad3bdcb44953d9c9b09c535ca9/d2f63/15_13.jpg 163w,
+/static/f5b15dad3bdcb44953d9c9b09c535ca9/c989d/15_13.jpg 325w,
+/static/f5b15dad3bdcb44953d9c9b09c535ca9/6aca1/15_13.jpg 650w,
+/static/f5b15dad3bdcb44953d9c9b09c535ca9/7c09c/15_13.jpg 975w,
+/static/f5b15dad3bdcb44953d9c9b09c535ca9/b3d5a/15_13.jpg 1114w&quot;
+        sizes=&quot;(max-width: 650px) 100vw, 650px&quot;
+        style=&quot;width:100%;height:100%;margin:0;vertical-align:middle;position:absolute;top:0;left:0;&quot;
+        loading=&quot;lazy&quot;
+        decoding=&quot;async&quot;
+      /&gt;
+    &lt;/span&gt;&lt;/p&gt;
+&lt;h3&gt;SENet&lt;/h3&gt;
+&lt;p&gt;Sqeeze and Excitation, Feature Map마다 중요도를 할당해 강조하는 Map이 달라진다.
+Data에 따라 중요한 채널이 달라진다는 점을 사용하는데, 각 채널마다 하나의 대표값을
+뽑아서 Vector를 만들게 된다. Average Pooling을 활용. 그 벡터를 하나의 NN를 통과시켜
+동일한 크기의 벡터를 하나 생성하게 된다. 거기서 나온 값의 중요도에 따라 이전 Feature Map에
+곱하게 된다. 구조는 같지만 중요한 것의 값이 커지고 강조된다. 어디에 Focus를 둬야 하는지
+넣어주고 결과를 확인하는 Network로 활용할 수 있다.&lt;/p&gt;
+&lt;p&gt;&lt;span
+      class=&quot;gatsby-resp-image-wrapper&quot;
+      style=&quot;position: relative; display: block; margin-left: auto; margin-right: auto; max-width: 650px; &quot;
+    &gt;
+      &lt;span
+    class=&quot;gatsby-resp-image-background-image&quot;
+    style=&quot;padding-bottom: 67.48466257668711%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/jpeg;base64,/9j/2wBDABALDA4MChAODQ4SERATGCgaGBYWGDEjJR0oOjM9PDkzODdASFxOQERXRTc4UG1RV19iZ2hnPk1xeXBkeFxlZ2P/2wBDARESEhgVGC8aGi9jQjhCY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2P/wgARCAANABQDASIAAhEBAxEB/8QAGAAAAgMAAAAAAAAAAAAAAAAAAAQBAgX/xAAUAQEAAAAAAAAAAAAAAAAAAAAA/9oADAMBAAIQAxAAAAHclGg+JB//xAAaEAEAAgMBAAAAAAAAAAAAAAAAARQCBBIx/9oACAEBAAEFAp9cQy2Fpaf/xAAUEQEAAAAAAAAAAAAAAAAAAAAQ/9oACAEDAQE/AT//xAAUEQEAAAAAAAAAAAAAAAAAAAAQ/9oACAECAQE/AT//xAAXEAADAQAAAAAAAAAAAAAAAAAAMqEQ/9oACAEBAAY/AtUWiU//xAAdEAACAgEFAAAAAAAAAAAAAAAAAREhMVFhgcHw/9oACAEBAAE/IQ5Fa7luckDejcp66FJB/9oADAMBAAIAAwAAABBDD//EABQRAQAAAAAAAAAAAAAAAAAAABD/2gAIAQMBAT8QP//EABQRAQAAAAAAAAAAAAAAAAAAABD/2gAIAQIBAT8QP//EAB4QAQABBAIDAAAAAAAAAAAAAAEAESExUUFxYcHw/9oACAEBAAE/ECiu0dLBoAWebwSgqoqzOb6kx31BYW9I+x9T/9k=&apos;); background-size: cover; display: block;&quot;
+  &gt;&lt;/span&gt;
+  &lt;img
+        class=&quot;gatsby-resp-image-image&quot;
+        alt=&quot;img&quot;
+        title=&quot;img&quot;
+        src=&quot;/static/42ab9b6a6fc268a915bfa9756cc641cb/6aca1/15_14.jpg&quot;
+        srcset=&quot;/static/42ab9b6a6fc268a915bfa9756cc641cb/d2f63/15_14.jpg 163w,
+/static/42ab9b6a6fc268a915bfa9756cc641cb/c989d/15_14.jpg 325w,
+/static/42ab9b6a6fc268a915bfa9756cc641cb/6aca1/15_14.jpg 650w,
+/static/42ab9b6a6fc268a915bfa9756cc641cb/7c09c/15_14.jpg 975w,
+/static/42ab9b6a6fc268a915bfa9756cc641cb/4ba0d/15_14.jpg 1141w&quot;
+        sizes=&quot;(max-width: 650px) 100vw, 650px&quot;
+        style=&quot;width:100%;height:100%;margin:0;vertical-align:middle;position:absolute;top:0;left:0;&quot;
+        loading=&quot;lazy&quot;
+        decoding=&quot;async&quot;
+      /&gt;
+    &lt;/span&gt;&lt;/p&gt;
+&lt;h3&gt;Weight Initialization&lt;/h3&gt;
+&lt;p&gt;Shallow Network는 -0.01 에서 0.01범위의 무작위 숫자를 사용하면 된다.
+Input Degree와 Output Degree의 값을 찾고 Xavier Initialization을 사용하면
+분산을 구할 수 있다. He Normalization은 Input Demension 으로 나눈 값을 사용한다.
+weight를 0으로 초기화하면 Gradient가 같은 값을 가진다.&lt;/p&gt;
+&lt;p&gt;&lt;span
+      class=&quot;gatsby-resp-image-wrapper&quot;
+      style=&quot;position: relative; display: block; margin-left: auto; margin-right: auto; max-width: 650px; &quot;
+    &gt;
+      &lt;span
+    class=&quot;gatsby-resp-image-background-image&quot;
+    style=&quot;padding-bottom: 69.93865030674846%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/jpeg;base64,/9j/2wBDABALDA4MChAODQ4SERATGCgaGBYWGDEjJR0oOjM9PDkzODdASFxOQERXRTc4UG1RV19iZ2hnPk1xeXBkeFxlZ2P/2wBDARESEhgVGC8aGi9jQjhCY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2P/wgARCAAOABQDASIAAhEBAxEB/8QAFwAAAwEAAAAAAAAAAAAAAAAAAAIEBf/EABQBAQAAAAAAAAAAAAAAAAAAAAD/2gAMAwEAAhADEAAAAdt41KyUP//EABoQAAICAwAAAAAAAAAAAAAAAAABAhQEEBL/2gAIAQEAAQUCeuEPJgW4FqB//8QAFBEBAAAAAAAAAAAAAAAAAAAAEP/aAAgBAwEBPwE//8QAFBEBAAAAAAAAAAAAAAAAAAAAEP/aAAgBAgEBPwE//8QAGRAAAwADAAAAAAAAAAAAAAAAAAIxARBB/9oACAEBAAY/AtdJkjEY/8QAGxABAAIDAQEAAAAAAAAAAAAAAQAhEZHxMUH/2gAIAQEAAT8ho/dwZcubOfYG3WTjE5hP/9oADAMBAAIAAwAAABDQz//EABQRAQAAAAAAAAAAAAAAAAAAABD/2gAIAQMBAT8QP//EABQRAQAAAAAAAAAAAAAAAAAAABD/2gAIAQIBAT8QP//EABsQAQACAwEBAAAAAAAAAAAAAAEAESEx8FGR/9oACAEBAAE/EMm3e8MiJkSZ0jczg1jXG4DoOPYMdH2f/9k=&apos;); background-size: cover; display: block;&quot;
+  &gt;&lt;/span&gt;
+  &lt;img
+        class=&quot;gatsby-resp-image-image&quot;
+        alt=&quot;img&quot;
+        title=&quot;img&quot;
+        src=&quot;/static/b29c26a661c76cd1d2d4f6141d9751d3/6aca1/15_15.jpg&quot;
+        srcset=&quot;/static/b29c26a661c76cd1d2d4f6141d9751d3/d2f63/15_15.jpg 163w,
+/static/b29c26a661c76cd1d2d4f6141d9751d3/c989d/15_15.jpg 325w,
+/static/b29c26a661c76cd1d2d4f6141d9751d3/6aca1/15_15.jpg 650w,
+/static/b29c26a661c76cd1d2d4f6141d9751d3/7c09c/15_15.jpg 975w,
+/static/b29c26a661c76cd1d2d4f6141d9751d3/e7032/15_15.jpg 1105w&quot;
+        sizes=&quot;(max-width: 650px) 100vw, 650px&quot;
+        style=&quot;width:100%;height:100%;margin:0;vertical-align:middle;position:absolute;top:0;left:0;&quot;
+        loading=&quot;lazy&quot;
+        decoding=&quot;async&quot;
+      /&gt;
+    &lt;/span&gt;&lt;/p&gt;
+&lt;h3&gt;Bias Initialization&lt;/h3&gt;
+&lt;p&gt;일반적으로는 0으로 초기화를 한다. 약간의 변이를 주는 경우가 있는데 ReLU를 사용할
+경우 음수가 나오면 0이 나온다. 0이 나오게 되면 학습이 안되므로 0보다 크고 싶을 때
+작은 양수값을 줘야 한다. (실험적으로 진행하면 된다.) Bias가 0이어도 가능한 이유는
+Bias는 네트워크가 가지고 있는 편향성을 의미하는데 큰 값을 가지고 시작하면 치우친
+방향으로 학습이 될 가능성이 존재한다. 다음은 일부로 큰 값을 주는 경우가 존재한다.
+LSTM이라는 NetWork를 보면 Forget Gate가 있는데 과거의 정보를 미래로 전달을 하는데
+가끔은 통째로 잊어버리면 좋은 경우가 존재한다는 것이다.&lt;/p&gt;
+&lt;p&gt;&lt;span
+      class=&quot;gatsby-resp-image-wrapper&quot;
+      style=&quot;position: relative; display: block; margin-left: auto; margin-right: auto; max-width: 650px; &quot;
+    &gt;
+      &lt;span
+    class=&quot;gatsby-resp-image-background-image&quot;
+    style=&quot;padding-bottom: 69.32515337423312%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/jpeg;base64,/9j/2wBDABALDA4MChAODQ4SERATGCgaGBYWGDEjJR0oOjM9PDkzODdASFxOQERXRTc4UG1RV19iZ2hnPk1xeXBkeFxlZ2P/2wBDARESEhgVGC8aGi9jQjhCY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2P/wgARCAAOABQDASIAAhEBAxEB/8QAGAAAAgMAAAAAAAAAAAAAAAAAAAQBAgX/xAAUAQEAAAAAAAAAAAAAAAAAAAAA/9oADAMBAAIQAxAAAAHblSo2Kh//xAAbEAACAgMBAAAAAAAAAAAAAAAAAQIUAwQREv/aAAgBAQABBQJnTwh7EC1jLcD/xAAUEQEAAAAAAAAAAAAAAAAAAAAQ/9oACAEDAQE/AT//xAAUEQEAAAAAAAAAAAAAAAAAAAAQ/9oACAECAQE/AT//xAAbEAACAQUAAAAAAAAAAAAAAAAAAjEQESFCkf/aAAgBAQAGPwKl89NiGIY//8QAHBABAAICAwEAAAAAAAAAAAAAAQARMfFBYZGh/9oACAEBAAE/Ics/YdiXryNwZbPBNATSE//aAAwDAQACAAMAAAAQsM//xAAUEQEAAAAAAAAAAAAAAAAAAAAQ/9oACAEDAQE/ED//xAAUEQEAAAAAAAAAAAAAAAAAAAAQ/9oACAECAQE/ED//xAAcEAEAAgMAAwAAAAAAAAAAAAABABEhUfAxYaH/2gAIAQEAAT8QtevqRADCbVg8KbmUSMJrpgDZ3e4Cefjc/9k=&apos;); background-size: cover; display: block;&quot;
+  &gt;&lt;/span&gt;
+  &lt;img
+        class=&quot;gatsby-resp-image-image&quot;
+        alt=&quot;img&quot;
+        title=&quot;img&quot;
+        src=&quot;/static/fe3bf13b2619c44f334f0fc3aa44cc6b/6aca1/15_16.jpg&quot;
+        srcset=&quot;/static/fe3bf13b2619c44f334f0fc3aa44cc6b/d2f63/15_16.jpg 163w,
+/static/fe3bf13b2619c44f334f0fc3aa44cc6b/c989d/15_16.jpg 325w,
+/static/fe3bf13b2619c44f334f0fc3aa44cc6b/6aca1/15_16.jpg 650w,
+/static/fe3bf13b2619c44f334f0fc3aa44cc6b/7c09c/15_16.jpg 975w,
+/static/fe3bf13b2619c44f334f0fc3aa44cc6b/84ae3/15_16.jpg 1116w&quot;
+        sizes=&quot;(max-width: 650px) 100vw, 650px&quot;
+        style=&quot;width:100%;height:100%;margin:0;vertical-align:middle;position:absolute;top:0;left:0;&quot;
+        loading=&quot;lazy&quot;
+        decoding=&quot;async&quot;
+      /&gt;
+    &lt;/span&gt;&lt;/p&gt;
+&lt;h3&gt;Batch Normalization&lt;/h3&gt;
+&lt;p&gt;동일한 batch에 존재하는 sample은 Standardization을 진행한다.
+이러면 밑의 분포가 바뀌더라도 어느정도 표준화를 통해 전체 분포를 유지시킬 수 있다.
+하지만 문제는 이렇게 강제로 해버리면 NN의 Capacity가 줄어든다는 것이다.
+획일화를 시켜버리면 변화할 수 있는 여지를 제한해버리는 것이다.
+감마를 곱하고 베터를 더하는 Linear한 식을 하나 정의할 수 있는데, 이것이 해결할 수 있다.
+학습을 한 값(감마, 베터)을 가지고 식을 만들었기 때문에 Batch Norm에 유리하다. 또한
+Feature map들이 모두 공유하는 감마와 베타를 사용하기에 안정적 학습이 가능하다.&lt;/p&gt;
+&lt;p&gt;&lt;span
+      class=&quot;gatsby-resp-image-wrapper&quot;
+      style=&quot;position: relative; display: block; margin-left: auto; margin-right: auto; max-width: 650px; &quot;
+    &gt;
+      &lt;span
+    class=&quot;gatsby-resp-image-background-image&quot;
+    style=&quot;padding-bottom: 68.09815950920245%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/jpeg;base64,/9j/2wBDABALDA4MChAODQ4SERATGCgaGBYWGDEjJR0oOjM9PDkzODdASFxOQERXRTc4UG1RV19iZ2hnPk1xeXBkeFxlZ2P/2wBDARESEhgVGC8aGi9jQjhCY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2P/wgARCAAOABQDASIAAhEBAxEB/8QAFwAAAwEAAAAAAAAAAAAAAAAAAAQFAv/EABQBAQAAAAAAAAAAAAAAAAAAAAD/2gAMAwEAAhADEAAAAbghkoCof//EABwQAAEDBQAAAAAAAAAAAAAAAAMAAhEBBBASE//aAAgBAQABBQLGlEQo3LuOG3LI/8QAFBEBAAAAAAAAAAAAAAAAAAAAEP/aAAgBAwEBPwE//8QAFBEBAAAAAAAAAAAAAAAAAAAAEP/aAAgBAgEBPwE//8QAHBAAAQMFAAAAAAAAAAAAAAAAAAIhMRAREkJR/9oACAEBAAY/Aqvm3DeLEKP/xAAcEAEAAgMAAwAAAAAAAAAAAAABABEhMVGBkeH/2gAIAQEAAT8hRv7A6vuGVy23uIWdhGlXgSjDB0J//9oADAMBAAIAAwAAABBjD//EABQRAQAAAAAAAAAAAAAAAAAAABD/2gAIAQMBAT8QP//EABQRAQAAAAAAAAAAAAAAAAAAABD/2gAIAQIBAT8QP//EABwQAQADAQADAQAAAAAAAAAAAAEAESExUWFxof/aAAgBAQABPxBrq/WyXmD44ZJa4rh0DgQDeeZiyit1972ETTF2H9n/2Q==&apos;); background-size: cover; display: block;&quot;
+  &gt;&lt;/span&gt;
+  &lt;img
+        class=&quot;gatsby-resp-image-image&quot;
+        alt=&quot;img&quot;
+        title=&quot;img&quot;
+        src=&quot;/static/8f0b18c76d7501737bcad483c577195f/6aca1/15_17.jpg&quot;
+        srcset=&quot;/static/8f0b18c76d7501737bcad483c577195f/d2f63/15_17.jpg 163w,
+/static/8f0b18c76d7501737bcad483c577195f/c989d/15_17.jpg 325w,
+/static/8f0b18c76d7501737bcad483c577195f/6aca1/15_17.jpg 650w,
+/static/8f0b18c76d7501737bcad483c577195f/7c09c/15_17.jpg 975w,
+/static/8f0b18c76d7501737bcad483c577195f/cb4d6/15_17.jpg 1129w&quot;
+        sizes=&quot;(max-width: 650px) 100vw, 650px&quot;
+        style=&quot;width:100%;height:100%;margin:0;vertical-align:middle;position:absolute;top:0;left:0;&quot;
+        loading=&quot;lazy&quot;
+        decoding=&quot;async&quot;
+      /&gt;
+    &lt;/span&gt;&lt;/p&gt;
+&lt;h3&gt;Batch Normalization&lt;/h3&gt;
+&lt;p&gt;&quot;How Does Batch Normalization Help Optimization&quot;
+Internal Converiate SHift를 막아주는 효과때문에 좋은 것이 아니라 내려가는
+Surface를 부드럽게 만들어줘서 Gradient Descent하기에 좋게 만들어준다는 것이다.
+파란색 그래프처럼 변동이 확 줄어든다.&lt;/p&gt;
+&lt;p&gt;&lt;span
+      class=&quot;gatsby-resp-image-wrapper&quot;
+      style=&quot;position: relative; display: block; margin-left: auto; margin-right: auto; max-width: 650px; &quot;
+    &gt;
+      &lt;span
+    class=&quot;gatsby-resp-image-background-image&quot;
+    style=&quot;padding-bottom: 68.09815950920245%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/jpeg;base64,/9j/2wBDABALDA4MChAODQ4SERATGCgaGBYWGDEjJR0oOjM9PDkzODdASFxOQERXRTc4UG1RV19iZ2hnPk1xeXBkeFxlZ2P/2wBDARESEhgVGC8aGi9jQjhCY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2P/wgARCAAOABQDASIAAhEBAxEB/8QAFwAAAwEAAAAAAAAAAAAAAAAAAAQFAv/EABQBAQAAAAAAAAAAAAAAAAAAAAD/2gAMAwEAAhADEAAAAbghkoCof//EABwQAAEDBQAAAAAAAAAAAAAAAAMAAhEBBBASE//aAAgBAQABBQLGlEQo3LuOG3LI/8QAFBEBAAAAAAAAAAAAAAAAAAAAEP/aAAgBAwEBPwE//8QAFBEBAAAAAAAAAAAAAAAAAAAAEP/aAAgBAgEBPwE//8QAHBAAAQMFAAAAAAAAAAAAAAAAAAIhMRAREkJR/9oACAEBAAY/Aqvm3DeLEKP/xAAcEAEAAgMAAwAAAAAAAAAAAAABABEhMVGBkeH/2gAIAQEAAT8hRv7A6vuGVy23uIWdhGlXgSjDB0J//9oADAMBAAIAAwAAABBjD//EABQRAQAAAAAAAAAAAAAAAAAAABD/2gAIAQMBAT8QP//EABQRAQAAAAAAAAAAAAAAAAAAABD/2gAIAQIBAT8QP//EABwQAQADAQADAQAAAAAAAAAAAAEAESExUWFxof/aAAgBAQABPxBrq/WyXmD44ZJa4rh0DgQDeeZiyit1972ETTF2H9n/2Q==&apos;); background-size: cover; display: block;&quot;
+  &gt;&lt;/span&gt;
+  &lt;img
+        class=&quot;gatsby-resp-image-image&quot;
+        alt=&quot;img&quot;
+        title=&quot;img&quot;
+        src=&quot;/static/8f0b18c76d7501737bcad483c577195f/6aca1/15_17.jpg&quot;
+        srcset=&quot;/static/8f0b18c76d7501737bcad483c577195f/d2f63/15_17.jpg 163w,
+/static/8f0b18c76d7501737bcad483c577195f/c989d/15_17.jpg 325w,
+/static/8f0b18c76d7501737bcad483c577195f/6aca1/15_17.jpg 650w,
+/static/8f0b18c76d7501737bcad483c577195f/7c09c/15_17.jpg 975w,
+/static/8f0b18c76d7501737bcad483c577195f/cb4d6/15_17.jpg 1129w&quot;
+        sizes=&quot;(max-width: 650px) 100vw, 650px&quot;
+        style=&quot;width:100%;height:100%;margin:0;vertical-align:middle;position:absolute;top:0;left:0;&quot;
+        loading=&quot;lazy&quot;
+        decoding=&quot;async&quot;
+      /&gt;
+    &lt;/span&gt;&lt;/p&gt;
+&lt;h3&gt;Layer/Instance/Group Normalization&lt;/h3&gt;
+&lt;p&gt;Batch 단위로 학습이 되어야 한다는 것이다.  Batch를 확보하기 어려운 상화이 존재한다.
+Layer에 대해서 표준편차를 구할 수 있다는 것이다. RNN의 경우가 그런데 Layer Normalization을 진행한다.
+Batch Norm과 비슷한 성능을 얻을 수 있다. Instance Norm, Group Norm 도 있다.&lt;/p&gt;
+&lt;p&gt;&lt;span
+      class=&quot;gatsby-resp-image-wrapper&quot;
+      style=&quot;position: relative; display: block; margin-left: auto; margin-right: auto; max-width: 650px; &quot;
+    &gt;
+      &lt;span
+    class=&quot;gatsby-resp-image-background-image&quot;
+    style=&quot;padding-bottom: 68.71165644171779%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/jpeg;base64,/9j/2wBDABALDA4MChAODQ4SERATGCgaGBYWGDEjJR0oOjM9PDkzODdASFxOQERXRTc4UG1RV19iZ2hnPk1xeXBkeFxlZ2P/2wBDARESEhgVGC8aGi9jQjhCY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2P/wgARCAAOABQDASIAAhEBAxEB/8QAGQAAAgMBAAAAAAAAAAAAAAAAAAIBAwQF/8QAFAEBAAAAAAAAAAAAAAAAAAAAAP/aAAwDAQACEAMQAAAB7U1MOZw//8QAGhAAAwADAQAAAAAAAAAAAAAAAAECAwQREv/aAAgBAQABBQKq8irooQsiyHeC2YZ//8QAFBEBAAAAAAAAAAAAAAAAAAAAEP/aAAgBAwEBPwE//8QAFBEBAAAAAAAAAAAAAAAAAAAAEP/aAAgBAgEBPwE//8QAGRAAAgMBAAAAAAAAAAAAAAAAECEAAhEx/9oACAEBAAY/AmVqHLT/xAAbEAEAAwADAQAAAAAAAAAAAAABABExIUFhkf/aAAgBAQABPyEHa2dCoC9tb2LIB6jRbhzBLPgT/9oADAMBAAIAAwAAABCDD//EABQRAQAAAAAAAAAAAAAAAAAAABD/2gAIAQMBAT8QP//EABQRAQAAAAAAAAAAAAAAAAAAABD/2gAIAQIBAT8QP//EABsQAQEBAAIDAAAAAAAAAAAAAAERACExQXHR/9oACAEBAAE/EJEBUq+CunFQ9d5VqlLnmDHaTUGUaPWliLOfpv/Z&apos;); background-size: cover; display: block;&quot;
+  &gt;&lt;/span&gt;
+  &lt;img
+        class=&quot;gatsby-resp-image-image&quot;
+        alt=&quot;img&quot;
+        title=&quot;img&quot;
+        src=&quot;/static/acc9a7d85dfb2987427bdf79d86d56db/6aca1/15_18.jpg&quot;
+        srcset=&quot;/static/acc9a7d85dfb2987427bdf79d86d56db/d2f63/15_18.jpg 163w,
+/static/acc9a7d85dfb2987427bdf79d86d56db/c989d/15_18.jpg 325w,
+/static/acc9a7d85dfb2987427bdf79d86d56db/6aca1/15_18.jpg 650w,
+/static/acc9a7d85dfb2987427bdf79d86d56db/7c09c/15_18.jpg 975w,
+/static/acc9a7d85dfb2987427bdf79d86d56db/ec605/15_18.jpg 1125w&quot;
+        sizes=&quot;(max-width: 650px) 100vw, 650px&quot;
+        style=&quot;width:100%;height:100%;margin:0;vertical-align:middle;position:absolute;top:0;left:0;&quot;
+        loading=&quot;lazy&quot;
+        decoding=&quot;async&quot;
+      /&gt;
+    &lt;/span&gt;&lt;/p&gt;
+&lt;h3&gt;R-CNN&lt;/h3&gt;
+&lt;p&gt;CNN을 이용해서 Classification과 Detection을 할 수 있다. 컴퓨터 비전 방법을 이용해서
+후보 영역을 뽑아내고 전부 CNN을 통과 시킨다. Classification을 통해서 yes라고 하는 것만을 통과
+시키는 것이 R-CNN이 된다.&lt;/p&gt;
+&lt;p&gt;&lt;span
+      class=&quot;gatsby-resp-image-wrapper&quot;
+      style=&quot;position: relative; display: block; margin-left: auto; margin-right: auto; max-width: 650px; &quot;
+    &gt;
+      &lt;span
+    class=&quot;gatsby-resp-image-background-image&quot;
+    style=&quot;padding-bottom: 67.48466257668711%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/jpeg;base64,/9j/2wBDABALDA4MChAODQ4SERATGCgaGBYWGDEjJR0oOjM9PDkzODdASFxOQERXRTc4UG1RV19iZ2hnPk1xeXBkeFxlZ2P/2wBDARESEhgVGC8aGi9jQjhCY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2P/wgARCAANABQDASIAAhEBAxEB/8QAGAAAAwEBAAAAAAAAAAAAAAAAAAQFAgP/xAAUAQEAAAAAAAAAAAAAAAAAAAAA/9oADAMBAAIQAxAAAAGvtLmVBEP/xAAbEAABBAMAAAAAAAAAAAAAAAAAAQIEEgMRFP/aAAgBAQABBQLK6hZSqDpJ0iSdn//EABQRAQAAAAAAAAAAAAAAAAAAABD/2gAIAQMBAT8BP//EABQRAQAAAAAAAAAAAAAAAAAAABD/2gAIAQIBAT8BP//EABkQAAIDAQAAAAAAAAAAAAAAAAABEDKhMf/aAAgBAQAGPwJNKOFdKaU0/8QAGhABAAMAAwAAAAAAAAAAAAAAAQARIRBRkf/aAAgBAQABPyGuCq9RwoIDdDdnh4WveI//2gAMAwEAAgADAAAAEEPP/8QAFBEBAAAAAAAAAAAAAAAAAAAAEP/aAAgBAwEBPxA//8QAFBEBAAAAAAAAAAAAAAAAAAAAEP/aAAgBAgEBPxA//8QAHBAAAgIDAQEAAAAAAAAAAAAAAREAITFB8GFx/9oACAEBAAE/EDrFBLFe1KAJ7MrTZqyYcB7l1QDsufI9wCuKf//Z&apos;); background-size: cover; display: block;&quot;
+  &gt;&lt;/span&gt;
+  &lt;img
+        class=&quot;gatsby-resp-image-image&quot;
+        alt=&quot;img&quot;
+        title=&quot;img&quot;
+        src=&quot;/static/43c7564d8608f3b15820578ab1ec7326/6aca1/15_19.jpg&quot;
+        srcset=&quot;/static/43c7564d8608f3b15820578ab1ec7326/d2f63/15_19.jpg 163w,
+/static/43c7564d8608f3b15820578ab1ec7326/c989d/15_19.jpg 325w,
+/static/43c7564d8608f3b15820578ab1ec7326/6aca1/15_19.jpg 650w,
+/static/43c7564d8608f3b15820578ab1ec7326/7c09c/15_19.jpg 975w,
+/static/43c7564d8608f3b15820578ab1ec7326/3e5d7/15_19.jpg 1126w&quot;
+        sizes=&quot;(max-width: 650px) 100vw, 650px&quot;
+        style=&quot;width:100%;height:100%;margin:0;vertical-align:middle;position:absolute;top:0;left:0;&quot;
+        loading=&quot;lazy&quot;
+        decoding=&quot;async&quot;
+      /&gt;
+    &lt;/span&gt;&lt;/p&gt;
+&lt;h3&gt;Fast R-CNN&lt;/h3&gt;
+&lt;p&gt;영상 전체에 대해서 CNN을 돌리고 Feature Map이 나오는데 후보 영상을 Feature map에서
+자르게 된다. 후보 영역에서 뽑아서 Classification을 할 수 있다. 그냥 R-CNN에 비해서
+CNN을 한 번 만 돌리는 효과를 얻을 수 있다.&lt;/p&gt;
+&lt;p&gt;&lt;span
+      class=&quot;gatsby-resp-image-wrapper&quot;
+      style=&quot;position: relative; display: block; margin-left: auto; margin-right: auto; max-width: 650px; &quot;
+    &gt;
+      &lt;span
+    class=&quot;gatsby-resp-image-background-image&quot;
+    style=&quot;padding-bottom: 69.32515337423312%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/jpeg;base64,/9j/2wBDABALDA4MChAODQ4SERATGCgaGBYWGDEjJR0oOjM9PDkzODdASFxOQERXRTc4UG1RV19iZ2hnPk1xeXBkeFxlZ2P/2wBDARESEhgVGC8aGi9jQjhCY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2P/wgARCAAOABQDASIAAhEBAxEB/8QAFwAAAwEAAAAAAAAAAAAAAAAAAAEEBf/EABQBAQAAAAAAAAAAAAAAAAAAAAD/2gAMAwEAAhADEAAAAdx56LSUP//EABwQAAICAgMAAAAAAAAAAAAAAAECAAMEEBITFP/aAAgBAQABBQLXUpLXryOShnrrn//EABQRAQAAAAAAAAAAAAAAAAAAABD/2gAIAQMBAT8BP//EABQRAQAAAAAAAAAAAAAAAAAAABD/2gAIAQIBAT8BP//EAB0QAAECBwAAAAAAAAAAAAAAAAACIQEQESIxQpH/2gAIAQEABj8ClV+kFXMbGFH/xAAdEAEAAQQDAQAAAAAAAAAAAAABABEhQdExceHx/9oACAEBAAE/IUR9guSKCuYXxGFIRS06Nz5Ruf/aAAwDAQACAAMAAAAQ08//xAAUEQEAAAAAAAAAAAAAAAAAAAAQ/9oACAEDAQE/ED//xAAUEQEAAAAAAAAAAAAAAAAAAAAQ/9oACAECAQE/ED//xAAbEAACAgMBAAAAAAAAAAAAAAABEQAxIUFREP/aAAgBAQABPxBxDLLtCaEuwWJFZyhuKNKGSd3NjgNVc8SP/9k=&apos;); background-size: cover; display: block;&quot;
+  &gt;&lt;/span&gt;
+  &lt;img
+        class=&quot;gatsby-resp-image-image&quot;
+        alt=&quot;img&quot;
+        title=&quot;img&quot;
+        src=&quot;/static/b965077a8a090798f09312e2a1cad109/6aca1/15_20.jpg&quot;
+        srcset=&quot;/static/b965077a8a090798f09312e2a1cad109/d2f63/15_20.jpg 163w,
+/static/b965077a8a090798f09312e2a1cad109/c989d/15_20.jpg 325w,
+/static/b965077a8a090798f09312e2a1cad109/6aca1/15_20.jpg 650w,
+/static/b965077a8a090798f09312e2a1cad109/7c09c/15_20.jpg 975w,
+/static/b965077a8a090798f09312e2a1cad109/15ae0/15_20.jpg 1092w&quot;
+        sizes=&quot;(max-width: 650px) 100vw, 650px&quot;
+        style=&quot;width:100%;height:100%;margin:0;vertical-align:middle;position:absolute;top:0;left:0;&quot;
+        loading=&quot;lazy&quot;
+        decoding=&quot;async&quot;
+      /&gt;
+    &lt;/span&gt;
+&lt;span
+      class=&quot;gatsby-resp-image-wrapper&quot;
+      style=&quot;position: relative; display: block; margin-left: auto; margin-right: auto; max-width: 650px; &quot;
+    &gt;
+      &lt;span
+    class=&quot;gatsby-resp-image-background-image&quot;
+    style=&quot;padding-bottom: 70.5521472392638%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/jpeg;base64,/9j/2wBDABALDA4MChAODQ4SERATGCgaGBYWGDEjJR0oOjM9PDkzODdASFxOQERXRTc4UG1RV19iZ2hnPk1xeXBkeFxlZ2P/2wBDARESEhgVGC8aGi9jQjhCY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2P/wgARCAAOABQDASIAAhEBAxEB/8QAFwAAAwEAAAAAAAAAAAAAAAAAAAMFBP/EABQBAQAAAAAAAAAAAAAAAAAAAAD/2gAMAwEAAhADEAAAAaakoKpmD//EABoQAAIDAQEAAAAAAAAAAAAAAAIDAAESBBT/2gAIAQEAAQUCNuD9UXVMFzNXuL6RoP/EABQRAQAAAAAAAAAAAAAAAAAAABD/2gAIAQMBAT8BP//EABQRAQAAAAAAAAAAAAAAAAAAABD/2gAIAQIBAT8BP//EAB0QAAMAAQUBAAAAAAAAAAAAAAABESECEjEzYaH/2gAIAQEABj8Ck+nWbs59KnqOWRp0/8QAHBAAAgIDAQEAAAAAAAAAAAAAAAERMSFRkUFh/9oACAEBAAE/IZyd/QmjLdKDyoIYgWvDGuohNU0f/9oADAMBAAIAAwAAABAAD//EABQRAQAAAAAAAAAAAAAAAAAAABD/2gAIAQMBAT8QP//EABQRAQAAAAAAAAAAAAAAAAAAABD/2gAIAQIBAT8QP//EAB0QAQACAgIDAAAAAAAAAAAAAAERIQAxQWFRgcH/2gAIAQEAAT8Q1o4dBfEYsOzDD+mBHKyyVcdeMoEwvsdDlQQIZt65yUUEoEb7c//Z&apos;); background-size: cover; display: block;&quot;
+  &gt;&lt;/span&gt;
+  &lt;img
+        class=&quot;gatsby-resp-image-image&quot;
+        alt=&quot;img&quot;
+        title=&quot;img&quot;
+        src=&quot;/static/4b7f64fc1d6b012cc111db95fc7aa59e/6aca1/15_21.jpg&quot;
+        srcset=&quot;/static/4b7f64fc1d6b012cc111db95fc7aa59e/d2f63/15_21.jpg 163w,
+/static/4b7f64fc1d6b012cc111db95fc7aa59e/c989d/15_21.jpg 325w,
+/static/4b7f64fc1d6b012cc111db95fc7aa59e/6aca1/15_21.jpg 650w,
+/static/4b7f64fc1d6b012cc111db95fc7aa59e/7c09c/15_21.jpg 975w,
+/static/4b7f64fc1d6b012cc111db95fc7aa59e/ceaf9/15_21.jpg 1111w&quot;
+        sizes=&quot;(max-width: 650px) 100vw, 650px&quot;
+        style=&quot;width:100%;height:100%;margin:0;vertical-align:middle;position:absolute;top:0;left:0;&quot;
+        loading=&quot;lazy&quot;
+        decoding=&quot;async&quot;
+      /&gt;
+    &lt;/span&gt;&lt;/p&gt;
+&lt;h3&gt;Mask R-CNN&lt;/h3&gt;
+&lt;p&gt;영역을 뽑고 Bounding Box를 만들어서 그 안에서 Pixel 단위로 찾아내게 해준다.&lt;/p&gt;
+&lt;p&gt;&lt;span
+      class=&quot;gatsby-resp-image-wrapper&quot;
+      style=&quot;position: relative; display: block; margin-left: auto; margin-right: auto; max-width: 650px; &quot;
+    &gt;
+      &lt;span
+    class=&quot;gatsby-resp-image-background-image&quot;
+    style=&quot;padding-bottom: 69.93865030674846%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/jpeg;base64,/9j/2wBDABALDA4MChAODQ4SERATGCgaGBYWGDEjJR0oOjM9PDkzODdASFxOQERXRTc4UG1RV19iZ2hnPk1xeXBkeFxlZ2P/2wBDARESEhgVGC8aGi9jQjhCY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2P/wgARCAAOABQDASIAAhEBAxEB/8QAGAAAAgMAAAAAAAAAAAAAAAAAAAQBAwX/xAAUAQEAAAAAAAAAAAAAAAAAAAAA/9oADAMBAAIQAxAAAAHclakcFQ//xAAcEAABBAMBAAAAAAAAAAAAAAAAAQIDERITFDH/2gAIAQEAAQUC8LMEEk2rFbWdbD//xAAUEQEAAAAAAAAAAAAAAAAAAAAQ/9oACAEDAQE/AT//xAAUEQEAAAAAAAAAAAAAAAAAAAAQ/9oACAECAQE/AT//xAAdEAACAgEFAAAAAAAAAAAAAAAAARExAhASISKR/9oACAEBAAY/AtLfpGDiLNyfVPkrI//EABkQAQEBAQEBAAAAAAAAAAAAAAEAETEh8f/aAAgBAQABPyFVMavZesQVbbo6WigUjq3xC//aAAwDAQACAAMAAAAQo8//xAAUEQEAAAAAAAAAAAAAAAAAAAAQ/9oACAEDAQE/ED//xAAUEQEAAAAAAAAAAAAAAAAAAAAQ/9oACAECAQE/ED//xAAcEAEAAQUBAQAAAAAAAAAAAAABABEhMVGBwfD/2gAIAQEAAT8QslUdsXQ4sWSiqtwciAK0eimYsDReaDln3ns//9k=&apos;); background-size: cover; display: block;&quot;
+  &gt;&lt;/span&gt;
+  &lt;img
+        class=&quot;gatsby-resp-image-image&quot;
+        alt=&quot;img&quot;
+        title=&quot;img&quot;
+        src=&quot;/static/44b4c7239d895b8b48586a6c33bd6ac5/6aca1/15_22.jpg&quot;
+        srcset=&quot;/static/44b4c7239d895b8b48586a6c33bd6ac5/d2f63/15_22.jpg 163w,
+/static/44b4c7239d895b8b48586a6c33bd6ac5/c989d/15_22.jpg 325w,
+/static/44b4c7239d895b8b48586a6c33bd6ac5/6aca1/15_22.jpg 650w,
+/static/44b4c7239d895b8b48586a6c33bd6ac5/7c09c/15_22.jpg 975w,
+/static/44b4c7239d895b8b48586a6c33bd6ac5/cdec4/15_22.jpg 1108w&quot;
+        sizes=&quot;(max-width: 650px) 100vw, 650px&quot;
+        style=&quot;width:100%;height:100%;margin:0;vertical-align:middle;position:absolute;top:0;left:0;&quot;
+        loading=&quot;lazy&quot;
+        decoding=&quot;async&quot;
+      /&gt;
+    &lt;/span&gt;&lt;/p&gt;
+&lt;h3&gt;YOLO&lt;/h3&gt;
+&lt;p&gt;영상이 들어오면 s x s grid로 나누고 Bounding box를 찾아서&lt;/p&gt;
+&lt;style class=&quot;grvsc-styles&quot;&gt;
+  .grvsc-container {
+    overflow: auto;
+    position: relative;
+    -webkit-overflow-scrolling: touch;
+    padding-top: 1rem;
+    padding-top: var(--grvsc-padding-top, var(--grvsc-padding-v, 1rem));
+    padding-bottom: 1rem;
+    padding-bottom: var(--grvsc-padding-bottom, var(--grvsc-padding-v, 1rem));
+    border-radius: 8px;
+    border-radius: var(--grvsc-border-radius, 8px);
+    font-feature-settings: normal;
+    line-height: 1.4;
+  }
+  
+  .grvsc-code {
+    display: table;
+  }
+  
+  .grvsc-line {
+    display: table-row;
+    box-sizing: border-box;
+    width: 100%;
+    position: relative;
+  }
+  
+  .grvsc-line &gt; * {
+    position: relative;
+  }
+  
+  .grvsc-gutter-pad {
+    display: table-cell;
+    padding-left: 0.75rem;
+    padding-left: calc(var(--grvsc-padding-left, var(--grvsc-padding-h, 1.5rem)) / 2);
+  }
+  
+  .grvsc-gutter {
+    display: table-cell;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    user-select: none;
+  }
+  
+  .grvsc-gutter::before {
+    content: attr(data-content);
+  }
+  
+  .grvsc-source {
+    display: table-cell;
+    padding-left: 1.5rem;
+    padding-left: var(--grvsc-padding-left, var(--grvsc-padding-h, 1.5rem));
+    padding-right: 1.5rem;
+    padding-right: var(--grvsc-padding-right, var(--grvsc-padding-h, 1.5rem));
+  }
+  
+  .grvsc-source:empty::after {
+    content: &apos; &apos;;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    user-select: none;
+  }
+  
+  .grvsc-gutter + .grvsc-source {
+    padding-left: 0.75rem;
+    padding-left: calc(var(--grvsc-padding-left, var(--grvsc-padding-h, 1.5rem)) / 2);
+  }
+  
+  /* Line transformer styles */
+  
+  .grvsc-has-line-highlighting &gt; .grvsc-code &gt; .grvsc-line::before {
+    content: &apos; &apos;;
+    position: absolute;
+    width: 100%;
+  }
+  
+  .grvsc-line-diff-add::before {
+    background-color: var(--grvsc-line-diff-add-background-color, rgba(0, 255, 60, 0.2));
+  }
+  
+  .grvsc-line-diff-del::before {
+    background-color: var(--grvsc-line-diff-del-background-color, rgba(255, 0, 20, 0.2));
+  }
+  
+  .grvsc-line-number {
+    padding: 0 2px;
+    text-align: right;
+    opacity: 0.7;
+  }
+  
+&lt;/style&gt;</content:encoded></item><item><title><![CDATA[5014번]]></title><description><![CDATA[문제 유형이 같고 수능 수학 문제 행동영역 정리했던 기분이다.]]></description><link>https://kimhyunuk98.github.io/blog/baekjoon15/</link><guid isPermaLink="false">https://kimhyunuk98.github.io/blog/baekjoon15/</guid><pubDate>Sun, 30 Jan 2022 07:46:00 GMT</pubDate><content:encoded>&lt;p&gt;문제 유형이 같고 수능 수학 문제 행동영역 정리했던 기분이다.&lt;/p&gt;
 &lt;pre class=&quot;grvsc-container github-light-theme grvsc-ps-t4tStz&quot; data-language=&quot;cpp&quot; data-index=&quot;0&quot;&gt;&lt;code class=&quot;grvsc-code&quot;&gt;&lt;span class=&quot;grvsc-line&quot;&gt;&lt;span class=&quot;grvsc-source&quot;&gt;&lt;span class=&quot;grvsc-tiszgT-5 grvsc-t4tStz-9&quot;&gt;#include&lt;/span&gt;&lt;span class=&quot;grvsc-tiszgT-1 grvsc-t4tStz-1&quot;&gt; &lt;/span&gt;&lt;span class=&quot;grvsc-tiszgT-8 grvsc-t4tStz-10&quot;&gt;&amp;lt;iostream&amp;gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;
 &lt;span class=&quot;grvsc-line&quot;&gt;&lt;span class=&quot;grvsc-source&quot;&gt;&lt;span class=&quot;grvsc-tiszgT-5 grvsc-t4tStz-9&quot;&gt;#include&lt;/span&gt;&lt;span class=&quot;grvsc-tiszgT-1 grvsc-t4tStz-1&quot;&gt; &lt;/span&gt;&lt;span class=&quot;grvsc-tiszgT-8 grvsc-t4tStz-10&quot;&gt;&amp;lt;vector&amp;gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;
 &lt;span class=&quot;grvsc-line&quot;&gt;&lt;span class=&quot;grvsc-source&quot;&gt;&lt;span class=&quot;grvsc-tiszgT-5 grvsc-t4tStz-9&quot;&gt;#include&lt;/span&gt;&lt;span class=&quot;grvsc-tiszgT-1 grvsc-t4tStz-1&quot;&gt; &lt;/span&gt;&lt;span class=&quot;grvsc-tiszgT-8 grvsc-t4tStz-10&quot;&gt;&amp;lt;algorithm&amp;gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;
