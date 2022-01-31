@@ -10,10 +10,8 @@ import { rhythm } from "Styles/typography"
 import profile from "../images/profile.png"
 import line1 from "../images/line1.png"
 import project2 from "../images/project2.png"
-import project3 from "../images/project3.png"
-import project4 from "../images/project4.png"
-import project5 from "../images/project5.png"
 import project7 from "../images/project7.png"
+import blog from "../images/blog.png"
 
 const About = () => {
   const data = useStaticQuery<Query>(graphql`
@@ -37,6 +35,8 @@ const About = () => {
   const markdown6 = data.allMarkdownRemark.edges[6].node.html
   const markdown7 = data.allMarkdownRemark.edges[7].node.html
   const markdown8 = data.allMarkdownRemark.edges[8].node.html
+  const markdown9 = data.allMarkdownRemark.edges[9].node.html
+  const markdown10 = data.allMarkdownRemark.edges[10].node.html
 
   return (
     <Layout>
@@ -113,6 +113,15 @@ const About = () => {
             rhythm={rhythm}
           ></ContainerProject>
           
+          <ContainerProjectDate dangerouslySetInnerHTML={{ __html: markdown9 ?? "" }}
+            rhythm={rhythm}
+          ></ContainerProjectDate>
+          <ProjectImg>
+            <img src={blog} alt="blog_img" style={{width: 780}}/>
+          </ProjectImg>
+          <ContainerProject dangerouslySetInnerHTML={{ __html: markdown10 ?? "" }}
+            rhythm={rhythm}
+          ></ContainerProject>
 
         </Main>
         </Back>
