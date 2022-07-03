@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[KHUniv's RSS Feed]]></title><description><![CDATA[HyunUk's Blog]]></description><link>https://kimhyunuk98.github.io</link><generator>GatsbyJS</generator><lastBuildDate>Mon, 31 Jan 2022 07:48:18 GMT</lastBuildDate><item><title><![CDATA[Network에 대한 연구]]></title><description><![CDATA[MLPconv Layer 일반적인 Convolution Layer는 Mask가 하나 있고 weighted sum을 해서 집어넣게 된다.
+<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[KHUniv's RSS Feed]]></title><description><![CDATA[HyunUk's Blog]]></description><link>https://kimhyunuk98.github.io</link><generator>GatsbyJS</generator><lastBuildDate>Sun, 03 Jul 2022 10:34:40 GMT</lastBuildDate><item><title><![CDATA[Network에 대한 연구]]></title><description><![CDATA[MLPconv Layer 일반적인 Convolution Layer는 Mask가 하나 있고 weighted sum을 해서 집어넣게 된다.
 Linear 필터 뒤에 MLP를 붙여서 Nonlinear한 필터를 학습할 수 있게 만들 수 있다.
 Layer…]]></description><link>https://kimhyunuk98.github.io/blog/deeplearning15/</link><guid isPermaLink="false">https://kimhyunuk98.github.io/blog/deeplearning15/</guid><pubDate>Mon, 31 Jan 2022 07:21:00 GMT</pubDate><content:encoded>&lt;p&gt;&lt;span
       class=&quot;gatsby-resp-image-wrapper&quot;
@@ -4742,62 +4742,72 @@ S는 I와 O로만 이루어져 있다.&lt;/p&gt;
     background-color: var(--grvsc-line-highlighted-background-color, rgba(0, 0, 0, 0.05));
     box-shadow: inset var(--grvsc-line-highlighted-border-width, 4px) 0 0 0 var(--grvsc-line-highlighted-border-color, rgba(0, 0, 0, 0.2));
   }
-&lt;/style&gt;</content:encoded></item><item><title><![CDATA[PyTorch: Optimizer]]></title><description><![CDATA[사용자 정의 Optimizer 선언 nn.Module이랑 같은 구조이므로 생략 RMSProp이라는 Optimizer를 사용할 예정 nn.Module의 경우 각 Param에 접근하는 for문을 이용해서 가중치를 최신화 했다면 이번에는 Optim…]]></description><link>https://kimhyunuk98.github.io/blog/pytorch2/</link><guid isPermaLink="false">https://kimhyunuk98.github.io/blog/pytorch2/</guid><pubDate>Thu, 20 Jan 2022 06:40:00 GMT</pubDate><content:encoded>&lt;h1&gt;사용자 정의 Optimizer 선언&lt;/h1&gt;
-&lt;h3&gt;nn.Module이랑 같은 구조이므로 생략&lt;/h3&gt;
+&lt;/style&gt;</content:encoded></item><item><title><![CDATA[PyTorch: 사용자 정의 nn.Module]]></title><description><![CDATA[사용자 정의 nn.Module 정의하기 3차 선형 방정식으로 Module을 선언하기 위해서 4가지 변수가 필요하고 이를 Random 초기화를 한다. 입력 Tensor를 x로 받고 이를 만든 모듈의 매개변수의 곱셈으로 반환하는 형식의 Forward…]]></description><link>https://kimhyunuk98.github.io/blog/pytorch3/</link><guid isPermaLink="false">https://kimhyunuk98.github.io/blog/pytorch3/</guid><pubDate>Thu, 20 Jan 2022 06:40:00 GMT</pubDate><content:encoded>&lt;h1&gt;사용자 정의 nn.Module 정의하기&lt;/h1&gt;
 &lt;pre class=&quot;grvsc-container github-light-theme grvsc-ps-t4tStz&quot; data-language=&quot;&quot; data-index=&quot;0&quot;&gt;&lt;code class=&quot;grvsc-code&quot;&gt;&lt;span class=&quot;grvsc-line&quot;&gt;&lt;span class=&quot;grvsc-source&quot;&gt;import torch&lt;/span&gt;&lt;/span&gt;
-&lt;span class=&quot;grvsc-line&quot;&gt;&lt;span class=&quot;grvsc-source&quot;&gt;import math&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;grvsc-line&quot;&gt;&lt;span class=&quot;grvsc-source&quot;&gt;import math&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;hr&gt;
+&lt;h3&gt;3차 선형 방정식으로 Module을 선언하기 위해서 4가지 변수가 필요하고 이를 Random 초기화를 한다.&lt;/h3&gt;
+&lt;pre class=&quot;grvsc-container github-light-theme grvsc-ps-t4tStz&quot; data-language=&quot;&quot; data-index=&quot;1&quot;&gt;&lt;code class=&quot;grvsc-code&quot;&gt;&lt;span class=&quot;grvsc-line&quot;&gt;&lt;span class=&quot;grvsc-source&quot;&gt;class Polynomial3(torch.nn.Module):&lt;/span&gt;&lt;/span&gt;
 &lt;span class=&quot;grvsc-line&quot;&gt;&lt;span class=&quot;grvsc-source&quot;&gt;&lt;/span&gt;&lt;/span&gt;
-&lt;span class=&quot;grvsc-line&quot;&gt;&lt;span class=&quot;grvsc-source&quot;&gt;x = torch.linspace(-math.pi, math.pi, 2000)&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;grvsc-line&quot;&gt;&lt;span class=&quot;grvsc-source&quot;&gt;    def __init__(self):&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;grvsc-line&quot;&gt;&lt;span class=&quot;grvsc-source&quot;&gt;        super().__init__()&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;grvsc-line&quot;&gt;&lt;span class=&quot;grvsc-source&quot;&gt;        self.a = torch.nn.Parameter(torch.randn(()))&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;grvsc-line&quot;&gt;&lt;span class=&quot;grvsc-source&quot;&gt;        self.b = torch.nn.Parameter(torch.randn(()))&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;grvsc-line&quot;&gt;&lt;span class=&quot;grvsc-source&quot;&gt;        self.c = torch.nn.Parameter(torch.randn(()))&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;grvsc-line&quot;&gt;&lt;span class=&quot;grvsc-source&quot;&gt;        self.d = torch.nn.Parameter(torch.randn(()))&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;hr&gt;
+&lt;h3&gt;입력 Tensor를 x로 받고 이를 만든 모듈의 매개변수의 곱셈으로 반환하는 형식의 Forward Propagation을 진행한다.&lt;/h3&gt;
+&lt;pre class=&quot;grvsc-container github-light-theme grvsc-ps-t4tStz&quot; data-language=&quot;&quot; data-index=&quot;2&quot;&gt;&lt;code class=&quot;grvsc-code&quot;&gt;&lt;span class=&quot;grvsc-line&quot;&gt;&lt;span class=&quot;grvsc-source&quot;&gt;    def forward(self, x):&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;grvsc-line&quot;&gt;&lt;span class=&quot;grvsc-source&quot;&gt;    &lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;grvsc-line&quot;&gt;&lt;span class=&quot;grvsc-source&quot;&gt;        return self.a + self.b * x + self.c * x ** 2 + self.d * x ** 3&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;hr&gt;
+&lt;h3&gt;사용자 정의 메소드를 선언하는 과정&lt;/h3&gt;
+&lt;pre class=&quot;grvsc-container github-light-theme grvsc-ps-t4tStz&quot; data-language=&quot;&quot; data-index=&quot;3&quot;&gt;&lt;code class=&quot;grvsc-code&quot;&gt;&lt;span class=&quot;grvsc-line&quot;&gt;&lt;span class=&quot;grvsc-source&quot;&gt;    def string(self):&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;grvsc-line&quot;&gt;&lt;span class=&quot;grvsc-source&quot;&gt;        &lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;grvsc-line&quot;&gt;&lt;span class=&quot;grvsc-source&quot;&gt;        return f&amp;#39;y = {self.a.item()} + {self.b.item()} x + {self.c.item()} x^2 + {self.d.item()} x^3&amp;#39;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;hr&gt;
+&lt;h3&gt;위에서 정의한 Model로 선언을 한다.&lt;/h3&gt;
+&lt;pre class=&quot;grvsc-container github-light-theme grvsc-ps-t4tStz&quot; data-language=&quot;&quot; data-index=&quot;4&quot;&gt;&lt;code class=&quot;grvsc-code&quot;&gt;&lt;span class=&quot;grvsc-line&quot;&gt;&lt;span class=&quot;grvsc-source&quot;&gt;x = torch.linspace(-math.pi, math.pi, 2000)&lt;/span&gt;&lt;/span&gt;
 &lt;span class=&quot;grvsc-line&quot;&gt;&lt;span class=&quot;grvsc-source&quot;&gt;y = torch.sin(x)&lt;/span&gt;&lt;/span&gt;
 &lt;span class=&quot;grvsc-line&quot;&gt;&lt;span class=&quot;grvsc-source&quot;&gt;&lt;/span&gt;&lt;/span&gt;
-&lt;span class=&quot;grvsc-line&quot;&gt;&lt;span class=&quot;grvsc-source&quot;&gt;p = torch.tensor([1, 2, 3])&lt;/span&gt;&lt;/span&gt;
-&lt;span class=&quot;grvsc-line&quot;&gt;&lt;span class=&quot;grvsc-source&quot;&gt;xx = x.unsqueeze(-1).pow(p)&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;grvsc-line&quot;&gt;&lt;span class=&quot;grvsc-source&quot;&gt;model = Polynomial3()&lt;/span&gt;&lt;/span&gt;
 &lt;span class=&quot;grvsc-line&quot;&gt;&lt;span class=&quot;grvsc-source&quot;&gt;&lt;/span&gt;&lt;/span&gt;
-&lt;span class=&quot;grvsc-line&quot;&gt;&lt;span class=&quot;grvsc-source&quot;&gt;model = torch.nn.Sequential(&lt;/span&gt;&lt;/span&gt;
-&lt;span class=&quot;grvsc-line&quot;&gt;&lt;span class=&quot;grvsc-source&quot;&gt;    torch.nn.Linear(3, 1),&lt;/span&gt;&lt;/span&gt;
-&lt;span class=&quot;grvsc-line&quot;&gt;&lt;span class=&quot;grvsc-source&quot;&gt;    torch.nn.Flatten(0, 1)&lt;/span&gt;&lt;/span&gt;
-&lt;span class=&quot;grvsc-line&quot;&gt;&lt;span class=&quot;grvsc-source&quot;&gt;)&lt;/span&gt;&lt;/span&gt;
-&lt;span class=&quot;grvsc-line&quot;&gt;&lt;span class=&quot;grvsc-source&quot;&gt;loss_fn = torch.nn.MSELoss(reduction=&amp;#39;sum&amp;#39;)&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;span class=&quot;grvsc-line&quot;&gt;&lt;span class=&quot;grvsc-source&quot;&gt;criterion = torch.nn.MSELoss(reduction=&amp;#39;sum&amp;#39;)&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;grvsc-line&quot;&gt;&lt;span class=&quot;grvsc-source&quot;&gt;&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;grvsc-line&quot;&gt;&lt;span class=&quot;grvsc-source&quot;&gt;optimizer = torch.optim.SGD(model.parameters(), lr=1e-6)&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
 &lt;hr&gt;
-&lt;h3&gt;RMSProp이라는 Optimizer를 사용할 예정&lt;/h3&gt;
-&lt;h3&gt;nn.Module의 경우 각 Param에 접근하는 for문을 이용해서 가중치를 최신화 했다면 이번에는 Optim 패키지를 이용해서 자동 계산이 되도록 한다.&lt;/h3&gt;
-&lt;pre class=&quot;grvsc-container github-light-theme grvsc-ps-t4tStz&quot; data-language=&quot;&quot; data-index=&quot;1&quot;&gt;&lt;code class=&quot;grvsc-code&quot;&gt;&lt;span class=&quot;grvsc-line&quot;&gt;&lt;span class=&quot;grvsc-source&quot;&gt;learning_rate = 1e-3&lt;/span&gt;&lt;/span&gt;
-&lt;span class=&quot;grvsc-line&quot;&gt;&lt;span class=&quot;grvsc-source&quot;&gt;optimizer = torch.optim.RMSprop(model.parameters(), lr=learning_rate)&lt;/span&gt;&lt;/span&gt;
-&lt;span class=&quot;grvsc-line&quot;&gt;&lt;span class=&quot;grvsc-source&quot;&gt;for t in range(2000):&lt;/span&gt;&lt;/span&gt;
-&lt;span class=&quot;grvsc-line&quot;&gt;&lt;span class=&quot;grvsc-source&quot;&gt;    y_pred = model(xx)&lt;/span&gt;&lt;/span&gt;
+&lt;h3&gt;Opti 패키지를 사용하지 않으므로 for문을 통해서 각 loss 계산이 된 것 만큼 다시 param의 가중치와 편향을 최신화시켜준다.&lt;/h3&gt;
+&lt;pre class=&quot;grvsc-container github-light-theme grvsc-ps-t4tStz&quot; data-language=&quot;&quot; data-index=&quot;5&quot;&gt;&lt;code class=&quot;grvsc-code&quot;&gt;&lt;span class=&quot;grvsc-line&quot;&gt;&lt;span class=&quot;grvsc-source&quot;&gt;for t in range(2000):&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;grvsc-line&quot;&gt;&lt;span class=&quot;grvsc-source&quot;&gt;    y_pred = model(x)&lt;/span&gt;&lt;/span&gt;
 &lt;span class=&quot;grvsc-line&quot;&gt;&lt;span class=&quot;grvsc-source&quot;&gt;&lt;/span&gt;&lt;/span&gt;
-&lt;span class=&quot;grvsc-line&quot;&gt;&lt;span class=&quot;grvsc-source&quot;&gt;    loss = loss_fn(y_pred, y)&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;grvsc-line&quot;&gt;&lt;span class=&quot;grvsc-source&quot;&gt;    loss = criterion(y_pred, y)&lt;/span&gt;&lt;/span&gt;
 &lt;span class=&quot;grvsc-line&quot;&gt;&lt;span class=&quot;grvsc-source&quot;&gt;    if t % 100 == 99:&lt;/span&gt;&lt;/span&gt;
 &lt;span class=&quot;grvsc-line&quot;&gt;&lt;span class=&quot;grvsc-source&quot;&gt;        print(t, loss.item())&lt;/span&gt;&lt;/span&gt;
 &lt;span class=&quot;grvsc-line&quot;&gt;&lt;span class=&quot;grvsc-source&quot;&gt;&lt;/span&gt;&lt;/span&gt;
 &lt;span class=&quot;grvsc-line&quot;&gt;&lt;span class=&quot;grvsc-source&quot;&gt;    optimizer.zero_grad()&lt;/span&gt;&lt;/span&gt;
-&lt;span class=&quot;grvsc-line&quot;&gt;&lt;span class=&quot;grvsc-source&quot;&gt;&lt;/span&gt;&lt;/span&gt;
 &lt;span class=&quot;grvsc-line&quot;&gt;&lt;span class=&quot;grvsc-source&quot;&gt;    loss.backward()&lt;/span&gt;&lt;/span&gt;
-&lt;span class=&quot;grvsc-line&quot;&gt;&lt;span class=&quot;grvsc-source&quot;&gt;&lt;/span&gt;&lt;/span&gt;
 &lt;span class=&quot;grvsc-line&quot;&gt;&lt;span class=&quot;grvsc-source&quot;&gt;    optimizer.step()&lt;/span&gt;&lt;/span&gt;
 &lt;span class=&quot;grvsc-line&quot;&gt;&lt;span class=&quot;grvsc-source&quot;&gt;&lt;/span&gt;&lt;/span&gt;
-&lt;span class=&quot;grvsc-line&quot;&gt;&lt;span class=&quot;grvsc-source&quot;&gt;&lt;/span&gt;&lt;/span&gt;
-&lt;span class=&quot;grvsc-line&quot;&gt;&lt;span class=&quot;grvsc-source&quot;&gt;linear_layer = model[0]&lt;/span&gt;&lt;/span&gt;
-&lt;span class=&quot;grvsc-line&quot;&gt;&lt;span class=&quot;grvsc-source&quot;&gt;print(f&amp;#39;Result: y = {linear_layer.bias.item()} + {linear_layer.weight[:, 0].item()} x + {linear_layer.weight[:, 1].item()} x^2 + {linear_layer.weight[:, 2].item()} x^3&amp;#39;)&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
-&lt;h3&gt;결과값&lt;/h3&gt;
+&lt;span class=&quot;grvsc-line&quot;&gt;&lt;span class=&quot;grvsc-source&quot;&gt;print(f&amp;#39;Result: {model.string()}&amp;#39;)&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;h3&gt;결과&lt;/h3&gt;
 &lt;p&gt;&lt;span
       class=&quot;gatsby-resp-image-wrapper&quot;
       style=&quot;position: relative; display: block; margin-left: auto; margin-right: auto; max-width: 650px; &quot;
     &gt;
       &lt;span
     class=&quot;gatsby-resp-image-background-image&quot;
-    style=&quot;padding-bottom: 44.171779141104295%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/jpeg;base64,/9j/2wBDABALDA4MChAODQ4SERATGCgaGBYWGDEjJR0oOjM9PDkzODdASFxOQERXRTc4UG1RV19iZ2hnPk1xeXBkeFxlZ2P/2wBDARESEhgVGC8aGi9jQjhCY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2P/wgARCAAJABQDASIAAhEBAxEB/8QAFwABAQEBAAAAAAAAAAAAAAAAAgADBf/EABQBAQAAAAAAAAAAAAAAAAAAAAD/2gAMAwEAAhADEAAAAe680KMf/8QAFRABAQAAAAAAAAAAAAAAAAAAASD/2gAIAQEAAQUCK//EABQRAQAAAAAAAAAAAAAAAAAAABD/2gAIAQMBAT8BP//EABQRAQAAAAAAAAAAAAAAAAAAABD/2gAIAQIBAT8BP//EABQQAQAAAAAAAAAAAAAAAAAAACD/2gAIAQEABj8CX//EABcQAAMBAAAAAAAAAAAAAAAAAAABEEH/2gAIAQEAAT8h3VEf/9oADAMBAAIAAwAAABCgD//EABQRAQAAAAAAAAAAAAAAAAAAABD/2gAIAQMBAT8QP//EABQRAQAAAAAAAAAAAAAAAAAAABD/2gAIAQIBAT8QP//EABkQAAMAAwAAAAAAAAAAAAAAAAABMRBBcf/aAAgBAQABPxCkzb4bRB//2Q==&apos;); background-size: cover; display: block;&quot;
+    style=&quot;padding-bottom: 44.78527607361963%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/jpeg;base64,/9j/2wBDABALDA4MChAODQ4SERATGCgaGBYWGDEjJR0oOjM9PDkzODdASFxOQERXRTc4UG1RV19iZ2hnPk1xeXBkeFxlZ2P/2wBDARESEhgVGC8aGi9jQjhCY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2P/wgARCAAJABQDASIAAhEBAxEB/8QAFwABAQEBAAAAAAAAAAAAAAAAAgADBf/EABQBAQAAAAAAAAAAAAAAAAAAAAD/2gAMAwEAAhADEAAAAe680KMf/8QAFRABAQAAAAAAAAAAAAAAAAAAASD/2gAIAQEAAQUCK//EABQRAQAAAAAAAAAAAAAAAAAAABD/2gAIAQMBAT8BP//EABQRAQAAAAAAAAAAAAAAAAAAABD/2gAIAQIBAT8BP//EABQQAQAAAAAAAAAAAAAAAAAAACD/2gAIAQEABj8CX//EABgQAAIDAAAAAAAAAAAAAAAAAAEQADFB/9oACAEBAAE/IdsWhP/aAAwDAQACAAMAAAAQgM//xAAUEQEAAAAAAAAAAAAAAAAAAAAQ/9oACAEDAQE/ED//xAAUEQEAAAAAAAAAAAAAAAAAAAAQ/9oACAECAQE/ED//xAAYEAADAQEAAAAAAAAAAAAAAAAAATEQcf/aAAgBAQABPxCtW4Kog//Z&apos;); background-size: cover; display: block;&quot;
   &gt;&lt;/span&gt;
   &lt;img
         class=&quot;gatsby-resp-image-image&quot;
         alt=&quot;img&quot;
         title=&quot;img&quot;
-        src=&quot;/static/fbdd09507ec3b073022d111fd7bc3131/6aca1/pytorch2.jpg&quot;
-        srcset=&quot;/static/fbdd09507ec3b073022d111fd7bc3131/d2f63/pytorch2.jpg 163w,
-/static/fbdd09507ec3b073022d111fd7bc3131/c989d/pytorch2.jpg 325w,
-/static/fbdd09507ec3b073022d111fd7bc3131/6aca1/pytorch2.jpg 650w,
-/static/fbdd09507ec3b073022d111fd7bc3131/7c09c/pytorch2.jpg 975w,
-/static/fbdd09507ec3b073022d111fd7bc3131/9a8cd/pytorch2.jpg 1248w&quot;
+        src=&quot;/static/b3fbaba81a32aa238dc726a96712491d/6aca1/pytorch3.jpg&quot;
+        srcset=&quot;/static/b3fbaba81a32aa238dc726a96712491d/d2f63/pytorch3.jpg 163w,
+/static/b3fbaba81a32aa238dc726a96712491d/c989d/pytorch3.jpg 325w,
+/static/b3fbaba81a32aa238dc726a96712491d/6aca1/pytorch3.jpg 650w,
+/static/b3fbaba81a32aa238dc726a96712491d/7c09c/pytorch3.jpg 975w,
+/static/b3fbaba81a32aa238dc726a96712491d/4ac4c/pytorch3.jpg 1243w&quot;
         sizes=&quot;(max-width: 650px) 100vw, 650px&quot;
         style=&quot;width:100%;height:100%;margin:0;vertical-align:middle;position:absolute;top:0;left:0;&quot;
         loading=&quot;lazy&quot;
@@ -4906,72 +4916,62 @@ S는 I와 O로만 이루어져 있다.&lt;/p&gt;
     background-color: var(--grvsc-line-highlighted-background-color, rgba(0, 0, 0, 0.05));
     box-shadow: inset var(--grvsc-line-highlighted-border-width, 4px) 0 0 0 var(--grvsc-line-highlighted-border-color, rgba(0, 0, 0, 0.2));
   }
-&lt;/style&gt;</content:encoded></item><item><title><![CDATA[PyTorch: 사용자 정의 nn.Module]]></title><description><![CDATA[사용자 정의 nn.Module 정의하기 3차 선형 방정식으로 Module을 선언하기 위해서 4가지 변수가 필요하고 이를 Random 초기화를 한다. 입력 Tensor를 x로 받고 이를 만든 모듈의 매개변수의 곱셈으로 반환하는 형식의 Forward…]]></description><link>https://kimhyunuk98.github.io/blog/pytorch3/</link><guid isPermaLink="false">https://kimhyunuk98.github.io/blog/pytorch3/</guid><pubDate>Thu, 20 Jan 2022 06:40:00 GMT</pubDate><content:encoded>&lt;h1&gt;사용자 정의 nn.Module 정의하기&lt;/h1&gt;
+&lt;/style&gt;</content:encoded></item><item><title><![CDATA[PyTorch: Optimizer]]></title><description><![CDATA[사용자 정의 Optimizer 선언 nn.Module이랑 같은 구조이므로 생략 RMSProp이라는 Optimizer를 사용할 예정 nn.Module의 경우 각 Param에 접근하는 for문을 이용해서 가중치를 최신화 했다면 이번에는 Optim…]]></description><link>https://kimhyunuk98.github.io/blog/pytorch2/</link><guid isPermaLink="false">https://kimhyunuk98.github.io/blog/pytorch2/</guid><pubDate>Thu, 20 Jan 2022 06:40:00 GMT</pubDate><content:encoded>&lt;h1&gt;사용자 정의 Optimizer 선언&lt;/h1&gt;
+&lt;h3&gt;nn.Module이랑 같은 구조이므로 생략&lt;/h3&gt;
 &lt;pre class=&quot;grvsc-container github-light-theme grvsc-ps-t4tStz&quot; data-language=&quot;&quot; data-index=&quot;0&quot;&gt;&lt;code class=&quot;grvsc-code&quot;&gt;&lt;span class=&quot;grvsc-line&quot;&gt;&lt;span class=&quot;grvsc-source&quot;&gt;import torch&lt;/span&gt;&lt;/span&gt;
-&lt;span class=&quot;grvsc-line&quot;&gt;&lt;span class=&quot;grvsc-source&quot;&gt;import math&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
-&lt;hr&gt;
-&lt;h3&gt;3차 선형 방정식으로 Module을 선언하기 위해서 4가지 변수가 필요하고 이를 Random 초기화를 한다.&lt;/h3&gt;
-&lt;pre class=&quot;grvsc-container github-light-theme grvsc-ps-t4tStz&quot; data-language=&quot;&quot; data-index=&quot;1&quot;&gt;&lt;code class=&quot;grvsc-code&quot;&gt;&lt;span class=&quot;grvsc-line&quot;&gt;&lt;span class=&quot;grvsc-source&quot;&gt;class Polynomial3(torch.nn.Module):&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;grvsc-line&quot;&gt;&lt;span class=&quot;grvsc-source&quot;&gt;import math&lt;/span&gt;&lt;/span&gt;
 &lt;span class=&quot;grvsc-line&quot;&gt;&lt;span class=&quot;grvsc-source&quot;&gt;&lt;/span&gt;&lt;/span&gt;
-&lt;span class=&quot;grvsc-line&quot;&gt;&lt;span class=&quot;grvsc-source&quot;&gt;    def __init__(self):&lt;/span&gt;&lt;/span&gt;
-&lt;span class=&quot;grvsc-line&quot;&gt;&lt;span class=&quot;grvsc-source&quot;&gt;        super().__init__()&lt;/span&gt;&lt;/span&gt;
-&lt;span class=&quot;grvsc-line&quot;&gt;&lt;span class=&quot;grvsc-source&quot;&gt;        self.a = torch.nn.Parameter(torch.randn(()))&lt;/span&gt;&lt;/span&gt;
-&lt;span class=&quot;grvsc-line&quot;&gt;&lt;span class=&quot;grvsc-source&quot;&gt;        self.b = torch.nn.Parameter(torch.randn(()))&lt;/span&gt;&lt;/span&gt;
-&lt;span class=&quot;grvsc-line&quot;&gt;&lt;span class=&quot;grvsc-source&quot;&gt;        self.c = torch.nn.Parameter(torch.randn(()))&lt;/span&gt;&lt;/span&gt;
-&lt;span class=&quot;grvsc-line&quot;&gt;&lt;span class=&quot;grvsc-source&quot;&gt;        self.d = torch.nn.Parameter(torch.randn(()))&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
-&lt;hr&gt;
-&lt;h3&gt;입력 Tensor를 x로 받고 이를 만든 모듈의 매개변수의 곱셈으로 반환하는 형식의 Forward Propagation을 진행한다.&lt;/h3&gt;
-&lt;pre class=&quot;grvsc-container github-light-theme grvsc-ps-t4tStz&quot; data-language=&quot;&quot; data-index=&quot;2&quot;&gt;&lt;code class=&quot;grvsc-code&quot;&gt;&lt;span class=&quot;grvsc-line&quot;&gt;&lt;span class=&quot;grvsc-source&quot;&gt;    def forward(self, x):&lt;/span&gt;&lt;/span&gt;
-&lt;span class=&quot;grvsc-line&quot;&gt;&lt;span class=&quot;grvsc-source&quot;&gt;    &lt;/span&gt;&lt;/span&gt;
-&lt;span class=&quot;grvsc-line&quot;&gt;&lt;span class=&quot;grvsc-source&quot;&gt;        return self.a + self.b * x + self.c * x ** 2 + self.d * x ** 3&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
-&lt;hr&gt;
-&lt;h3&gt;사용자 정의 메소드를 선언하는 과정&lt;/h3&gt;
-&lt;pre class=&quot;grvsc-container github-light-theme grvsc-ps-t4tStz&quot; data-language=&quot;&quot; data-index=&quot;3&quot;&gt;&lt;code class=&quot;grvsc-code&quot;&gt;&lt;span class=&quot;grvsc-line&quot;&gt;&lt;span class=&quot;grvsc-source&quot;&gt;    def string(self):&lt;/span&gt;&lt;/span&gt;
-&lt;span class=&quot;grvsc-line&quot;&gt;&lt;span class=&quot;grvsc-source&quot;&gt;        &lt;/span&gt;&lt;/span&gt;
-&lt;span class=&quot;grvsc-line&quot;&gt;&lt;span class=&quot;grvsc-source&quot;&gt;        return f&amp;#39;y = {self.a.item()} + {self.b.item()} x + {self.c.item()} x^2 + {self.d.item()} x^3&amp;#39;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
-&lt;hr&gt;
-&lt;h3&gt;위에서 정의한 Model로 선언을 한다.&lt;/h3&gt;
-&lt;pre class=&quot;grvsc-container github-light-theme grvsc-ps-t4tStz&quot; data-language=&quot;&quot; data-index=&quot;4&quot;&gt;&lt;code class=&quot;grvsc-code&quot;&gt;&lt;span class=&quot;grvsc-line&quot;&gt;&lt;span class=&quot;grvsc-source&quot;&gt;x = torch.linspace(-math.pi, math.pi, 2000)&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;grvsc-line&quot;&gt;&lt;span class=&quot;grvsc-source&quot;&gt;x = torch.linspace(-math.pi, math.pi, 2000)&lt;/span&gt;&lt;/span&gt;
 &lt;span class=&quot;grvsc-line&quot;&gt;&lt;span class=&quot;grvsc-source&quot;&gt;y = torch.sin(x)&lt;/span&gt;&lt;/span&gt;
 &lt;span class=&quot;grvsc-line&quot;&gt;&lt;span class=&quot;grvsc-source&quot;&gt;&lt;/span&gt;&lt;/span&gt;
-&lt;span class=&quot;grvsc-line&quot;&gt;&lt;span class=&quot;grvsc-source&quot;&gt;model = Polynomial3()&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;grvsc-line&quot;&gt;&lt;span class=&quot;grvsc-source&quot;&gt;p = torch.tensor([1, 2, 3])&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;grvsc-line&quot;&gt;&lt;span class=&quot;grvsc-source&quot;&gt;xx = x.unsqueeze(-1).pow(p)&lt;/span&gt;&lt;/span&gt;
 &lt;span class=&quot;grvsc-line&quot;&gt;&lt;span class=&quot;grvsc-source&quot;&gt;&lt;/span&gt;&lt;/span&gt;
-&lt;span class=&quot;grvsc-line&quot;&gt;&lt;span class=&quot;grvsc-source&quot;&gt;criterion = torch.nn.MSELoss(reduction=&amp;#39;sum&amp;#39;)&lt;/span&gt;&lt;/span&gt;
-&lt;span class=&quot;grvsc-line&quot;&gt;&lt;span class=&quot;grvsc-source&quot;&gt;&lt;/span&gt;&lt;/span&gt;
-&lt;span class=&quot;grvsc-line&quot;&gt;&lt;span class=&quot;grvsc-source&quot;&gt;optimizer = torch.optim.SGD(model.parameters(), lr=1e-6)&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;span class=&quot;grvsc-line&quot;&gt;&lt;span class=&quot;grvsc-source&quot;&gt;model = torch.nn.Sequential(&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;grvsc-line&quot;&gt;&lt;span class=&quot;grvsc-source&quot;&gt;    torch.nn.Linear(3, 1),&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;grvsc-line&quot;&gt;&lt;span class=&quot;grvsc-source&quot;&gt;    torch.nn.Flatten(0, 1)&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;grvsc-line&quot;&gt;&lt;span class=&quot;grvsc-source&quot;&gt;)&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;grvsc-line&quot;&gt;&lt;span class=&quot;grvsc-source&quot;&gt;loss_fn = torch.nn.MSELoss(reduction=&amp;#39;sum&amp;#39;)&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
 &lt;hr&gt;
-&lt;h3&gt;Opti 패키지를 사용하지 않으므로 for문을 통해서 각 loss 계산이 된 것 만큼 다시 param의 가중치와 편향을 최신화시켜준다.&lt;/h3&gt;
-&lt;pre class=&quot;grvsc-container github-light-theme grvsc-ps-t4tStz&quot; data-language=&quot;&quot; data-index=&quot;5&quot;&gt;&lt;code class=&quot;grvsc-code&quot;&gt;&lt;span class=&quot;grvsc-line&quot;&gt;&lt;span class=&quot;grvsc-source&quot;&gt;for t in range(2000):&lt;/span&gt;&lt;/span&gt;
-&lt;span class=&quot;grvsc-line&quot;&gt;&lt;span class=&quot;grvsc-source&quot;&gt;    y_pred = model(x)&lt;/span&gt;&lt;/span&gt;
+&lt;h3&gt;RMSProp이라는 Optimizer를 사용할 예정&lt;/h3&gt;
+&lt;h3&gt;nn.Module의 경우 각 Param에 접근하는 for문을 이용해서 가중치를 최신화 했다면 이번에는 Optim 패키지를 이용해서 자동 계산이 되도록 한다.&lt;/h3&gt;
+&lt;pre class=&quot;grvsc-container github-light-theme grvsc-ps-t4tStz&quot; data-language=&quot;&quot; data-index=&quot;1&quot;&gt;&lt;code class=&quot;grvsc-code&quot;&gt;&lt;span class=&quot;grvsc-line&quot;&gt;&lt;span class=&quot;grvsc-source&quot;&gt;learning_rate = 1e-3&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;grvsc-line&quot;&gt;&lt;span class=&quot;grvsc-source&quot;&gt;optimizer = torch.optim.RMSprop(model.parameters(), lr=learning_rate)&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;grvsc-line&quot;&gt;&lt;span class=&quot;grvsc-source&quot;&gt;for t in range(2000):&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;grvsc-line&quot;&gt;&lt;span class=&quot;grvsc-source&quot;&gt;    y_pred = model(xx)&lt;/span&gt;&lt;/span&gt;
 &lt;span class=&quot;grvsc-line&quot;&gt;&lt;span class=&quot;grvsc-source&quot;&gt;&lt;/span&gt;&lt;/span&gt;
-&lt;span class=&quot;grvsc-line&quot;&gt;&lt;span class=&quot;grvsc-source&quot;&gt;    loss = criterion(y_pred, y)&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;grvsc-line&quot;&gt;&lt;span class=&quot;grvsc-source&quot;&gt;    loss = loss_fn(y_pred, y)&lt;/span&gt;&lt;/span&gt;
 &lt;span class=&quot;grvsc-line&quot;&gt;&lt;span class=&quot;grvsc-source&quot;&gt;    if t % 100 == 99:&lt;/span&gt;&lt;/span&gt;
 &lt;span class=&quot;grvsc-line&quot;&gt;&lt;span class=&quot;grvsc-source&quot;&gt;        print(t, loss.item())&lt;/span&gt;&lt;/span&gt;
 &lt;span class=&quot;grvsc-line&quot;&gt;&lt;span class=&quot;grvsc-source&quot;&gt;&lt;/span&gt;&lt;/span&gt;
 &lt;span class=&quot;grvsc-line&quot;&gt;&lt;span class=&quot;grvsc-source&quot;&gt;    optimizer.zero_grad()&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;grvsc-line&quot;&gt;&lt;span class=&quot;grvsc-source&quot;&gt;&lt;/span&gt;&lt;/span&gt;
 &lt;span class=&quot;grvsc-line&quot;&gt;&lt;span class=&quot;grvsc-source&quot;&gt;    loss.backward()&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;grvsc-line&quot;&gt;&lt;span class=&quot;grvsc-source&quot;&gt;&lt;/span&gt;&lt;/span&gt;
 &lt;span class=&quot;grvsc-line&quot;&gt;&lt;span class=&quot;grvsc-source&quot;&gt;    optimizer.step()&lt;/span&gt;&lt;/span&gt;
 &lt;span class=&quot;grvsc-line&quot;&gt;&lt;span class=&quot;grvsc-source&quot;&gt;&lt;/span&gt;&lt;/span&gt;
-&lt;span class=&quot;grvsc-line&quot;&gt;&lt;span class=&quot;grvsc-source&quot;&gt;print(f&amp;#39;Result: {model.string()}&amp;#39;)&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
-&lt;h3&gt;결과&lt;/h3&gt;
+&lt;span class=&quot;grvsc-line&quot;&gt;&lt;span class=&quot;grvsc-source&quot;&gt;&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;grvsc-line&quot;&gt;&lt;span class=&quot;grvsc-source&quot;&gt;linear_layer = model[0]&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;grvsc-line&quot;&gt;&lt;span class=&quot;grvsc-source&quot;&gt;print(f&amp;#39;Result: y = {linear_layer.bias.item()} + {linear_layer.weight[:, 0].item()} x + {linear_layer.weight[:, 1].item()} x^2 + {linear_layer.weight[:, 2].item()} x^3&amp;#39;)&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;h3&gt;결과값&lt;/h3&gt;
 &lt;p&gt;&lt;span
       class=&quot;gatsby-resp-image-wrapper&quot;
       style=&quot;position: relative; display: block; margin-left: auto; margin-right: auto; max-width: 650px; &quot;
     &gt;
       &lt;span
     class=&quot;gatsby-resp-image-background-image&quot;
-    style=&quot;padding-bottom: 44.78527607361963%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/jpeg;base64,/9j/2wBDABALDA4MChAODQ4SERATGCgaGBYWGDEjJR0oOjM9PDkzODdASFxOQERXRTc4UG1RV19iZ2hnPk1xeXBkeFxlZ2P/2wBDARESEhgVGC8aGi9jQjhCY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2P/wgARCAAJABQDASIAAhEBAxEB/8QAFwABAQEBAAAAAAAAAAAAAAAAAgADBf/EABQBAQAAAAAAAAAAAAAAAAAAAAD/2gAMAwEAAhADEAAAAe680KMf/8QAFRABAQAAAAAAAAAAAAAAAAAAASD/2gAIAQEAAQUCK//EABQRAQAAAAAAAAAAAAAAAAAAABD/2gAIAQMBAT8BP//EABQRAQAAAAAAAAAAAAAAAAAAABD/2gAIAQIBAT8BP//EABQQAQAAAAAAAAAAAAAAAAAAACD/2gAIAQEABj8CX//EABgQAAIDAAAAAAAAAAAAAAAAAAEQADFB/9oACAEBAAE/IdsWhP/aAAwDAQACAAMAAAAQgM//xAAUEQEAAAAAAAAAAAAAAAAAAAAQ/9oACAEDAQE/ED//xAAUEQEAAAAAAAAAAAAAAAAAAAAQ/9oACAECAQE/ED//xAAYEAADAQEAAAAAAAAAAAAAAAAAATEQcf/aAAgBAQABPxCtW4Kog//Z&apos;); background-size: cover; display: block;&quot;
+    style=&quot;padding-bottom: 44.171779141104295%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/jpeg;base64,/9j/2wBDABALDA4MChAODQ4SERATGCgaGBYWGDEjJR0oOjM9PDkzODdASFxOQERXRTc4UG1RV19iZ2hnPk1xeXBkeFxlZ2P/2wBDARESEhgVGC8aGi9jQjhCY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2P/wgARCAAJABQDASIAAhEBAxEB/8QAFwABAQEBAAAAAAAAAAAAAAAAAgADBf/EABQBAQAAAAAAAAAAAAAAAAAAAAD/2gAMAwEAAhADEAAAAe680KMf/8QAFRABAQAAAAAAAAAAAAAAAAAAASD/2gAIAQEAAQUCK//EABQRAQAAAAAAAAAAAAAAAAAAABD/2gAIAQMBAT8BP//EABQRAQAAAAAAAAAAAAAAAAAAABD/2gAIAQIBAT8BP//EABQQAQAAAAAAAAAAAAAAAAAAACD/2gAIAQEABj8CX//EABcQAAMBAAAAAAAAAAAAAAAAAAABEEH/2gAIAQEAAT8h3VEf/9oADAMBAAIAAwAAABCgD//EABQRAQAAAAAAAAAAAAAAAAAAABD/2gAIAQMBAT8QP//EABQRAQAAAAAAAAAAAAAAAAAAABD/2gAIAQIBAT8QP//EABkQAAMAAwAAAAAAAAAAAAAAAAABMRBBcf/aAAgBAQABPxCkzb4bRB//2Q==&apos;); background-size: cover; display: block;&quot;
   &gt;&lt;/span&gt;
   &lt;img
         class=&quot;gatsby-resp-image-image&quot;
         alt=&quot;img&quot;
         title=&quot;img&quot;
-        src=&quot;/static/b3fbaba81a32aa238dc726a96712491d/6aca1/pytorch3.jpg&quot;
-        srcset=&quot;/static/b3fbaba81a32aa238dc726a96712491d/d2f63/pytorch3.jpg 163w,
-/static/b3fbaba81a32aa238dc726a96712491d/c989d/pytorch3.jpg 325w,
-/static/b3fbaba81a32aa238dc726a96712491d/6aca1/pytorch3.jpg 650w,
-/static/b3fbaba81a32aa238dc726a96712491d/7c09c/pytorch3.jpg 975w,
-/static/b3fbaba81a32aa238dc726a96712491d/4ac4c/pytorch3.jpg 1243w&quot;
+        src=&quot;/static/fbdd09507ec3b073022d111fd7bc3131/6aca1/pytorch2.jpg&quot;
+        srcset=&quot;/static/fbdd09507ec3b073022d111fd7bc3131/d2f63/pytorch2.jpg 163w,
+/static/fbdd09507ec3b073022d111fd7bc3131/c989d/pytorch2.jpg 325w,
+/static/fbdd09507ec3b073022d111fd7bc3131/6aca1/pytorch2.jpg 650w,
+/static/fbdd09507ec3b073022d111fd7bc3131/7c09c/pytorch2.jpg 975w,
+/static/fbdd09507ec3b073022d111fd7bc3131/9a8cd/pytorch2.jpg 1248w&quot;
         sizes=&quot;(max-width: 650px) 100vw, 650px&quot;
         style=&quot;width:100%;height:100%;margin:0;vertical-align:middle;position:absolute;top:0;left:0;&quot;
         loading=&quot;lazy&quot;
@@ -6741,78 +6741,106 @@ j: 위의 Layer&lt;/p&gt;
     opacity: 0.7;
   }
   
-&lt;/style&gt;</content:encoded></item><item><title><![CDATA[Deep Learning Basic]]></title><description><![CDATA[Deep Learning Approaches Convolution Layer에서 가장 중요한 것은 Convolution Layer이다. Position Invariant 한 Local을 feature 한다. 입력이 들어와서 Output…]]></description><link>https://kimhyunuk98.github.io/blog/deeplearning11/</link><guid isPermaLink="false">https://kimhyunuk98.github.io/blog/deeplearning11/</guid><pubDate>Mon, 17 Jan 2022 10:45:00 GMT</pubDate><content:encoded>&lt;p&gt;&lt;span
+&lt;/style&gt;</content:encoded></item><item><title><![CDATA[Deep Learning Basic]]></title><description><![CDATA[Deep Learning Layer가 많은 심층 신경망을 사용하고 layer 하나는 Weighted Sum을 활용한다. W는 데이터로부터 학습을 하는 파라미터이고 마지막에는 Loss function을 정의한다. 즉, 모든 Layer의 Weight…]]></description><link>https://kimhyunuk98.github.io/blog/deeplearning13/</link><guid isPermaLink="false">https://kimhyunuk98.github.io/blog/deeplearning13/</guid><pubDate>Mon, 17 Jan 2022 10:45:00 GMT</pubDate><content:encoded>&lt;p&gt;&lt;span
       class=&quot;gatsby-resp-image-wrapper&quot;
       style=&quot;position: relative; display: block; margin-left: auto; margin-right: auto; max-width: 650px; &quot;
     &gt;
       &lt;span
     class=&quot;gatsby-resp-image-background-image&quot;
-    style=&quot;padding-bottom: 62.576687116564415%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/jpeg;base64,/9j/2wBDABALDA4MChAODQ4SERATGCgaGBYWGDEjJR0oOjM9PDkzODdASFxOQERXRTc4UG1RV19iZ2hnPk1xeXBkeFxlZ2P/2wBDARESEhgVGC8aGi9jQjhCY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2P/wgARCAANABQDASIAAhEBAxEB/8QAGAAAAwEBAAAAAAAAAAAAAAAAAAEDAgX/xAAUAQEAAAAAAAAAAAAAAAAAAAAA/9oADAMBAAIQAxAAAAHtrTJlQ//EABoQAQABBQAAAAAAAAAAAAAAAAEAAhARMUH/2gAIAQEAAQUCdsKCdxb/xAAUEQEAAAAAAAAAAAAAAAAAAAAQ/9oACAEDAQE/AT//xAAUEQEAAAAAAAAAAAAAAAAAAAAQ/9oACAECAQE/AT//xAAZEAACAwEAAAAAAAAAAAAAAAAAIQERIHH/2gAIAQEABj8CFNdHj//EABoQAQACAwEAAAAAAAAAAAAAAAEAESFBcZH/2gAIAQEAAT8h6exUFPSVlyVuxiO0Ri6ewn//2gAMAwEAAgADAAAAEAMP/8QAFBEBAAAAAAAAAAAAAAAAAAAAEP/aAAgBAwEBPxA//8QAFBEBAAAAAAAAAAAAAAAAAAAAEP/aAAgBAgEBPxA//8QAHBABAQEAAgMBAAAAAAAAAAAAAREAMaFRYXHw/9oACAEBAAE/EFGLHP5cyEX3XvNhXiI95zjDxMggpwi4wgB8N//Z&apos;); background-size: cover; display: block;&quot;
+    style=&quot;padding-bottom: 69.93865030674846%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/jpeg;base64,/9j/2wBDABALDA4MChAODQ4SERATGCgaGBYWGDEjJR0oOjM9PDkzODdASFxOQERXRTc4UG1RV19iZ2hnPk1xeXBkeFxlZ2P/2wBDARESEhgVGC8aGi9jQjhCY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2P/wgARCAAOABQDASIAAhEBAxEB/8QAGAAAAwEBAAAAAAAAAAAAAAAAAAIDAQX/xAAUAQEAAAAAAAAAAAAAAAAAAAAA/9oADAMBAAIQAxAAAAHtPPRSgf/EABoQAAIDAQEAAAAAAAAAAAAAAAABAhIhA0H/2gAIAQEAAQUC90fKLbntiyP/xAAUEQEAAAAAAAAAAAAAAAAAAAAQ/9oACAEDAQE/AT//xAAUEQEAAAAAAAAAAAAAAAAAAAAQ/9oACAECAQE/AT//xAAYEAACAwAAAAAAAAAAAAAAAAABERAgkf/aAAgBAQAGPwKGXtP/xAAaEAEBAQEAAwAAAAAAAAAAAAABABExYXHR/9oACAEBAAE/IVdfbfCVJphHDJ07e6//2gAMAwEAAgADAAAAEIAP/8QAFBEBAAAAAAAAAAAAAAAAAAAAEP/aAAgBAwEBPxA//8QAFBEBAAAAAAAAAAAAAAAAAAAAEP/aAAgBAgEBPxA//8QAHhAAAgIABwAAAAAAAAAAAAAAAREAMSFBUXGRsfH/2gAIAQEAAT8QEE0iwSfUKsL1cMmmZRATQhN+cvYFVwn/2Q==&apos;); background-size: cover; display: block;&quot;
   &gt;&lt;/span&gt;
   &lt;img
         class=&quot;gatsby-resp-image-image&quot;
         alt=&quot;img&quot;
         title=&quot;img&quot;
-        src=&quot;/static/1e42c8104aaa5caf3fe83e410d79554d/6aca1/11_1.jpg&quot;
-        srcset=&quot;/static/1e42c8104aaa5caf3fe83e410d79554d/d2f63/11_1.jpg 163w,
-/static/1e42c8104aaa5caf3fe83e410d79554d/c989d/11_1.jpg 325w,
-/static/1e42c8104aaa5caf3fe83e410d79554d/6aca1/11_1.jpg 650w,
-/static/1e42c8104aaa5caf3fe83e410d79554d/7c09c/11_1.jpg 975w,
-/static/1e42c8104aaa5caf3fe83e410d79554d/949c1/11_1.jpg 1261w&quot;
+        src=&quot;/static/1afd87b47045be047226dd5b3a300a70/6aca1/13_1.jpg&quot;
+        srcset=&quot;/static/1afd87b47045be047226dd5b3a300a70/d2f63/13_1.jpg 163w,
+/static/1afd87b47045be047226dd5b3a300a70/c989d/13_1.jpg 325w,
+/static/1afd87b47045be047226dd5b3a300a70/6aca1/13_1.jpg 650w,
+/static/1afd87b47045be047226dd5b3a300a70/7c09c/13_1.jpg 975w,
+/static/1afd87b47045be047226dd5b3a300a70/d08c8/13_1.jpg 1219w&quot;
         sizes=&quot;(max-width: 650px) 100vw, 650px&quot;
         style=&quot;width:100%;height:100%;margin:0;vertical-align:middle;position:absolute;top:0;left:0;&quot;
         loading=&quot;lazy&quot;
         decoding=&quot;async&quot;
       /&gt;
     &lt;/span&gt;&lt;/p&gt;
-&lt;h3&gt;Deep Learning Approaches&lt;/h3&gt;
-&lt;p&gt;Convolution Layer에서 가장 중요한 것은 Convolution Layer이다. &lt;strong&gt;Position Invariant 한 Local을 feature 한다.&lt;/strong&gt; 입력이 들어와서 Output까지 쭈욱 가는 것.&lt;/p&gt;
-&lt;h3&gt;RNN(Recurrent Nearal Network)&lt;/h3&gt;
-&lt;p&gt;과거가 현재에 영향을 주는 Time-series data의 부분으로 쓰인다. FeedBack을 해주는 Node가 존재한다. &lt;strong&gt;현재의 Input값과 Context가 합쳐져서 사용&lt;/strong&gt;이 된다는 것.&lt;/p&gt;
+&lt;h3&gt;Deep Learning&lt;/h3&gt;
+&lt;p&gt;Layer가 많은 심층 신경망을 사용하고 layer 하나는 Weighted Sum을 활용한다. W는 데이터로부터 학습을 하는 파라미터이고 마지막에는 Loss function을 정의한다. &lt;strong&gt;즉, 모든 Layer의 Weight를 최적화하는 것.&lt;/strong&gt; 이를 결정하는 과정이 학습하는 과정이 된다. Layer의 각 Operation은 입력 정보를 Weighted Sum으로 merge하는데 &lt;strong&gt;어떤 비율로 Merge 하는가&lt;/strong&gt;가 포인트&lt;/p&gt;
 &lt;p&gt;&lt;span
       class=&quot;gatsby-resp-image-wrapper&quot;
       style=&quot;position: relative; display: block; margin-left: auto; margin-right: auto; max-width: 650px; &quot;
     &gt;
       &lt;span
     class=&quot;gatsby-resp-image-background-image&quot;
-    style=&quot;padding-bottom: 64.41717791411043%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/jpeg;base64,/9j/2wBDABALDA4MChAODQ4SERATGCgaGBYWGDEjJR0oOjM9PDkzODdASFxOQERXRTc4UG1RV19iZ2hnPk1xeXBkeFxlZ2P/2wBDARESEhgVGC8aGi9jQjhCY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2P/wgARCAANABQDASIAAhEBAxEB/8QAFwABAQEBAAAAAAAAAAAAAAAAAgADBf/EABQBAQAAAAAAAAAAAAAAAAAAAAD/2gAMAwEAAhADEAAAAe0igW0f/8QAGRAAAgMBAAAAAAAAAAAAAAAAAAECEBNB/9oACAEBAAEFAhGUW+1//8QAFBEBAAAAAAAAAAAAAAAAAAAAEP/aAAgBAwEBPwE//8QAFBEBAAAAAAAAAAAAAAAAAAAAEP/aAAgBAgEBPwE//8QAFxAAAwEAAAAAAAAAAAAAAAAAARARIP/aAAgBAQAGPwJU4//EAB0QAQABAwUAAAAAAAAAAAAAAAEAEBEhMUFhkfD/2gAIAQEAAT8hXLr3PcxUC68xINqf/9oADAMBAAIAAwAAABAzz//EABQRAQAAAAAAAAAAAAAAAAAAABD/2gAIAQMBAT8QP//EABQRAQAAAAAAAAAAAAAAAAAAABD/2gAIAQIBAT8QP//EABsQAQACAwEBAAAAAAAAAAAAAAEAESExURDB/9oACAEBAAE/EHCBA9H2dWa0rEfCm1tM9vNxlis98//Z&apos;); background-size: cover; display: block;&quot;
+    style=&quot;padding-bottom: 68.09815950920245%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/jpeg;base64,/9j/2wBDABALDA4MChAODQ4SERATGCgaGBYWGDEjJR0oOjM9PDkzODdASFxOQERXRTc4UG1RV19iZ2hnPk1xeXBkeFxlZ2P/2wBDARESEhgVGC8aGi9jQjhCY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2P/wgARCAAOABQDASIAAhEBAxEB/8QAFwAAAwEAAAAAAAAAAAAAAAAAAAEDBf/EABQBAQAAAAAAAAAAAAAAAAAAAAD/2gAMAwEAAhADEAAAAdobIlw//8QAGRABAQADAQAAAAAAAAAAAAAAAQACERNB/9oACAEBAAEFAp3chvXEYv/EABQRAQAAAAAAAAAAAAAAAAAAABD/2gAIAQMBAT8BP//EABQRAQAAAAAAAAAAAAAAAAAAABD/2gAIAQIBAT8BP//EABwQAAEDBQAAAAAAAAAAAAAAAAAQESEBAjFBof/aAAgBAQAGPwLZHR7spNHT/8QAGhAAAwEBAQEAAAAAAAAAAAAAAAERIUExUf/aAAgBAQABPyHvuDBXBp0b42RvggQZCRYof//aAAwDAQACAAMAAAAQQ8//xAAUEQEAAAAAAAAAAAAAAAAAAAAQ/9oACAEDAQE/ED//xAAUEQEAAAAAAAAAAAAAAAAAAAAQ/9oACAECAQE/ED//xAAcEAEAAgIDAQAAAAAAAAAAAAABABEhMUFRsdH/2gAIAQEAAT8QvI6G37AUN83WDgCLUR7LzNL5Myw6oUgVAOhn/9k=&apos;); background-size: cover; display: block;&quot;
   &gt;&lt;/span&gt;
   &lt;img
         class=&quot;gatsby-resp-image-image&quot;
         alt=&quot;img&quot;
         title=&quot;img&quot;
-        src=&quot;/static/cd8b13486e4298688a334ade555464ed/6aca1/11_2.jpg&quot;
-        srcset=&quot;/static/cd8b13486e4298688a334ade555464ed/d2f63/11_2.jpg 163w,
-/static/cd8b13486e4298688a334ade555464ed/c989d/11_2.jpg 325w,
-/static/cd8b13486e4298688a334ade555464ed/6aca1/11_2.jpg 650w,
-/static/cd8b13486e4298688a334ade555464ed/7c09c/11_2.jpg 975w,
-/static/cd8b13486e4298688a334ade555464ed/e4b8a/11_2.jpg 1207w&quot;
+        src=&quot;/static/9aa4de6a631e09db2357a3ea40fd5a48/6aca1/13_2.jpg&quot;
+        srcset=&quot;/static/9aa4de6a631e09db2357a3ea40fd5a48/d2f63/13_2.jpg 163w,
+/static/9aa4de6a631e09db2357a3ea40fd5a48/c989d/13_2.jpg 325w,
+/static/9aa4de6a631e09db2357a3ea40fd5a48/6aca1/13_2.jpg 650w,
+/static/9aa4de6a631e09db2357a3ea40fd5a48/7c09c/13_2.jpg 975w,
+/static/9aa4de6a631e09db2357a3ea40fd5a48/9888a/13_2.jpg 1198w&quot;
         sizes=&quot;(max-width: 650px) 100vw, 650px&quot;
         style=&quot;width:100%;height:100%;margin:0;vertical-align:middle;position:absolute;top:0;left:0;&quot;
         loading=&quot;lazy&quot;
         decoding=&quot;async&quot;
       /&gt;
     &lt;/span&gt;&lt;/p&gt;
-&lt;h3&gt;Deep Generative Model&lt;/h3&gt;
-&lt;p&gt;가장 유명한것은 &lt;strong&gt;GAN 네트워크&lt;/strong&gt;이다. Attention Model 등이 존재한다.&lt;/p&gt;
+&lt;h3&gt;Deep Learning Architecture&lt;/h3&gt;
+&lt;p&gt;&lt;strong&gt;CNN&lt;/strong&gt; -&gt; 영상처리, 자연어, 음성인식
+병렬 처리에 의한 속도 향상을 더 잘 이끌어낼 수 있다.
+&lt;strong&gt;자연어&lt;/strong&gt; : Machine Translation의 효과가 더 있었다.
+&lt;strong&gt;RNN&lt;/strong&gt; -&gt; Time-series Data를 처리하기 위해서 만들어졋다. 하지만 속도가 느리다.
+병렬화를 위해 만들어진 구조가 아니라는 것.&lt;/p&gt;
 &lt;p&gt;&lt;span
       class=&quot;gatsby-resp-image-wrapper&quot;
       style=&quot;position: relative; display: block; margin-left: auto; margin-right: auto; max-width: 650px; &quot;
     &gt;
       &lt;span
     class=&quot;gatsby-resp-image-background-image&quot;
-    style=&quot;padding-bottom: 66.87116564417178%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/jpeg;base64,/9j/2wBDABALDA4MChAODQ4SERATGCgaGBYWGDEjJR0oOjM9PDkzODdASFxOQERXRTc4UG1RV19iZ2hnPk1xeXBkeFxlZ2P/2wBDARESEhgVGC8aGi9jQjhCY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2P/wgARCAANABQDASIAAhEBAxEB/8QAGAAAAwEBAAAAAAAAAAAAAAAAAAEDAgX/xAAUAQEAAAAAAAAAAAAAAAAAAAAA/9oADAMBAAIQAxAAAAHuLNBEA//EABoQAAMAAwEAAAAAAAAAAAAAAAABAgMQERL/2gAIAQEAAQUCYhSib9aWbp//xAAUEQEAAAAAAAAAAAAAAAAAAAAQ/9oACAEDAQE/AT//xAAUEQEAAAAAAAAAAAAAAAAAAAAQ/9oACAECAQE/AT//xAAWEAEBAQAAAAAAAAAAAAAAAAAQMQD/2gAIAQEABj8CYTf/xAAdEAADAAICAwAAAAAAAAAAAAAAAREhMUFhkbHh/9oACAEBAAE/IavPkq/RK7y7svawnY2SX3P/2gAMAwEAAgADAAAAEEDP/8QAFBEBAAAAAAAAAAAAAAAAAAAAEP/aAAgBAwEBPxA//8QAFBEBAAAAAAAAAAAAAAAAAAAAEP/aAAgBAgEBPxA//8QAHRABAQACAgMBAAAAAAAAAAAAAREAITHBQXGB8P/aAAgBAQABPxAWQj2O8RCj9eV+zZVzng0W7dZA4GbylpjP2Z//2Q==&apos;); background-size: cover; display: block;&quot;
+    style=&quot;padding-bottom: 62.576687116564415%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/jpeg;base64,/9j/2wBDABALDA4MChAODQ4SERATGCgaGBYWGDEjJR0oOjM9PDkzODdASFxOQERXRTc4UG1RV19iZ2hnPk1xeXBkeFxlZ2P/2wBDARESEhgVGC8aGi9jQjhCY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2P/wgARCAANABQDASIAAhEBAxEB/8QAGQAAAgMBAAAAAAAAAAAAAAAAAAIBAwQF/8QAFAEBAAAAAAAAAAAAAAAAAAAAAP/aAAwDAQACEAMQAAAB7TQxSaA//8QAGRAAAQUAAAAAAAAAAAAAAAAAEAABAhNB/9oACAEBAAEFAhTB1o//xAAUEQEAAAAAAAAAAAAAAAAAAAAQ/9oACAEDAQE/AT//xAAUEQEAAAAAAAAAAAAAAAAAAAAQ/9oACAECAQE/AT//xAAXEAEAAwAAAAAAAAAAAAAAAAARECDh/9oACAEBAAY/AthGn//EABwQAAICAgMAAAAAAAAAAAAAAAABETEhUUGRof/aAAgBAQABPyFCFv0ltpHzIrV0Z2Kj/9oADAMBAAIAAwAAABCgD//EABQRAQAAAAAAAAAAAAAAAAAAABD/2gAIAQMBAT8QP//EABQRAQAAAAAAAAAAAAAAAAAAABD/2gAIAQIBAT8QP//EABwQAQADAAIDAAAAAAAAAAAAAAEAESFB0TFxkf/aAAgBAQABPxAXgjvC7hle/buNgxVsgUCic8oAcHyX8m2f/9k=&apos;); background-size: cover; display: block;&quot;
   &gt;&lt;/span&gt;
   &lt;img
         class=&quot;gatsby-resp-image-image&quot;
         alt=&quot;img&quot;
         title=&quot;img&quot;
-        src=&quot;/static/090ffe23f8d59108e2c07cadefe2573d/6aca1/11_3.jpg&quot;
-        srcset=&quot;/static/090ffe23f8d59108e2c07cadefe2573d/d2f63/11_3.jpg 163w,
-/static/090ffe23f8d59108e2c07cadefe2573d/c989d/11_3.jpg 325w,
-/static/090ffe23f8d59108e2c07cadefe2573d/6aca1/11_3.jpg 650w,
-/static/090ffe23f8d59108e2c07cadefe2573d/7c09c/11_3.jpg 975w,
-/static/090ffe23f8d59108e2c07cadefe2573d/fa90f/11_3.jpg 1236w&quot;
+        src=&quot;/static/2b7f496572aee3afcf924562207a7511/6aca1/13_3.jpg&quot;
+        srcset=&quot;/static/2b7f496572aee3afcf924562207a7511/d2f63/13_3.jpg 163w,
+/static/2b7f496572aee3afcf924562207a7511/c989d/13_3.jpg 325w,
+/static/2b7f496572aee3afcf924562207a7511/6aca1/13_3.jpg 650w,
+/static/2b7f496572aee3afcf924562207a7511/7c09c/13_3.jpg 975w,
+/static/2b7f496572aee3afcf924562207a7511/1982c/13_3.jpg 1176w&quot;
+        sizes=&quot;(max-width: 650px) 100vw, 650px&quot;
+        style=&quot;width:100%;height:100%;margin:0;vertical-align:middle;position:absolute;top:0;left:0;&quot;
+        loading=&quot;lazy&quot;
+        decoding=&quot;async&quot;
+      /&gt;
+    &lt;/span&gt;&lt;/p&gt;
+&lt;h3&gt;Biological Discoveries&lt;/h3&gt;
+&lt;p&gt;고양이를 가져다 눈앞에 자극을 주고 뇌의 어느 부분에 반응이 있는지 분석을 했다. 시각 신경에 반응이 있었고 더 깊은 곳을 갈 수록 더 복잡한 반응을 했다는 것이 밝혀졌다. &lt;strong&gt;Visual System의 나타나는 반응은 성장하면서 배운다라는 것이 밝혀졌다.&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;span
+      class=&quot;gatsby-resp-image-wrapper&quot;
+      style=&quot;position: relative; display: block; margin-left: auto; margin-right: auto; max-width: 650px; &quot;
+    &gt;
+      &lt;span
+    class=&quot;gatsby-resp-image-background-image&quot;
+    style=&quot;padding-bottom: 68.09815950920245%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/jpeg;base64,/9j/2wBDABALDA4MChAODQ4SERATGCgaGBYWGDEjJR0oOjM9PDkzODdASFxOQERXRTc4UG1RV19iZ2hnPk1xeXBkeFxlZ2P/2wBDARESEhgVGC8aGi9jQjhCY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2P/wgARCAAOABQDASIAAhEBAxEB/8QAGAAAAgMAAAAAAAAAAAAAAAAAAAIBAwX/xAAUAQEAAAAAAAAAAAAAAAAAAAAA/9oADAMBAAIQAxAAAAHZZHIKg//EABkQAAMBAQEAAAAAAAAAAAAAAAABAhMhIv/aAAgBAQABBQJ8EZyKlY/K3k//xAAUEQEAAAAAAAAAAAAAAAAAAAAQ/9oACAEDAQE/AT//xAAUEQEAAAAAAAAAAAAAAAAAAAAQ/9oACAECAQE/AT//xAAaEAABBQEAAAAAAAAAAAAAAAAAARARITGh/9oACAEBAAY/ArNaukmKf//EAB4QAQACAgEFAAAAAAAAAAAAAAEAESExQVFhgZHx/9oACAEBAAE/IXzUd2Z5A+ZkWm1vcsaekVz0dJ82f//aAAwDAQACAAMAAAAQg8//xAAUEQEAAAAAAAAAAAAAAAAAAAAQ/9oACAEDAQE/ED//xAAUEQEAAAAAAAAAAAAAAAAAAAAQ/9oACAECAQE/ED//xAAdEAEBAQABBQEAAAAAAAAAAAABEQAxIUGhwdHx/9oACAEBAAE/EKKLMFS+c3tVxT7wSEqKucJRDkDCNEKx135D7v/Z&apos;); background-size: cover; display: block;&quot;
+  &gt;&lt;/span&gt;
+  &lt;img
+        class=&quot;gatsby-resp-image-image&quot;
+        alt=&quot;img&quot;
+        title=&quot;img&quot;
+        src=&quot;/static/ad21e11d4e2c80313685fa43da03cb04/6aca1/13_4.jpg&quot;
+        srcset=&quot;/static/ad21e11d4e2c80313685fa43da03cb04/d2f63/13_4.jpg 163w,
+/static/ad21e11d4e2c80313685fa43da03cb04/c989d/13_4.jpg 325w,
+/static/ad21e11d4e2c80313685fa43da03cb04/6aca1/13_4.jpg 650w,
+/static/ad21e11d4e2c80313685fa43da03cb04/7c09c/13_4.jpg 975w,
+/static/ad21e11d4e2c80313685fa43da03cb04/03213/13_4.jpg 1231w&quot;
         sizes=&quot;(max-width: 650px) 100vw, 650px&quot;
         style=&quot;width:100%;height:100%;margin:0;vertical-align:middle;position:absolute;top:0;left:0;&quot;
         loading=&quot;lazy&quot;
@@ -6820,112 +6848,246 @@ j: 위의 Layer&lt;/p&gt;
       /&gt;
     &lt;/span&gt;&lt;/p&gt;
 &lt;h3&gt;Convolutional Neural Network&lt;/h3&gt;
-&lt;p&gt;Layor들이 &lt;strong&gt;3차원 구조&lt;/strong&gt;로 구성이 된다. 여러 종류의 Layer가 결합이 되는데 Convolution, pooling , batch normalization layer등이배치된다.&lt;/p&gt;
+&lt;p&gt;처음 제안되었을 때는 Training algorithm이 좋지는 않았다. 하지만, 1998 Gradient Descent 로 발전을 하고 2012년 대회에서 우승을 이끌어 냄&lt;/p&gt;
 &lt;p&gt;&lt;span
       class=&quot;gatsby-resp-image-wrapper&quot;
       style=&quot;position: relative; display: block; margin-left: auto; margin-right: auto; max-width: 650px; &quot;
     &gt;
       &lt;span
     class=&quot;gatsby-resp-image-background-image&quot;
-    style=&quot;padding-bottom: 68.09815950920245%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/jpeg;base64,/9j/2wBDABALDA4MChAODQ4SERATGCgaGBYWGDEjJR0oOjM9PDkzODdASFxOQERXRTc4UG1RV19iZ2hnPk1xeXBkeFxlZ2P/2wBDARESEhgVGC8aGi9jQjhCY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2P/wgARCAAOABQDASIAAhEBAxEB/8QAFwAAAwEAAAAAAAAAAAAAAAAAAAECBf/EABQBAQAAAAAAAAAAAAAAAAAAAAD/2gAMAwEAAhADEAAAAdxwCLD/xAAZEAACAwEAAAAAAAAAAAAAAAAAAQIDEhH/2gAIAQEAAQUC4IdUW3I0jR//xAAUEQEAAAAAAAAAAAAAAAAAAAAQ/9oACAEDAQE/AT//xAAUEQEAAAAAAAAAAAAAAAAAAAAQ/9oACAECAQE/AT//xAAWEAADAAAAAAAAAAAAAAAAAAAQESD/2gAIAQEABj8CDj//xAAaEAACAwEBAAAAAAAAAAAAAAAAARFRYSHw/9oACAEBAAE/IX5LOLGRk23ojSKyOn//2gAMAwEAAgADAAAAEOAP/8QAFBEBAAAAAAAAAAAAAAAAAAAAEP/aAAgBAwEBPxA//8QAFBEBAAAAAAAAAAAAAAAAAAAAEP/aAAgBAgEBPxA//8QAHRABAAICAgMAAAAAAAAAAAAAAQARQWEh0YGRwf/aAAgBAQABPxBBVWlx2QCos7X7FVTa3l/eWOKeDuD49J//2Q==&apos;); background-size: cover; display: block;&quot;
+    style=&quot;padding-bottom: 65.03067484662577%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/jpeg;base64,/9j/2wBDABALDA4MChAODQ4SERATGCgaGBYWGDEjJR0oOjM9PDkzODdASFxOQERXRTc4UG1RV19iZ2hnPk1xeXBkeFxlZ2P/2wBDARESEhgVGC8aGi9jQjhCY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2P/wgARCAANABQDASIAAhEBAxEB/8QAGAAAAgMAAAAAAAAAAAAAAAAAAAECAwX/xAAUAQEAAAAAAAAAAAAAAAAAAAAA/9oADAMBAAIQAxAAAAHcTCBcH//EABkQAQACAwAAAAAAAAAAAAAAAAECEBETMf/aAAgBAQABBQJrVFXuK//EABQRAQAAAAAAAAAAAAAAAAAAABD/2gAIAQMBAT8BP//EABQRAQAAAAAAAAAAAAAAAAAAABD/2gAIAQIBAT8BP//EABYQAAMAAAAAAAAAAAAAAAAAABAg4f/aAAgBAQAGPwIVP//EABoQAQEAAgMAAAAAAAAAAAAAAAEAETFBcZH/2gAIAQEAAT8hDnmDv2VFyrBma7jV/9oADAMBAAIAAwAAABBwD//EABQRAQAAAAAAAAAAAAAAAAAAABD/2gAIAQMBAT8QP//EABQRAQAAAAAAAAAAAAAAAAAAABD/2gAIAQIBAT8QP//EABoQAQADAQEBAAAAAAAAAAAAAAEAETFh0UH/2gAIAQEAAT8QsaEcX2KtIe29hhsWtp9zSFNMgoG1P//Z&apos;); background-size: cover; display: block;&quot;
   &gt;&lt;/span&gt;
   &lt;img
         class=&quot;gatsby-resp-image-image&quot;
         alt=&quot;img&quot;
         title=&quot;img&quot;
-        src=&quot;/static/47e921afb5cb06332d1b4b431138e32e/6aca1/11_4.jpg&quot;
-        srcset=&quot;/static/47e921afb5cb06332d1b4b431138e32e/d2f63/11_4.jpg 163w,
-/static/47e921afb5cb06332d1b4b431138e32e/c989d/11_4.jpg 325w,
-/static/47e921afb5cb06332d1b4b431138e32e/6aca1/11_4.jpg 650w,
-/static/47e921afb5cb06332d1b4b431138e32e/7c09c/11_4.jpg 975w,
-/static/47e921afb5cb06332d1b4b431138e32e/00d7d/11_4.jpg 1218w&quot;
+        src=&quot;/static/16d56d259b641e19fb2ee56d63d32728/6aca1/13_5.jpg&quot;
+        srcset=&quot;/static/16d56d259b641e19fb2ee56d63d32728/d2f63/13_5.jpg 163w,
+/static/16d56d259b641e19fb2ee56d63d32728/c989d/13_5.jpg 325w,
+/static/16d56d259b641e19fb2ee56d63d32728/6aca1/13_5.jpg 650w,
+/static/16d56d259b641e19fb2ee56d63d32728/7c09c/13_5.jpg 975w,
+/static/16d56d259b641e19fb2ee56d63d32728/1da99/13_5.jpg 1233w&quot;
         sizes=&quot;(max-width: 650px) 100vw, 650px&quot;
         style=&quot;width:100%;height:100%;margin:0;vertical-align:middle;position:absolute;top:0;left:0;&quot;
         loading=&quot;lazy&quot;
         decoding=&quot;async&quot;
       /&gt;
     &lt;/span&gt;&lt;/p&gt;
-&lt;h3&gt;Recurrent Neural Network&lt;/h3&gt;
-&lt;p&gt;Recurrent Connection은 과거에서 현재, 현재에서 과거로 가는 Connection을 의미한다. 이것이 사실 &lt;strong&gt;메모리의 역할&lt;/strong&gt;을 하고 있다. Flip Flop의 경우 FeedBack Connection이 존재하기 때문에 마찬가지의 원리로 메모리의 역할을 수행할 수 있게 된다. &lt;strong&gt;Hidden Node의 값을 State&lt;/strong&gt;라고 할 수 있다.&lt;/p&gt;
-&lt;p&gt;과거의 어느부분의 Action을 받아 상태를 전이하는 그림을 나타낸다. &lt;strong&gt;과거의 History를 Summary해서 사용&lt;/strong&gt;하고 있다고 볼 수 있는 것이다. RNN을 보면 Hidden Vector가 존재한다. 실제로 저것이 수 백개의 Dimension이 사용된다. &lt;strong&gt;Hidden Vector는 수백 Dimension이 사용되는 좌표와 대응&lt;/strong&gt;한다고 볼 수 있다. 저런 Hidden Vector가 좌표를 저장하는 데이터가 된다. 과거의 History를 Summation한 것의 Approximation이라고 볼 수 있다.&lt;/p&gt;
+&lt;h3&gt;Convolutional Neural Network(CNN)&lt;/h3&gt;
+&lt;p&gt;3차원적인 구조를 가진다. channel, row, column으로 불린다. &lt;strong&gt;계산량이 엄청나게 많기 때문에 GPU를 이용해서 병렬처리&lt;/strong&gt;를 한다. 더 많은 계산을 동시에 할 수록 병렬 처리의 이점을 취할 수 있다. Sample을 한 개 주고 병렬처리를 하면 효과가 없기 때문에 여러 개의 Data를 주입한다. batch는 Group화 한 것을 말하고 GPU의 성능을 최대로 활용할 수 있도록 도와준다.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;mini batch의 크기가 32라면 32D가 되는 것이다.&lt;/strong&gt; 가끔 5차원 정보가 될 때가 있는데 추가되는 하나의 축은 time이 된다. CNN 개념에 RNN의 개념이 포함될 수 있다. +batch +time. 개념적으로는 3차원이지만 현실적으로 4차원의 데이터를 저장한다.&lt;/p&gt;
 &lt;p&gt;&lt;span
       class=&quot;gatsby-resp-image-wrapper&quot;
       style=&quot;position: relative; display: block; margin-left: auto; margin-right: auto; max-width: 650px; &quot;
     &gt;
       &lt;span
     class=&quot;gatsby-resp-image-background-image&quot;
-    style=&quot;padding-bottom: 70.5521472392638%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/jpeg;base64,/9j/2wBDABALDA4MChAODQ4SERATGCgaGBYWGDEjJR0oOjM9PDkzODdASFxOQERXRTc4UG1RV19iZ2hnPk1xeXBkeFxlZ2P/2wBDARESEhgVGC8aGi9jQjhCY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2P/wgARCAAOABQDASIAAhEBAxEB/8QAGAAAAgMAAAAAAAAAAAAAAAAAAAIBAwX/xAAUAQEAAAAAAAAAAAAAAAAAAAAA/9oADAMBAAIQAxAAAAHcmpxAD//EABoQAQEAAgMAAAAAAAAAAAAAAAEAAhIDERP/2gAIAQEAAQUCbueLFdpdb1L/xAAUEQEAAAAAAAAAAAAAAAAAAAAQ/9oACAEDAQE/AT//xAAUEQEAAAAAAAAAAAAAAAAAAAAQ/9oACAECAQE/AT//xAAZEAACAwEAAAAAAAAAAAAAAAAQEQABQZH/2gAIAQEABj8CDt9Oz//EABoQAAMAAwEAAAAAAAAAAAAAAAABESEx8WH/2gAIAQEAAT8hSdFXB6yGJeqLSuniP//aAAwDAQACAAMAAAAQM8//xAAUEQEAAAAAAAAAAAAAAAAAAAAQ/9oACAEDAQE/ED//xAAUEQEAAAAAAAAAAAAAAAAAAAAQ/9oACAECAQE/ED//xAAcEAEBAAICAwAAAAAAAAAAAAABEQAhMVFBgdH/2gAIAQEAAT8QRWru8seZ32xOmlYjHaL3IsmIVZZreB+T0fc//9k=&apos;); background-size: cover; display: block;&quot;
+    style=&quot;padding-bottom: 68.71165644171779%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/jpeg;base64,/9j/2wBDABALDA4MChAODQ4SERATGCgaGBYWGDEjJR0oOjM9PDkzODdASFxOQERXRTc4UG1RV19iZ2hnPk1xeXBkeFxlZ2P/2wBDARESEhgVGC8aGi9jQjhCY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2P/wgARCAAOABQDASIAAhEBAxEB/8QAFwABAQEBAAAAAAAAAAAAAAAAAQACBf/EABQBAQAAAAAAAAAAAAAAAAAAAAD/2gAMAwEAAhADEAAAAe0iZmP/xAAaEAACAgMAAAAAAAAAAAAAAAAAAQIxEBIT/9oACAEBAAEFAnZyiy8bpH//xAAUEQEAAAAAAAAAAAAAAAAAAAAQ/9oACAEDAQE/AT//xAAUEQEAAAAAAAAAAAAAAAAAAAAQ/9oACAECAQE/AT//xAAYEAACAwAAAAAAAAAAAAAAAAAAIDFBkf/aAAgBAQAGPwIkvU//xAAaEAADAAMBAAAAAAAAAAAAAAAAAREhUZHw/9oACAEBAAE/Ia26LysobbphusGdjYjtP//aAAwDAQACAAMAAAAQkM//xAAUEQEAAAAAAAAAAAAAAAAAAAAQ/9oACAEDAQE/ED//xAAUEQEAAAAAAAAAAAAAAAAAAAAQ/9oACAECAQE/ED//xAAZEAEBAQEBAQAAAAAAAAAAAAABEQAxIXH/2gAIAQEAAT8QYZY+t16ppQSlfWqqQxB3oqY6gb//2Q==&apos;); background-size: cover; display: block;&quot;
   &gt;&lt;/span&gt;
   &lt;img
         class=&quot;gatsby-resp-image-image&quot;
         alt=&quot;img&quot;
         title=&quot;img&quot;
-        src=&quot;/static/9fa8081ae548fd3b8d0f88c34b59f787/6aca1/11_5.jpg&quot;
-        srcset=&quot;/static/9fa8081ae548fd3b8d0f88c34b59f787/d2f63/11_5.jpg 163w,
-/static/9fa8081ae548fd3b8d0f88c34b59f787/c989d/11_5.jpg 325w,
-/static/9fa8081ae548fd3b8d0f88c34b59f787/6aca1/11_5.jpg 650w,
-/static/9fa8081ae548fd3b8d0f88c34b59f787/7c09c/11_5.jpg 975w,
-/static/9fa8081ae548fd3b8d0f88c34b59f787/85367/11_5.jpg 1183w&quot;
+        src=&quot;/static/96e685978fc69f570028e99092a42fc4/6aca1/13_6.jpg&quot;
+        srcset=&quot;/static/96e685978fc69f570028e99092a42fc4/d2f63/13_6.jpg 163w,
+/static/96e685978fc69f570028e99092a42fc4/c989d/13_6.jpg 325w,
+/static/96e685978fc69f570028e99092a42fc4/6aca1/13_6.jpg 650w,
+/static/96e685978fc69f570028e99092a42fc4/7c09c/13_6.jpg 975w,
+/static/96e685978fc69f570028e99092a42fc4/3ce61/13_6.jpg 1227w&quot;
         sizes=&quot;(max-width: 650px) 100vw, 650px&quot;
         style=&quot;width:100%;height:100%;margin:0;vertical-align:middle;position:absolute;top:0;left:0;&quot;
         loading=&quot;lazy&quot;
         decoding=&quot;async&quot;
       /&gt;
     &lt;/span&gt;&lt;/p&gt;
-&lt;h3&gt;LSTM and GRU&lt;/h3&gt;
-&lt;p&gt;RNN은 &lt;strong&gt;Vanishing Problem&lt;/strong&gt;이 극심하게 생길 수 있다. 그 문제를 해결하기 위해 LSTM이 있다. Input과 Output Forget gate를 가지고 있다.&lt;/p&gt;
+&lt;h3&gt;Convolutional Neural Network(CNN)&lt;/h3&gt;
+&lt;p&gt;첫 Layer는 대부분 Convolutional Layer를 사용한다. 다음 Layer들은 다양한 Layer를 교차시켜 사용을 한다. 오른쪽(뒷쪽)으로 갈 수록 두 세개 정도의 Fully connected Layer가 존재한다. 2012년도에 CNN이 널리 알려지게 됬는데 그 당시 대부분이 Convolution, Pooling, Fully-connected Layer로 구성이 되어있었다. 그 중 가장 중요한 것이 Convoluitional Layer이다.&lt;/p&gt;
+&lt;p&gt;이에는 종류가 다음과 같이 여러개 존재한다. &lt;strong&gt;Pooling layer는 여러 Dimension에 존재하는 feature들을 적은 Dimention으로 줄이는 역할&lt;/strong&gt;을 한다. &lt;strong&gt;Fully-connected layer는 Targeting을 하는 역할&lt;/strong&gt;을 한다. 전통적인 방법에는 Fully connected Layer를 많이 사용했다.&lt;/p&gt;
 &lt;p&gt;&lt;span
       class=&quot;gatsby-resp-image-wrapper&quot;
       style=&quot;position: relative; display: block; margin-left: auto; margin-right: auto; max-width: 650px; &quot;
     &gt;
       &lt;span
     class=&quot;gatsby-resp-image-background-image&quot;
-    style=&quot;padding-bottom: 63.190184049079754%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/jpeg;base64,/9j/2wBDABALDA4MChAODQ4SERATGCgaGBYWGDEjJR0oOjM9PDkzODdASFxOQERXRTc4UG1RV19iZ2hnPk1xeXBkeFxlZ2P/2wBDARESEhgVGC8aGi9jQjhCY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2P/wgARCAANABQDASIAAhEBAxEB/8QAFwABAQEBAAAAAAAAAAAAAAAAAAIDBf/EABQBAQAAAAAAAAAAAAAAAAAAAAD/2gAMAwEAAhADEAAAAe2UQ1H/xAAWEAEBAQAAAAAAAAAAAAAAAAAQAQL/2gAIAQEAAQUCJkh//8QAFBEBAAAAAAAAAAAAAAAAAAAAEP/aAAgBAwEBPwE//8QAFBEBAAAAAAAAAAAAAAAAAAAAEP/aAAgBAgEBPwE//8QAGBAAAgMAAAAAAAAAAAAAAAAAARAgMUH/2gAIAQEABj8C1WYf/8QAGhABAAMAAwAAAAAAAAAAAAAAAQARMRAhQf/aAAgBAQABPyFu4FPGD26t7HXl/9oADAMBAAIAAwAAABDjz//EABQRAQAAAAAAAAAAAAAAAAAAABD/2gAIAQMBAT8QP//EABQRAQAAAAAAAAAAAAAAAAAAABD/2gAIAQIBAT8QP//EAB0QAAICAQUAAAAAAAAAAAAAAAEhABFBEDFhcYH/2gAIAQEAAT8QrPDgw1dvZub4CZjUVQPkYIAPGn//2Q==&apos;); background-size: cover; display: block;&quot;
+    style=&quot;padding-bottom: 69.32515337423312%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/jpeg;base64,/9j/2wBDABALDA4MChAODQ4SERATGCgaGBYWGDEjJR0oOjM9PDkzODdASFxOQERXRTc4UG1RV19iZ2hnPk1xeXBkeFxlZ2P/2wBDARESEhgVGC8aGi9jQjhCY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2P/wgARCAAOABQDASIAAhEBAxEB/8QAGAAAAwEBAAAAAAAAAAAAAAAAAAIDAQX/xAAUAQEAAAAAAAAAAAAAAAAAAAAA/9oADAMBAAIQAxAAAAHubJCgwf/EABoQAAICAwAAAAAAAAAAAAAAAAECABASEyP/2gAIAQEAAQUCrWCWaN0XMCf/xAAUEQEAAAAAAAAAAAAAAAAAAAAQ/9oACAEDAQE/AT//xAAUEQEAAAAAAAAAAAAAAAAAAAAQ/9oACAECAQE/AT//xAAZEAEAAgMAAAAAAAAAAAAAAAABEBExQZH/2gAIAQEABj8Ci1ewUGdx/8QAGxABAQEAAgMAAAAAAAAAAAAAAREAIVFBYeH/2gAIAQEAAT8hRv3VOssUXrBvnj1i0WZWRGm//9oADAMBAAIAAwAAABAAD//EABQRAQAAAAAAAAAAAAAAAAAAABD/2gAIAQMBAT8QP//EABQRAQAAAAAAAAAAAAAAAAAAABD/2gAIAQIBAT8QP//EABsQAQEBAQEAAwAAAAAAAAAAAAERACFBUXGh/9oACAEBAAE/ECprPIsC6g4C118ArQNORPwhH93IgqBh9RzP2CHN/9k=&apos;); background-size: cover; display: block;&quot;
   &gt;&lt;/span&gt;
   &lt;img
         class=&quot;gatsby-resp-image-image&quot;
         alt=&quot;img&quot;
         title=&quot;img&quot;
-        src=&quot;/static/b1ae8fca9731f475f9042f8172018683/6aca1/11_6.jpg&quot;
-        srcset=&quot;/static/b1ae8fca9731f475f9042f8172018683/d2f63/11_6.jpg 163w,
-/static/b1ae8fca9731f475f9042f8172018683/c989d/11_6.jpg 325w,
-/static/b1ae8fca9731f475f9042f8172018683/6aca1/11_6.jpg 650w,
-/static/b1ae8fca9731f475f9042f8172018683/7c09c/11_6.jpg 975w,
-/static/b1ae8fca9731f475f9042f8172018683/9657e/11_6.jpg 1216w&quot;
+        src=&quot;/static/fe5464dc034beefe5bd900f43c8fa138/6aca1/13_7.jpg&quot;
+        srcset=&quot;/static/fe5464dc034beefe5bd900f43c8fa138/d2f63/13_7.jpg 163w,
+/static/fe5464dc034beefe5bd900f43c8fa138/c989d/13_7.jpg 325w,
+/static/fe5464dc034beefe5bd900f43c8fa138/6aca1/13_7.jpg 650w,
+/static/fe5464dc034beefe5bd900f43c8fa138/7c09c/13_7.jpg 975w,
+/static/fe5464dc034beefe5bd900f43c8fa138/71c77/13_7.jpg 1221w&quot;
         sizes=&quot;(max-width: 650px) 100vw, 650px&quot;
         style=&quot;width:100%;height:100%;margin:0;vertical-align:middle;position:absolute;top:0;left:0;&quot;
         loading=&quot;lazy&quot;
         decoding=&quot;async&quot;
       /&gt;
     &lt;/span&gt;&lt;/p&gt;
-&lt;h3&gt;Emerging Generative Models&lt;/h3&gt;
+&lt;h3&gt;Convolution Layer&lt;/h3&gt;
+&lt;p&gt;영상 처리에서 많이 쓰였던 Convolution operator와 동일하다. 입력 영상이 있고 Convolution mask (3x3 5x5)를 영상으로부터 통과시키고 한칸씩 이동하여 스캔을 완료한다. x의 (n-1)을 밑 Layer의 Feature라고 할 수 있다.&lt;/p&gt;
 &lt;p&gt;&lt;span
       class=&quot;gatsby-resp-image-wrapper&quot;
       style=&quot;position: relative; display: block; margin-left: auto; margin-right: auto; max-width: 650px; &quot;
     &gt;
       &lt;span
     class=&quot;gatsby-resp-image-background-image&quot;
-    style=&quot;padding-bottom: 68.71165644171779%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/jpeg;base64,/9j/2wBDABALDA4MChAODQ4SERATGCgaGBYWGDEjJR0oOjM9PDkzODdASFxOQERXRTc4UG1RV19iZ2hnPk1xeXBkeFxlZ2P/2wBDARESEhgVGC8aGi9jQjhCY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2P/wgARCAAOABQDASIAAhEBAxEB/8QAGAABAAMBAAAAAAAAAAAAAAAAAAECAwX/xAAUAQEAAAAAAAAAAAAAAAAAAAAA/9oADAMBAAIQAxAAAAHuJoGg/8QAFxABAQEBAAAAAAAAAAAAAAAAARACE//aAAgBAQABBQJnMjpn/8QAFBEBAAAAAAAAAAAAAAAAAAAAEP/aAAgBAwEBPwE//8QAFBEBAAAAAAAAAAAAAAAAAAAAEP/aAAgBAgEBPwE//8QAFhABAQEAAAAAAAAAAAAAAAAAAEEg/9oACAEBAAY/AlXH/8QAHRAAAgIBBQAAAAAAAAAAAAAAAREAIRAxQZGh8P/aAAgBAQABPyEFv3F4ZYS7F64AFAcxz//aAAwDAQACAAMAAAAQ88//xAAUEQEAAAAAAAAAAAAAAAAAAAAQ/9oACAEDAQE/ED//xAAUEQEAAAAAAAAAAAAAAAAAAAAQ/9oACAECAQE/ED//xAAZEAEBAQEBAQAAAAAAAAAAAAABEQAhYXH/2gAIAQEAAT8QgVZfWAoX7FN1ztneUElazrkrGc6sFC7/2Q==&apos;); background-size: cover; display: block;&quot;
+    style=&quot;padding-bottom: 69.93865030674846%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/jpeg;base64,/9j/2wBDABALDA4MChAODQ4SERATGCgaGBYWGDEjJR0oOjM9PDkzODdASFxOQERXRTc4UG1RV19iZ2hnPk1xeXBkeFxlZ2P/2wBDARESEhgVGC8aGi9jQjhCY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2P/wgARCAAOABQDASIAAhEBAxEB/8QAGAAAAgMAAAAAAAAAAAAAAAAAAAQCAwX/xAAUAQEAAAAAAAAAAAAAAAAAAAAA/9oADAMBAAIQAxAAAAHcIrDRQH//xAAbEAABBAMAAAAAAAAAAAAAAAAAAQMREgQiI//aAAgBAQABBQIkohaTHXg25p//xAAUEQEAAAAAAAAAAAAAAAAAAAAQ/9oACAEDAQE/AT//xAAUEQEAAAAAAAAAAAAAAAAAAAAQ/9oACAECAQE/AT//xAAZEAACAwEAAAAAAAAAAAAAAAAAEQECEEH/2gAIAQEABj8CzuVghtn/xAAbEAACAwADAAAAAAAAAAAAAAABEQAhMUFRof/aAAgBAQABPyE7vsoArB52Cwu17FAp9RZzYCMGpgaZ/9oADAMBAAIAAwAAABAwD//EABQRAQAAAAAAAAAAAAAAAAAAABD/2gAIAQMBAT8QP//EABQRAQAAAAAAAAAAAAAAAAAAABD/2gAIAQIBAT8QP//EABwQAAICAgMAAAAAAAAAAAAAAAERACExcUFRYf/aAAgBAQABPxB3xGwln5gxcDk2vGwARNhyIwpNnZuApQRLZ25//9k=&apos;); background-size: cover; display: block;&quot;
   &gt;&lt;/span&gt;
   &lt;img
         class=&quot;gatsby-resp-image-image&quot;
         alt=&quot;img&quot;
         title=&quot;img&quot;
-        src=&quot;/static/a3f9f437e448c3dd6e5b2980e9b256a3/6aca1/11_7.jpg&quot;
-        srcset=&quot;/static/a3f9f437e448c3dd6e5b2980e9b256a3/d2f63/11_7.jpg 163w,
-/static/a3f9f437e448c3dd6e5b2980e9b256a3/c989d/11_7.jpg 325w,
-/static/a3f9f437e448c3dd6e5b2980e9b256a3/6aca1/11_7.jpg 650w,
-/static/a3f9f437e448c3dd6e5b2980e9b256a3/7c09c/11_7.jpg 975w,
-/static/a3f9f437e448c3dd6e5b2980e9b256a3/e4b8a/11_7.jpg 1207w&quot;
+        src=&quot;/static/79751681a6e942c1895b44713731b14f/6aca1/13_8.jpg&quot;
+        srcset=&quot;/static/79751681a6e942c1895b44713731b14f/d2f63/13_8.jpg 163w,
+/static/79751681a6e942c1895b44713731b14f/c989d/13_8.jpg 325w,
+/static/79751681a6e942c1895b44713731b14f/6aca1/13_8.jpg 650w,
+/static/79751681a6e942c1895b44713731b14f/7c09c/13_8.jpg 975w,
+/static/79751681a6e942c1895b44713731b14f/b52a8/13_8.jpg 1267w&quot;
         sizes=&quot;(max-width: 650px) 100vw, 650px&quot;
         style=&quot;width:100%;height:100%;margin:0;vertical-align:middle;position:absolute;top:0;left:0;&quot;
         loading=&quot;lazy&quot;
         decoding=&quot;async&quot;
       /&gt;
     &lt;/span&gt;&lt;/p&gt;
-&lt;h3&gt;Deep Convolutional GAN&lt;/h3&gt;
-&lt;p&gt;GAN의 학습 방법
-&lt;strong&gt;경쟁자를 통한 학습&lt;/strong&gt;을 하게 된다. Generator는 위조 지폐를 만드는 사람에 비유를 하고 Discrimator는 경찰이라고 볼 수 있다. Discrim의 입장에서 진짜 Sample과 위조 Sampel의 차이를 학습한다. Generator는 Discrim이 분별해낸는 차이를 없애내는 학습을 계속 진행한다. CNN을 적용시키면 DCGAN을 얻게 된다.&lt;/p&gt;
+&lt;h3&gt;Convolution Operation&lt;/h3&gt;
+&lt;p&gt;알고리즘이 같다고 하더라도 &lt;strong&gt;Mask의 값에 따라 완전히 다른 것을 만들 수 있다.&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;CNN에서 &lt;strong&gt;Convolution Mask가 Weight에 해당&lt;/strong&gt;한다. 이 Convolutional mask 자체가 학습을 해야 하는 Weight가 된다.&lt;/p&gt;
+&lt;p&gt;&lt;span
+      class=&quot;gatsby-resp-image-wrapper&quot;
+      style=&quot;position: relative; display: block; margin-left: auto; margin-right: auto; max-width: 650px; &quot;
+    &gt;
+      &lt;span
+    class=&quot;gatsby-resp-image-background-image&quot;
+    style=&quot;padding-bottom: 68.09815950920245%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/jpeg;base64,/9j/2wBDABALDA4MChAODQ4SERATGCgaGBYWGDEjJR0oOjM9PDkzODdASFxOQERXRTc4UG1RV19iZ2hnPk1xeXBkeFxlZ2P/2wBDARESEhgVGC8aGi9jQjhCY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2P/wgARCAAOABQDASIAAhEBAxEB/8QAGAAAAwEBAAAAAAAAAAAAAAAAAAMFAgT/xAAUAQEAAAAAAAAAAAAAAAAAAAAA/9oADAMBAAIQAxAAAAGw2b2DDIf/xAAZEAEAAwEBAAAAAAAAAAAAAAABAAIDEBH/2gAIAQEAAQUCbBwqEtoe00LBoM//xAAUEQEAAAAAAAAAAAAAAAAAAAAQ/9oACAEDAQE/AT//xAAUEQEAAAAAAAAAAAAAAAAAAAAQ/9oACAECAQE/AT//xAAaEAABBQEAAAAAAAAAAAAAAAAAARARITFB/9oACAEBAAY/AtdSpOn/xAAcEAADAQACAwAAAAAAAAAAAAABESEAMUFRcbH/2gAIAQEAAT8hLEEp7zPSWac0vnGRNJ+aeR5zZCCt/9oADAMBAAIAAwAAABDTz//EABQRAQAAAAAAAAAAAAAAAAAAABD/2gAIAQMBAT8QP//EABQRAQAAAAAAAAAAAAAAAAAAABD/2gAIAQIBAT8QP//EABwQAQEAAgMBAQAAAAAAAAAAAAERADEhQVGR0f/aAAgBAQABPxChqkZ4K95oqhS7mHIXzFW3Eo03g7B7lICQYP3JHkSob+5//9k=&apos;); background-size: cover; display: block;&quot;
+  &gt;&lt;/span&gt;
+  &lt;img
+        class=&quot;gatsby-resp-image-image&quot;
+        alt=&quot;img&quot;
+        title=&quot;img&quot;
+        src=&quot;/static/f4727f8ac7e1c5d121079233bd8ba063/6aca1/13_9.jpg&quot;
+        srcset=&quot;/static/f4727f8ac7e1c5d121079233bd8ba063/d2f63/13_9.jpg 163w,
+/static/f4727f8ac7e1c5d121079233bd8ba063/c989d/13_9.jpg 325w,
+/static/f4727f8ac7e1c5d121079233bd8ba063/6aca1/13_9.jpg 650w,
+/static/f4727f8ac7e1c5d121079233bd8ba063/7c09c/13_9.jpg 975w,
+/static/f4727f8ac7e1c5d121079233bd8ba063/90a02/13_9.jpg 1293w&quot;
+        sizes=&quot;(max-width: 650px) 100vw, 650px&quot;
+        style=&quot;width:100%;height:100%;margin:0;vertical-align:middle;position:absolute;top:0;left:0;&quot;
+        loading=&quot;lazy&quot;
+        decoding=&quot;async&quot;
+      /&gt;
+    &lt;/span&gt;&lt;/p&gt;
+&lt;h3&gt;Convolution Layers&lt;/h3&gt;
+&lt;p&gt;Multi channel 로 구성되기도 한다. &lt;strong&gt;해당 Neural을 결정하는 channel이 한 개가 아니라 여러 개일 수도 있다.&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;span
+      class=&quot;gatsby-resp-image-wrapper&quot;
+      style=&quot;position: relative; display: block; margin-left: auto; margin-right: auto; max-width: 650px; &quot;
+    &gt;
+      &lt;span
+    class=&quot;gatsby-resp-image-background-image&quot;
+    style=&quot;padding-bottom: 67.48466257668711%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/jpeg;base64,/9j/2wBDABALDA4MChAODQ4SERATGCgaGBYWGDEjJR0oOjM9PDkzODdASFxOQERXRTc4UG1RV19iZ2hnPk1xeXBkeFxlZ2P/2wBDARESEhgVGC8aGi9jQjhCY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2P/wgARCAANABQDASIAAhEBAxEB/8QAGAAAAgMAAAAAAAAAAAAAAAAAAAMCBAX/xAAUAQEAAAAAAAAAAAAAAAAAAAAA/9oADAMBAAIQAxAAAAHcJVxg4P/EABsQAAIBBQAAAAAAAAAAAAAAAAABAgMQERIx/9oACAEBAAEFAhPJoh8owcbf/8QAFBEBAAAAAAAAAAAAAAAAAAAAEP/aAAgBAwEBPwE//8QAFBEBAAAAAAAAAAAAAAAAAAAAEP/aAAgBAgEBPwE//8QAGRAAAgMBAAAAAAAAAAAAAAAAARAAAhEh/9oACAEBAAY/ApxnbEr/xAAdEAEBAAEEAwAAAAAAAAAAAAABEQAQITFBUWGh/9oACAEBAAE/IUbx9ybsecN9Rq3nBUWezKKq96f/2gAMAwEAAgADAAAAECMP/8QAFBEBAAAAAAAAAAAAAAAAAAAAEP/aAAgBAwEBPxA//8QAFBEBAAAAAAAAAAAAAAAAAAAAEP/aAAgBAgEBPxA//8QAHRABAQACAQUAAAAAAAAAAAAAAREAITEQQVFx0f/aAAgBAQABPxCtE15r7m/glIfGV0SVXOIQmk7hm+1tDVHn30//2Q==&apos;); background-size: cover; display: block;&quot;
+  &gt;&lt;/span&gt;
+  &lt;img
+        class=&quot;gatsby-resp-image-image&quot;
+        alt=&quot;img&quot;
+        title=&quot;img&quot;
+        src=&quot;/static/8ba7c5b67eec2d1378fdaabf0e9cff28/6aca1/13_10.jpg&quot;
+        srcset=&quot;/static/8ba7c5b67eec2d1378fdaabf0e9cff28/d2f63/13_10.jpg 163w,
+/static/8ba7c5b67eec2d1378fdaabf0e9cff28/c989d/13_10.jpg 325w,
+/static/8ba7c5b67eec2d1378fdaabf0e9cff28/6aca1/13_10.jpg 650w,
+/static/8ba7c5b67eec2d1378fdaabf0e9cff28/7c09c/13_10.jpg 975w,
+/static/8ba7c5b67eec2d1378fdaabf0e9cff28/efc8b/13_10.jpg 1240w&quot;
+        sizes=&quot;(max-width: 650px) 100vw, 650px&quot;
+        style=&quot;width:100%;height:100%;margin:0;vertical-align:middle;position:absolute;top:0;left:0;&quot;
+        loading=&quot;lazy&quot;
+        decoding=&quot;async&quot;
+      /&gt;
+    &lt;/span&gt;&lt;/p&gt;
+&lt;h3&gt;Dilated Convolution(astrous Convolution)&lt;/h3&gt;
+&lt;p&gt;mask의 dense가 좀 넓다. 예를 들어 두 칸에 하나를 뽑아내는 등으로 &lt;strong&gt;계산량이 감소&lt;/strong&gt;하게 된다. Weight의 개수도 감소하게 되고 파라미터도 줄어들며 Training이 더 수월해진다.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;3x3 mask가 5x5 영역을 커버하고 있으므로 적은 파라미터로 넓은 Context를 처리할 수 있게 된다.&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;span
+      class=&quot;gatsby-resp-image-wrapper&quot;
+      style=&quot;position: relative; display: block; margin-left: auto; margin-right: auto; max-width: 650px; &quot;
+    &gt;
+      &lt;span
+    class=&quot;gatsby-resp-image-background-image&quot;
+    style=&quot;padding-bottom: 68.09815950920245%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/jpeg;base64,/9j/2wBDABALDA4MChAODQ4SERATGCgaGBYWGDEjJR0oOjM9PDkzODdASFxOQERXRTc4UG1RV19iZ2hnPk1xeXBkeFxlZ2P/2wBDARESEhgVGC8aGi9jQjhCY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2P/wgARCAAOABQDASIAAhEBAxEB/8QAFwAAAwEAAAAAAAAAAAAAAAAAAAECBf/EABQBAQAAAAAAAAAAAAAAAAAAAAD/2gAMAwEAAhADEAAAAdtyihh//8QAGRABAAMBAQAAAAAAAAAAAAAAAgABERAS/9oACAEBAAEFAuUMivScJ9T/xAAUEQEAAAAAAAAAAAAAAAAAAAAQ/9oACAEDAQE/AT//xAAUEQEAAAAAAAAAAAAAAAAAAAAQ/9oACAECAQE/AT//xAAXEAADAQAAAAAAAAAAAAAAAAAAARBB/9oACAEBAAY/Apo0Kf/EABoQAQADAQEBAAAAAAAAAAAAAAEAESFBUXH/2gAIAQEAAT8h2+wfrAtum9YBBedyMasgX2f/2gAMAwEAAgADAAAAEEMP/8QAFBEBAAAAAAAAAAAAAAAAAAAAEP/aAAgBAwEBPxA//8QAFBEBAAAAAAAAAAAAAAAAAAAAEP/aAAgBAgEBPxA//8QAGxABAQEBAQADAAAAAAAAAAAAAREAIXGBkbH/2gAIAQEAAT8QtD59cwHA8upbtld3YuhRPTC1nUBv7gqH03//2Q==&apos;); background-size: cover; display: block;&quot;
+  &gt;&lt;/span&gt;
+  &lt;img
+        class=&quot;gatsby-resp-image-image&quot;
+        alt=&quot;img&quot;
+        title=&quot;img&quot;
+        src=&quot;/static/d47e7f8eb57679aaf958085619ce6ac1/6aca1/13_11.jpg&quot;
+        srcset=&quot;/static/d47e7f8eb57679aaf958085619ce6ac1/d2f63/13_11.jpg 163w,
+/static/d47e7f8eb57679aaf958085619ce6ac1/c989d/13_11.jpg 325w,
+/static/d47e7f8eb57679aaf958085619ce6ac1/6aca1/13_11.jpg 650w,
+/static/d47e7f8eb57679aaf958085619ce6ac1/7c09c/13_11.jpg 975w,
+/static/d47e7f8eb57679aaf958085619ce6ac1/481c6/13_11.jpg 1245w&quot;
+        sizes=&quot;(max-width: 650px) 100vw, 650px&quot;
+        style=&quot;width:100%;height:100%;margin:0;vertical-align:middle;position:absolute;top:0;left:0;&quot;
+        loading=&quot;lazy&quot;
+        decoding=&quot;async&quot;
+      /&gt;
+    &lt;/span&gt;&lt;/p&gt;
+&lt;h3&gt;Convolution Layer&lt;/h3&gt;
+&lt;p&gt;영상 처리에서 많이 쓰였던 Convolution operator와 동일하다. 입력 영상이 있고 Convolution mask (3x3 5x5)를 영상으로부터 통과시키고 한칸씩 이동하여 스캔을 완료한다./
+x의 (n-1)을 밑 Layer의 Feature라고 할 수 있다.&lt;/p&gt;
+&lt;p&gt;&lt;span
+      class=&quot;gatsby-resp-image-wrapper&quot;
+      style=&quot;position: relative; display: block; margin-left: auto; margin-right: auto; max-width: 650px; &quot;
+    &gt;
+      &lt;span
+    class=&quot;gatsby-resp-image-background-image&quot;
+    style=&quot;padding-bottom: 66.25766871165644%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/jpeg;base64,/9j/2wBDABALDA4MChAODQ4SERATGCgaGBYWGDEjJR0oOjM9PDkzODdASFxOQERXRTc4UG1RV19iZ2hnPk1xeXBkeFxlZ2P/2wBDARESEhgVGC8aGi9jQjhCY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2P/wgARCAANABQDASIAAhEBAxEB/8QAGAAAAgMAAAAAAAAAAAAAAAAAAAIBAwX/xAAUAQEAAAAAAAAAAAAAAAAAAAAA/9oADAMBAAIQAxAAAAHcEgsED//EABgQAQEBAQEAAAAAAAAAAAAAAAABAhIT/9oACAEBAAEFAkTEi7dPR//EABQRAQAAAAAAAAAAAAAAAAAAABD/2gAIAQMBAT8BP//EABQRAQAAAAAAAAAAAAAAAAAAABD/2gAIAQIBAT8BP//EABYQAQEBAAAAAAAAAAAAAAAAABAxAP/aAAgBAQAGPwJhN//EABsQAAMBAQADAAAAAAAAAAAAAAABETFhIdHh/9oACAEBAAE/IWnX7MeCl13SFChZnRV9H//aAAwDAQACAAMAAAAQYA//xAAUEQEAAAAAAAAAAAAAAAAAAAAQ/9oACAEDAQE/ED//xAAUEQEAAAAAAAAAAAAAAAAAAAAQ/9oACAECAQE/ED//xAAdEAEBAAIBBQAAAAAAAAAAAAABEQAxQVFhkdHw/9oACAEBAAE/EL4qPd7xryG6typirJVvIugzeR1bFhBrIL9eM//Z&apos;); background-size: cover; display: block;&quot;
+  &gt;&lt;/span&gt;
+  &lt;img
+        class=&quot;gatsby-resp-image-image&quot;
+        alt=&quot;img&quot;
+        title=&quot;img&quot;
+        src=&quot;/static/d900268b3dea673310bf2b15b50a3d48/6aca1/13_12.jpg&quot;
+        srcset=&quot;/static/d900268b3dea673310bf2b15b50a3d48/d2f63/13_12.jpg 163w,
+/static/d900268b3dea673310bf2b15b50a3d48/c989d/13_12.jpg 325w,
+/static/d900268b3dea673310bf2b15b50a3d48/6aca1/13_12.jpg 650w,
+/static/d900268b3dea673310bf2b15b50a3d48/7c09c/13_12.jpg 975w,
+/static/d900268b3dea673310bf2b15b50a3d48/949c1/13_12.jpg 1261w&quot;
+        sizes=&quot;(max-width: 650px) 100vw, 650px&quot;
+        style=&quot;width:100%;height:100%;margin:0;vertical-align:middle;position:absolute;top:0;left:0;&quot;
+        loading=&quot;lazy&quot;
+        decoding=&quot;async&quot;
+      /&gt;
+    &lt;/span&gt;&lt;/p&gt;
+&lt;h3&gt;Separable Convolution&lt;/h3&gt;
+&lt;p&gt;2차원 Convolution을 적용하고 &lt;strong&gt;Channel간 이루어지는 Convolution이 이루어진다.&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;span
+      class=&quot;gatsby-resp-image-wrapper&quot;
+      style=&quot;position: relative; display: block; margin-left: auto; margin-right: auto; max-width: 650px; &quot;
+    &gt;
+      &lt;span
+    class=&quot;gatsby-resp-image-background-image&quot;
+    style=&quot;padding-bottom: 67.48466257668711%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/jpeg;base64,/9j/2wBDABALDA4MChAODQ4SERATGCgaGBYWGDEjJR0oOjM9PDkzODdASFxOQERXRTc4UG1RV19iZ2hnPk1xeXBkeFxlZ2P/2wBDARESEhgVGC8aGi9jQjhCY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2P/wgARCAANABQDASIAAhEBAxEB/8QAFwAAAwEAAAAAAAAAAAAAAAAAAAIDBf/EABQBAQAAAAAAAAAAAAAAAAAAAAD/2gAMAwEAAhADEAAAAdt1cmUD/8QAGRAAAgMBAAAAAAAAAAAAAAAAEBEAAQIi/9oACAEBAAEFAhWVF0P/xAAUEQEAAAAAAAAAAAAAAAAAAAAQ/9oACAEDAQE/AT//xAAUEQEAAAAAAAAAAAAAAAAAAAAQ/9oACAECAQE/AT//xAAWEAADAAAAAAAAAAAAAAAAAAAQIEH/2gAIAQEABj8CFT//xAAbEAACAgMBAAAAAAAAAAAAAAABEQAhEDFBYf/aAAgBAQABPyEgvc5Atdi9zo4vcf/aAAwDAQACAAMAAAAQw8//xAAUEQEAAAAAAAAAAAAAAAAAAAAQ/9oACAEDAQE/ED//xAAUEQEAAAAAAAAAAAAAAAAAAAAQ/9oACAECAQE/ED//xAAdEAEBAAIBBQAAAAAAAAAAAAABEQAhQRAxUWGB/9oACAEBAAE/EAraXy4Okv3O9ZRV484XCFafTx0//9k=&apos;); background-size: cover; display: block;&quot;
+  &gt;&lt;/span&gt;
+  &lt;img
+        class=&quot;gatsby-resp-image-image&quot;
+        alt=&quot;img&quot;
+        title=&quot;img&quot;
+        src=&quot;/static/3c44bfb084335a085094743be49211ab/6aca1/13_13.jpg&quot;
+        srcset=&quot;/static/3c44bfb084335a085094743be49211ab/d2f63/13_13.jpg 163w,
+/static/3c44bfb084335a085094743be49211ab/c989d/13_13.jpg 325w,
+/static/3c44bfb084335a085094743be49211ab/6aca1/13_13.jpg 650w,
+/static/3c44bfb084335a085094743be49211ab/7c09c/13_13.jpg 975w,
+/static/3c44bfb084335a085094743be49211ab/9657e/13_13.jpg 1216w&quot;
+        sizes=&quot;(max-width: 650px) 100vw, 650px&quot;
+        style=&quot;width:100%;height:100%;margin:0;vertical-align:middle;position:absolute;top:0;left:0;&quot;
+        loading=&quot;lazy&quot;
+        decoding=&quot;async&quot;
+      /&gt;
+    &lt;/span&gt;&lt;/p&gt;
+&lt;h3&gt;Max-Pooling Layer&lt;/h3&gt;
+&lt;p&gt;입력 feature map을 일정한 크기로 나누고 &lt;strong&gt;Maximum 값으로 작은 Map을 만든다.&lt;/strong&gt; 어떤 영역으로 들어오게 되는 데이터는 하나의 성분이다!! 라는 개념으로 사용되고 그 중 &lt;strong&gt;가장 센 값이 대표 성분을 가진다라고 판단&lt;/strong&gt;하여 최대값을 택하게 된다.&lt;/p&gt;
 &lt;style class=&quot;grvsc-styles&quot;&gt;
   .grvsc-container {
     overflow: auto;
@@ -7330,106 +7492,78 @@ Computation 을 많이 필요로 한다.&lt;/p&gt;
     opacity: 0.7;
   }
   
-&lt;/style&gt;</content:encoded></item><item><title><![CDATA[Deep Learning Basic]]></title><description><![CDATA[Deep Learning Layer가 많은 심층 신경망을 사용하고 layer 하나는 Weighted Sum을 활용한다. W는 데이터로부터 학습을 하는 파라미터이고 마지막에는 Loss function을 정의한다. 즉, 모든 Layer의 Weight…]]></description><link>https://kimhyunuk98.github.io/blog/deeplearning13/</link><guid isPermaLink="false">https://kimhyunuk98.github.io/blog/deeplearning13/</guid><pubDate>Mon, 17 Jan 2022 10:45:00 GMT</pubDate><content:encoded>&lt;p&gt;&lt;span
+&lt;/style&gt;</content:encoded></item><item><title><![CDATA[Deep Learning Basic]]></title><description><![CDATA[Deep Learning Approaches Convolution Layer에서 가장 중요한 것은 Convolution Layer이다. Position Invariant 한 Local을 feature 한다. 입력이 들어와서 Output…]]></description><link>https://kimhyunuk98.github.io/blog/deeplearning11/</link><guid isPermaLink="false">https://kimhyunuk98.github.io/blog/deeplearning11/</guid><pubDate>Mon, 17 Jan 2022 10:45:00 GMT</pubDate><content:encoded>&lt;p&gt;&lt;span
       class=&quot;gatsby-resp-image-wrapper&quot;
       style=&quot;position: relative; display: block; margin-left: auto; margin-right: auto; max-width: 650px; &quot;
     &gt;
       &lt;span
     class=&quot;gatsby-resp-image-background-image&quot;
-    style=&quot;padding-bottom: 69.93865030674846%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/jpeg;base64,/9j/2wBDABALDA4MChAODQ4SERATGCgaGBYWGDEjJR0oOjM9PDkzODdASFxOQERXRTc4UG1RV19iZ2hnPk1xeXBkeFxlZ2P/2wBDARESEhgVGC8aGi9jQjhCY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2P/wgARCAAOABQDASIAAhEBAxEB/8QAGAAAAwEBAAAAAAAAAAAAAAAAAAIDAQX/xAAUAQEAAAAAAAAAAAAAAAAAAAAA/9oADAMBAAIQAxAAAAHtPPRSgf/EABoQAAIDAQEAAAAAAAAAAAAAAAABAhIhA0H/2gAIAQEAAQUC90fKLbntiyP/xAAUEQEAAAAAAAAAAAAAAAAAAAAQ/9oACAEDAQE/AT//xAAUEQEAAAAAAAAAAAAAAAAAAAAQ/9oACAECAQE/AT//xAAYEAACAwAAAAAAAAAAAAAAAAABERAgkf/aAAgBAQAGPwKGXtP/xAAaEAEBAQEAAwAAAAAAAAAAAAABABExYXHR/9oACAEBAAE/IVdfbfCVJphHDJ07e6//2gAMAwEAAgADAAAAEIAP/8QAFBEBAAAAAAAAAAAAAAAAAAAAEP/aAAgBAwEBPxA//8QAFBEBAAAAAAAAAAAAAAAAAAAAEP/aAAgBAgEBPxA//8QAHhAAAgIABwAAAAAAAAAAAAAAAREAMSFBUXGRsfH/2gAIAQEAAT8QEE0iwSfUKsL1cMmmZRATQhN+cvYFVwn/2Q==&apos;); background-size: cover; display: block;&quot;
+    style=&quot;padding-bottom: 62.576687116564415%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/jpeg;base64,/9j/2wBDABALDA4MChAODQ4SERATGCgaGBYWGDEjJR0oOjM9PDkzODdASFxOQERXRTc4UG1RV19iZ2hnPk1xeXBkeFxlZ2P/2wBDARESEhgVGC8aGi9jQjhCY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2P/wgARCAANABQDASIAAhEBAxEB/8QAGAAAAwEBAAAAAAAAAAAAAAAAAAEDAgX/xAAUAQEAAAAAAAAAAAAAAAAAAAAA/9oADAMBAAIQAxAAAAHtrTJlQ//EABoQAQABBQAAAAAAAAAAAAAAAAEAAhARMUH/2gAIAQEAAQUCdsKCdxb/xAAUEQEAAAAAAAAAAAAAAAAAAAAQ/9oACAEDAQE/AT//xAAUEQEAAAAAAAAAAAAAAAAAAAAQ/9oACAECAQE/AT//xAAZEAACAwEAAAAAAAAAAAAAAAAAIQERIHH/2gAIAQEABj8CFNdHj//EABoQAQACAwEAAAAAAAAAAAAAAAEAESFBcZH/2gAIAQEAAT8h6exUFPSVlyVuxiO0Ri6ewn//2gAMAwEAAgADAAAAEAMP/8QAFBEBAAAAAAAAAAAAAAAAAAAAEP/aAAgBAwEBPxA//8QAFBEBAAAAAAAAAAAAAAAAAAAAEP/aAAgBAgEBPxA//8QAHBABAQEAAgMBAAAAAAAAAAAAAREAMaFRYXHw/9oACAEBAAE/EFGLHP5cyEX3XvNhXiI95zjDxMggpwi4wgB8N//Z&apos;); background-size: cover; display: block;&quot;
   &gt;&lt;/span&gt;
   &lt;img
         class=&quot;gatsby-resp-image-image&quot;
         alt=&quot;img&quot;
         title=&quot;img&quot;
-        src=&quot;/static/1afd87b47045be047226dd5b3a300a70/6aca1/13_1.jpg&quot;
-        srcset=&quot;/static/1afd87b47045be047226dd5b3a300a70/d2f63/13_1.jpg 163w,
-/static/1afd87b47045be047226dd5b3a300a70/c989d/13_1.jpg 325w,
-/static/1afd87b47045be047226dd5b3a300a70/6aca1/13_1.jpg 650w,
-/static/1afd87b47045be047226dd5b3a300a70/7c09c/13_1.jpg 975w,
-/static/1afd87b47045be047226dd5b3a300a70/d08c8/13_1.jpg 1219w&quot;
+        src=&quot;/static/1e42c8104aaa5caf3fe83e410d79554d/6aca1/11_1.jpg&quot;
+        srcset=&quot;/static/1e42c8104aaa5caf3fe83e410d79554d/d2f63/11_1.jpg 163w,
+/static/1e42c8104aaa5caf3fe83e410d79554d/c989d/11_1.jpg 325w,
+/static/1e42c8104aaa5caf3fe83e410d79554d/6aca1/11_1.jpg 650w,
+/static/1e42c8104aaa5caf3fe83e410d79554d/7c09c/11_1.jpg 975w,
+/static/1e42c8104aaa5caf3fe83e410d79554d/949c1/11_1.jpg 1261w&quot;
         sizes=&quot;(max-width: 650px) 100vw, 650px&quot;
         style=&quot;width:100%;height:100%;margin:0;vertical-align:middle;position:absolute;top:0;left:0;&quot;
         loading=&quot;lazy&quot;
         decoding=&quot;async&quot;
       /&gt;
     &lt;/span&gt;&lt;/p&gt;
-&lt;h3&gt;Deep Learning&lt;/h3&gt;
-&lt;p&gt;Layer가 많은 심층 신경망을 사용하고 layer 하나는 Weighted Sum을 활용한다. W는 데이터로부터 학습을 하는 파라미터이고 마지막에는 Loss function을 정의한다. &lt;strong&gt;즉, 모든 Layer의 Weight를 최적화하는 것.&lt;/strong&gt; 이를 결정하는 과정이 학습하는 과정이 된다. Layer의 각 Operation은 입력 정보를 Weighted Sum으로 merge하는데 &lt;strong&gt;어떤 비율로 Merge 하는가&lt;/strong&gt;가 포인트&lt;/p&gt;
+&lt;h3&gt;Deep Learning Approaches&lt;/h3&gt;
+&lt;p&gt;Convolution Layer에서 가장 중요한 것은 Convolution Layer이다. &lt;strong&gt;Position Invariant 한 Local을 feature 한다.&lt;/strong&gt; 입력이 들어와서 Output까지 쭈욱 가는 것.&lt;/p&gt;
+&lt;h3&gt;RNN(Recurrent Nearal Network)&lt;/h3&gt;
+&lt;p&gt;과거가 현재에 영향을 주는 Time-series data의 부분으로 쓰인다. FeedBack을 해주는 Node가 존재한다. &lt;strong&gt;현재의 Input값과 Context가 합쳐져서 사용&lt;/strong&gt;이 된다는 것.&lt;/p&gt;
 &lt;p&gt;&lt;span
       class=&quot;gatsby-resp-image-wrapper&quot;
       style=&quot;position: relative; display: block; margin-left: auto; margin-right: auto; max-width: 650px; &quot;
     &gt;
       &lt;span
     class=&quot;gatsby-resp-image-background-image&quot;
-    style=&quot;padding-bottom: 68.09815950920245%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/jpeg;base64,/9j/2wBDABALDA4MChAODQ4SERATGCgaGBYWGDEjJR0oOjM9PDkzODdASFxOQERXRTc4UG1RV19iZ2hnPk1xeXBkeFxlZ2P/2wBDARESEhgVGC8aGi9jQjhCY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2P/wgARCAAOABQDASIAAhEBAxEB/8QAFwAAAwEAAAAAAAAAAAAAAAAAAAEDBf/EABQBAQAAAAAAAAAAAAAAAAAAAAD/2gAMAwEAAhADEAAAAdobIlw//8QAGRABAQADAQAAAAAAAAAAAAAAAQACERNB/9oACAEBAAEFAp3chvXEYv/EABQRAQAAAAAAAAAAAAAAAAAAABD/2gAIAQMBAT8BP//EABQRAQAAAAAAAAAAAAAAAAAAABD/2gAIAQIBAT8BP//EABwQAAEDBQAAAAAAAAAAAAAAAAAQESEBAjFBof/aAAgBAQAGPwLZHR7spNHT/8QAGhAAAwEBAQEAAAAAAAAAAAAAAAERIUExUf/aAAgBAQABPyHvuDBXBp0b42RvggQZCRYof//aAAwDAQACAAMAAAAQQ8//xAAUEQEAAAAAAAAAAAAAAAAAAAAQ/9oACAEDAQE/ED//xAAUEQEAAAAAAAAAAAAAAAAAAAAQ/9oACAECAQE/ED//xAAcEAEAAgIDAQAAAAAAAAAAAAABABEhMUFRsdH/2gAIAQEAAT8QvI6G37AUN83WDgCLUR7LzNL5Myw6oUgVAOhn/9k=&apos;); background-size: cover; display: block;&quot;
+    style=&quot;padding-bottom: 64.41717791411043%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/jpeg;base64,/9j/2wBDABALDA4MChAODQ4SERATGCgaGBYWGDEjJR0oOjM9PDkzODdASFxOQERXRTc4UG1RV19iZ2hnPk1xeXBkeFxlZ2P/2wBDARESEhgVGC8aGi9jQjhCY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2P/wgARCAANABQDASIAAhEBAxEB/8QAFwABAQEBAAAAAAAAAAAAAAAAAgADBf/EABQBAQAAAAAAAAAAAAAAAAAAAAD/2gAMAwEAAhADEAAAAe0igW0f/8QAGRAAAgMBAAAAAAAAAAAAAAAAAAECEBNB/9oACAEBAAEFAhGUW+1//8QAFBEBAAAAAAAAAAAAAAAAAAAAEP/aAAgBAwEBPwE//8QAFBEBAAAAAAAAAAAAAAAAAAAAEP/aAAgBAgEBPwE//8QAFxAAAwEAAAAAAAAAAAAAAAAAARARIP/aAAgBAQAGPwJU4//EAB0QAQABAwUAAAAAAAAAAAAAAAEAEBEhMUFhkfD/2gAIAQEAAT8hXLr3PcxUC68xINqf/9oADAMBAAIAAwAAABAzz//EABQRAQAAAAAAAAAAAAAAAAAAABD/2gAIAQMBAT8QP//EABQRAQAAAAAAAAAAAAAAAAAAABD/2gAIAQIBAT8QP//EABsQAQACAwEBAAAAAAAAAAAAAAEAESExURDB/9oACAEBAAE/EHCBA9H2dWa0rEfCm1tM9vNxlis98//Z&apos;); background-size: cover; display: block;&quot;
   &gt;&lt;/span&gt;
   &lt;img
         class=&quot;gatsby-resp-image-image&quot;
         alt=&quot;img&quot;
         title=&quot;img&quot;
-        src=&quot;/static/9aa4de6a631e09db2357a3ea40fd5a48/6aca1/13_2.jpg&quot;
-        srcset=&quot;/static/9aa4de6a631e09db2357a3ea40fd5a48/d2f63/13_2.jpg 163w,
-/static/9aa4de6a631e09db2357a3ea40fd5a48/c989d/13_2.jpg 325w,
-/static/9aa4de6a631e09db2357a3ea40fd5a48/6aca1/13_2.jpg 650w,
-/static/9aa4de6a631e09db2357a3ea40fd5a48/7c09c/13_2.jpg 975w,
-/static/9aa4de6a631e09db2357a3ea40fd5a48/9888a/13_2.jpg 1198w&quot;
+        src=&quot;/static/cd8b13486e4298688a334ade555464ed/6aca1/11_2.jpg&quot;
+        srcset=&quot;/static/cd8b13486e4298688a334ade555464ed/d2f63/11_2.jpg 163w,
+/static/cd8b13486e4298688a334ade555464ed/c989d/11_2.jpg 325w,
+/static/cd8b13486e4298688a334ade555464ed/6aca1/11_2.jpg 650w,
+/static/cd8b13486e4298688a334ade555464ed/7c09c/11_2.jpg 975w,
+/static/cd8b13486e4298688a334ade555464ed/e4b8a/11_2.jpg 1207w&quot;
         sizes=&quot;(max-width: 650px) 100vw, 650px&quot;
         style=&quot;width:100%;height:100%;margin:0;vertical-align:middle;position:absolute;top:0;left:0;&quot;
         loading=&quot;lazy&quot;
         decoding=&quot;async&quot;
       /&gt;
     &lt;/span&gt;&lt;/p&gt;
-&lt;h3&gt;Deep Learning Architecture&lt;/h3&gt;
-&lt;p&gt;&lt;strong&gt;CNN&lt;/strong&gt; -&gt; 영상처리, 자연어, 음성인식
-병렬 처리에 의한 속도 향상을 더 잘 이끌어낼 수 있다.
-&lt;strong&gt;자연어&lt;/strong&gt; : Machine Translation의 효과가 더 있었다.
-&lt;strong&gt;RNN&lt;/strong&gt; -&gt; Time-series Data를 처리하기 위해서 만들어졋다. 하지만 속도가 느리다.
-병렬화를 위해 만들어진 구조가 아니라는 것.&lt;/p&gt;
+&lt;h3&gt;Deep Generative Model&lt;/h3&gt;
+&lt;p&gt;가장 유명한것은 &lt;strong&gt;GAN 네트워크&lt;/strong&gt;이다. Attention Model 등이 존재한다.&lt;/p&gt;
 &lt;p&gt;&lt;span
       class=&quot;gatsby-resp-image-wrapper&quot;
       style=&quot;position: relative; display: block; margin-left: auto; margin-right: auto; max-width: 650px; &quot;
     &gt;
       &lt;span
     class=&quot;gatsby-resp-image-background-image&quot;
-    style=&quot;padding-bottom: 62.576687116564415%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/jpeg;base64,/9j/2wBDABALDA4MChAODQ4SERATGCgaGBYWGDEjJR0oOjM9PDkzODdASFxOQERXRTc4UG1RV19iZ2hnPk1xeXBkeFxlZ2P/2wBDARESEhgVGC8aGi9jQjhCY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2P/wgARCAANABQDASIAAhEBAxEB/8QAGQAAAgMBAAAAAAAAAAAAAAAAAAIBAwQF/8QAFAEBAAAAAAAAAAAAAAAAAAAAAP/aAAwDAQACEAMQAAAB7TQxSaA//8QAGRAAAQUAAAAAAAAAAAAAAAAAEAABAhNB/9oACAEBAAEFAhTB1o//xAAUEQEAAAAAAAAAAAAAAAAAAAAQ/9oACAEDAQE/AT//xAAUEQEAAAAAAAAAAAAAAAAAAAAQ/9oACAECAQE/AT//xAAXEAEAAwAAAAAAAAAAAAAAAAARECDh/9oACAEBAAY/AthGn//EABwQAAICAgMAAAAAAAAAAAAAAAABETEhUUGRof/aAAgBAQABPyFCFv0ltpHzIrV0Z2Kj/9oADAMBAAIAAwAAABCgD//EABQRAQAAAAAAAAAAAAAAAAAAABD/2gAIAQMBAT8QP//EABQRAQAAAAAAAAAAAAAAAAAAABD/2gAIAQIBAT8QP//EABwQAQADAAIDAAAAAAAAAAAAAAEAESFB0TFxkf/aAAgBAQABPxAXgjvC7hle/buNgxVsgUCic8oAcHyX8m2f/9k=&apos;); background-size: cover; display: block;&quot;
+    style=&quot;padding-bottom: 66.87116564417178%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/jpeg;base64,/9j/2wBDABALDA4MChAODQ4SERATGCgaGBYWGDEjJR0oOjM9PDkzODdASFxOQERXRTc4UG1RV19iZ2hnPk1xeXBkeFxlZ2P/2wBDARESEhgVGC8aGi9jQjhCY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2P/wgARCAANABQDASIAAhEBAxEB/8QAGAAAAwEBAAAAAAAAAAAAAAAAAAEDAgX/xAAUAQEAAAAAAAAAAAAAAAAAAAAA/9oADAMBAAIQAxAAAAHuLNBEA//EABoQAAMAAwEAAAAAAAAAAAAAAAABAgMQERL/2gAIAQEAAQUCYhSib9aWbp//xAAUEQEAAAAAAAAAAAAAAAAAAAAQ/9oACAEDAQE/AT//xAAUEQEAAAAAAAAAAAAAAAAAAAAQ/9oACAECAQE/AT//xAAWEAEBAQAAAAAAAAAAAAAAAAAQMQD/2gAIAQEABj8CYTf/xAAdEAADAAICAwAAAAAAAAAAAAAAAREhMUFhkbHh/9oACAEBAAE/IavPkq/RK7y7svawnY2SX3P/2gAMAwEAAgADAAAAEEDP/8QAFBEBAAAAAAAAAAAAAAAAAAAAEP/aAAgBAwEBPxA//8QAFBEBAAAAAAAAAAAAAAAAAAAAEP/aAAgBAgEBPxA//8QAHRABAQACAgMBAAAAAAAAAAAAAREAITHBQXGB8P/aAAgBAQABPxAWQj2O8RCj9eV+zZVzng0W7dZA4GbylpjP2Z//2Q==&apos;); background-size: cover; display: block;&quot;
   &gt;&lt;/span&gt;
   &lt;img
         class=&quot;gatsby-resp-image-image&quot;
         alt=&quot;img&quot;
         title=&quot;img&quot;
-        src=&quot;/static/2b7f496572aee3afcf924562207a7511/6aca1/13_3.jpg&quot;
-        srcset=&quot;/static/2b7f496572aee3afcf924562207a7511/d2f63/13_3.jpg 163w,
-/static/2b7f496572aee3afcf924562207a7511/c989d/13_3.jpg 325w,
-/static/2b7f496572aee3afcf924562207a7511/6aca1/13_3.jpg 650w,
-/static/2b7f496572aee3afcf924562207a7511/7c09c/13_3.jpg 975w,
-/static/2b7f496572aee3afcf924562207a7511/1982c/13_3.jpg 1176w&quot;
-        sizes=&quot;(max-width: 650px) 100vw, 650px&quot;
-        style=&quot;width:100%;height:100%;margin:0;vertical-align:middle;position:absolute;top:0;left:0;&quot;
-        loading=&quot;lazy&quot;
-        decoding=&quot;async&quot;
-      /&gt;
-    &lt;/span&gt;&lt;/p&gt;
-&lt;h3&gt;Biological Discoveries&lt;/h3&gt;
-&lt;p&gt;고양이를 가져다 눈앞에 자극을 주고 뇌의 어느 부분에 반응이 있는지 분석을 했다. 시각 신경에 반응이 있었고 더 깊은 곳을 갈 수록 더 복잡한 반응을 했다는 것이 밝혀졌다. &lt;strong&gt;Visual System의 나타나는 반응은 성장하면서 배운다라는 것이 밝혀졌다.&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;&lt;span
-      class=&quot;gatsby-resp-image-wrapper&quot;
-      style=&quot;position: relative; display: block; margin-left: auto; margin-right: auto; max-width: 650px; &quot;
-    &gt;
-      &lt;span
-    class=&quot;gatsby-resp-image-background-image&quot;
-    style=&quot;padding-bottom: 68.09815950920245%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/jpeg;base64,/9j/2wBDABALDA4MChAODQ4SERATGCgaGBYWGDEjJR0oOjM9PDkzODdASFxOQERXRTc4UG1RV19iZ2hnPk1xeXBkeFxlZ2P/2wBDARESEhgVGC8aGi9jQjhCY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2P/wgARCAAOABQDASIAAhEBAxEB/8QAGAAAAgMAAAAAAAAAAAAAAAAAAAIBAwX/xAAUAQEAAAAAAAAAAAAAAAAAAAAA/9oADAMBAAIQAxAAAAHZZHIKg//EABkQAAMBAQEAAAAAAAAAAAAAAAABAhMhIv/aAAgBAQABBQJ8EZyKlY/K3k//xAAUEQEAAAAAAAAAAAAAAAAAAAAQ/9oACAEDAQE/AT//xAAUEQEAAAAAAAAAAAAAAAAAAAAQ/9oACAECAQE/AT//xAAaEAABBQEAAAAAAAAAAAAAAAAAARARITGh/9oACAEBAAY/ArNaukmKf//EAB4QAQACAgEFAAAAAAAAAAAAAAEAESExQVFhgZHx/9oACAEBAAE/IXzUd2Z5A+ZkWm1vcsaekVz0dJ82f//aAAwDAQACAAMAAAAQg8//xAAUEQEAAAAAAAAAAAAAAAAAAAAQ/9oACAEDAQE/ED//xAAUEQEAAAAAAAAAAAAAAAAAAAAQ/9oACAECAQE/ED//xAAdEAEBAQABBQEAAAAAAAAAAAABEQAxIUGhwdHx/9oACAEBAAE/EKKLMFS+c3tVxT7wSEqKucJRDkDCNEKx135D7v/Z&apos;); background-size: cover; display: block;&quot;
-  &gt;&lt;/span&gt;
-  &lt;img
-        class=&quot;gatsby-resp-image-image&quot;
-        alt=&quot;img&quot;
-        title=&quot;img&quot;
-        src=&quot;/static/ad21e11d4e2c80313685fa43da03cb04/6aca1/13_4.jpg&quot;
-        srcset=&quot;/static/ad21e11d4e2c80313685fa43da03cb04/d2f63/13_4.jpg 163w,
-/static/ad21e11d4e2c80313685fa43da03cb04/c989d/13_4.jpg 325w,
-/static/ad21e11d4e2c80313685fa43da03cb04/6aca1/13_4.jpg 650w,
-/static/ad21e11d4e2c80313685fa43da03cb04/7c09c/13_4.jpg 975w,
-/static/ad21e11d4e2c80313685fa43da03cb04/03213/13_4.jpg 1231w&quot;
+        src=&quot;/static/090ffe23f8d59108e2c07cadefe2573d/6aca1/11_3.jpg&quot;
+        srcset=&quot;/static/090ffe23f8d59108e2c07cadefe2573d/d2f63/11_3.jpg 163w,
+/static/090ffe23f8d59108e2c07cadefe2573d/c989d/11_3.jpg 325w,
+/static/090ffe23f8d59108e2c07cadefe2573d/6aca1/11_3.jpg 650w,
+/static/090ffe23f8d59108e2c07cadefe2573d/7c09c/11_3.jpg 975w,
+/static/090ffe23f8d59108e2c07cadefe2573d/fa90f/11_3.jpg 1236w&quot;
         sizes=&quot;(max-width: 650px) 100vw, 650px&quot;
         style=&quot;width:100%;height:100%;margin:0;vertical-align:middle;position:absolute;top:0;left:0;&quot;
         loading=&quot;lazy&quot;
@@ -7437,246 +7571,112 @@ Computation 을 많이 필요로 한다.&lt;/p&gt;
       /&gt;
     &lt;/span&gt;&lt;/p&gt;
 &lt;h3&gt;Convolutional Neural Network&lt;/h3&gt;
-&lt;p&gt;처음 제안되었을 때는 Training algorithm이 좋지는 않았다. 하지만, 1998 Gradient Descent 로 발전을 하고 2012년 대회에서 우승을 이끌어 냄&lt;/p&gt;
+&lt;p&gt;Layor들이 &lt;strong&gt;3차원 구조&lt;/strong&gt;로 구성이 된다. 여러 종류의 Layer가 결합이 되는데 Convolution, pooling , batch normalization layer등이배치된다.&lt;/p&gt;
 &lt;p&gt;&lt;span
       class=&quot;gatsby-resp-image-wrapper&quot;
       style=&quot;position: relative; display: block; margin-left: auto; margin-right: auto; max-width: 650px; &quot;
     &gt;
       &lt;span
     class=&quot;gatsby-resp-image-background-image&quot;
-    style=&quot;padding-bottom: 65.03067484662577%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/jpeg;base64,/9j/2wBDABALDA4MChAODQ4SERATGCgaGBYWGDEjJR0oOjM9PDkzODdASFxOQERXRTc4UG1RV19iZ2hnPk1xeXBkeFxlZ2P/2wBDARESEhgVGC8aGi9jQjhCY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2P/wgARCAANABQDASIAAhEBAxEB/8QAGAAAAgMAAAAAAAAAAAAAAAAAAAECAwX/xAAUAQEAAAAAAAAAAAAAAAAAAAAA/9oADAMBAAIQAxAAAAHcTCBcH//EABkQAQACAwAAAAAAAAAAAAAAAAECEBETMf/aAAgBAQABBQJrVFXuK//EABQRAQAAAAAAAAAAAAAAAAAAABD/2gAIAQMBAT8BP//EABQRAQAAAAAAAAAAAAAAAAAAABD/2gAIAQIBAT8BP//EABYQAAMAAAAAAAAAAAAAAAAAABAg4f/aAAgBAQAGPwIVP//EABoQAQEAAgMAAAAAAAAAAAAAAAEAETFBcZH/2gAIAQEAAT8hDnmDv2VFyrBma7jV/9oADAMBAAIAAwAAABBwD//EABQRAQAAAAAAAAAAAAAAAAAAABD/2gAIAQMBAT8QP//EABQRAQAAAAAAAAAAAAAAAAAAABD/2gAIAQIBAT8QP//EABoQAQADAQEBAAAAAAAAAAAAAAEAETFh0UH/2gAIAQEAAT8QsaEcX2KtIe29hhsWtp9zSFNMgoG1P//Z&apos;); background-size: cover; display: block;&quot;
+    style=&quot;padding-bottom: 68.09815950920245%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/jpeg;base64,/9j/2wBDABALDA4MChAODQ4SERATGCgaGBYWGDEjJR0oOjM9PDkzODdASFxOQERXRTc4UG1RV19iZ2hnPk1xeXBkeFxlZ2P/2wBDARESEhgVGC8aGi9jQjhCY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2P/wgARCAAOABQDASIAAhEBAxEB/8QAFwAAAwEAAAAAAAAAAAAAAAAAAAECBf/EABQBAQAAAAAAAAAAAAAAAAAAAAD/2gAMAwEAAhADEAAAAdxwCLD/xAAZEAACAwEAAAAAAAAAAAAAAAAAAQIDEhH/2gAIAQEAAQUC4IdUW3I0jR//xAAUEQEAAAAAAAAAAAAAAAAAAAAQ/9oACAEDAQE/AT//xAAUEQEAAAAAAAAAAAAAAAAAAAAQ/9oACAECAQE/AT//xAAWEAADAAAAAAAAAAAAAAAAAAAQESD/2gAIAQEABj8CDj//xAAaEAACAwEBAAAAAAAAAAAAAAAAARFRYSHw/9oACAEBAAE/IX5LOLGRk23ojSKyOn//2gAMAwEAAgADAAAAEOAP/8QAFBEBAAAAAAAAAAAAAAAAAAAAEP/aAAgBAwEBPxA//8QAFBEBAAAAAAAAAAAAAAAAAAAAEP/aAAgBAgEBPxA//8QAHRABAAICAgMAAAAAAAAAAAAAAQARQWEh0YGRwf/aAAgBAQABPxBBVWlx2QCos7X7FVTa3l/eWOKeDuD49J//2Q==&apos;); background-size: cover; display: block;&quot;
   &gt;&lt;/span&gt;
   &lt;img
         class=&quot;gatsby-resp-image-image&quot;
         alt=&quot;img&quot;
         title=&quot;img&quot;
-        src=&quot;/static/16d56d259b641e19fb2ee56d63d32728/6aca1/13_5.jpg&quot;
-        srcset=&quot;/static/16d56d259b641e19fb2ee56d63d32728/d2f63/13_5.jpg 163w,
-/static/16d56d259b641e19fb2ee56d63d32728/c989d/13_5.jpg 325w,
-/static/16d56d259b641e19fb2ee56d63d32728/6aca1/13_5.jpg 650w,
-/static/16d56d259b641e19fb2ee56d63d32728/7c09c/13_5.jpg 975w,
-/static/16d56d259b641e19fb2ee56d63d32728/1da99/13_5.jpg 1233w&quot;
+        src=&quot;/static/47e921afb5cb06332d1b4b431138e32e/6aca1/11_4.jpg&quot;
+        srcset=&quot;/static/47e921afb5cb06332d1b4b431138e32e/d2f63/11_4.jpg 163w,
+/static/47e921afb5cb06332d1b4b431138e32e/c989d/11_4.jpg 325w,
+/static/47e921afb5cb06332d1b4b431138e32e/6aca1/11_4.jpg 650w,
+/static/47e921afb5cb06332d1b4b431138e32e/7c09c/11_4.jpg 975w,
+/static/47e921afb5cb06332d1b4b431138e32e/00d7d/11_4.jpg 1218w&quot;
         sizes=&quot;(max-width: 650px) 100vw, 650px&quot;
         style=&quot;width:100%;height:100%;margin:0;vertical-align:middle;position:absolute;top:0;left:0;&quot;
         loading=&quot;lazy&quot;
         decoding=&quot;async&quot;
       /&gt;
     &lt;/span&gt;&lt;/p&gt;
-&lt;h3&gt;Convolutional Neural Network(CNN)&lt;/h3&gt;
-&lt;p&gt;3차원적인 구조를 가진다. channel, row, column으로 불린다. &lt;strong&gt;계산량이 엄청나게 많기 때문에 GPU를 이용해서 병렬처리&lt;/strong&gt;를 한다. 더 많은 계산을 동시에 할 수록 병렬 처리의 이점을 취할 수 있다. Sample을 한 개 주고 병렬처리를 하면 효과가 없기 때문에 여러 개의 Data를 주입한다. batch는 Group화 한 것을 말하고 GPU의 성능을 최대로 활용할 수 있도록 도와준다.&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;mini batch의 크기가 32라면 32D가 되는 것이다.&lt;/strong&gt; 가끔 5차원 정보가 될 때가 있는데 추가되는 하나의 축은 time이 된다. CNN 개념에 RNN의 개념이 포함될 수 있다. +batch +time. 개념적으로는 3차원이지만 현실적으로 4차원의 데이터를 저장한다.&lt;/p&gt;
+&lt;h3&gt;Recurrent Neural Network&lt;/h3&gt;
+&lt;p&gt;Recurrent Connection은 과거에서 현재, 현재에서 과거로 가는 Connection을 의미한다. 이것이 사실 &lt;strong&gt;메모리의 역할&lt;/strong&gt;을 하고 있다. Flip Flop의 경우 FeedBack Connection이 존재하기 때문에 마찬가지의 원리로 메모리의 역할을 수행할 수 있게 된다. &lt;strong&gt;Hidden Node의 값을 State&lt;/strong&gt;라고 할 수 있다.&lt;/p&gt;
+&lt;p&gt;과거의 어느부분의 Action을 받아 상태를 전이하는 그림을 나타낸다. &lt;strong&gt;과거의 History를 Summary해서 사용&lt;/strong&gt;하고 있다고 볼 수 있는 것이다. RNN을 보면 Hidden Vector가 존재한다. 실제로 저것이 수 백개의 Dimension이 사용된다. &lt;strong&gt;Hidden Vector는 수백 Dimension이 사용되는 좌표와 대응&lt;/strong&gt;한다고 볼 수 있다. 저런 Hidden Vector가 좌표를 저장하는 데이터가 된다. 과거의 History를 Summation한 것의 Approximation이라고 볼 수 있다.&lt;/p&gt;
 &lt;p&gt;&lt;span
       class=&quot;gatsby-resp-image-wrapper&quot;
       style=&quot;position: relative; display: block; margin-left: auto; margin-right: auto; max-width: 650px; &quot;
     &gt;
       &lt;span
     class=&quot;gatsby-resp-image-background-image&quot;
-    style=&quot;padding-bottom: 68.71165644171779%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/jpeg;base64,/9j/2wBDABALDA4MChAODQ4SERATGCgaGBYWGDEjJR0oOjM9PDkzODdASFxOQERXRTc4UG1RV19iZ2hnPk1xeXBkeFxlZ2P/2wBDARESEhgVGC8aGi9jQjhCY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2P/wgARCAAOABQDASIAAhEBAxEB/8QAFwABAQEBAAAAAAAAAAAAAAAAAQACBf/EABQBAQAAAAAAAAAAAAAAAAAAAAD/2gAMAwEAAhADEAAAAe0iZmP/xAAaEAACAgMAAAAAAAAAAAAAAAAAAQIxEBIT/9oACAEBAAEFAnZyiy8bpH//xAAUEQEAAAAAAAAAAAAAAAAAAAAQ/9oACAEDAQE/AT//xAAUEQEAAAAAAAAAAAAAAAAAAAAQ/9oACAECAQE/AT//xAAYEAACAwAAAAAAAAAAAAAAAAAAIDFBkf/aAAgBAQAGPwIkvU//xAAaEAADAAMBAAAAAAAAAAAAAAAAAREhUZHw/9oACAEBAAE/Ia26LysobbphusGdjYjtP//aAAwDAQACAAMAAAAQkM//xAAUEQEAAAAAAAAAAAAAAAAAAAAQ/9oACAEDAQE/ED//xAAUEQEAAAAAAAAAAAAAAAAAAAAQ/9oACAECAQE/ED//xAAZEAEBAQEBAQAAAAAAAAAAAAABEQAxIXH/2gAIAQEAAT8QYZY+t16ppQSlfWqqQxB3oqY6gb//2Q==&apos;); background-size: cover; display: block;&quot;
+    style=&quot;padding-bottom: 70.5521472392638%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/jpeg;base64,/9j/2wBDABALDA4MChAODQ4SERATGCgaGBYWGDEjJR0oOjM9PDkzODdASFxOQERXRTc4UG1RV19iZ2hnPk1xeXBkeFxlZ2P/2wBDARESEhgVGC8aGi9jQjhCY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2P/wgARCAAOABQDASIAAhEBAxEB/8QAGAAAAgMAAAAAAAAAAAAAAAAAAAIBAwX/xAAUAQEAAAAAAAAAAAAAAAAAAAAA/9oADAMBAAIQAxAAAAHcmpxAD//EABoQAQEAAgMAAAAAAAAAAAAAAAEAAhIDERP/2gAIAQEAAQUCbueLFdpdb1L/xAAUEQEAAAAAAAAAAAAAAAAAAAAQ/9oACAEDAQE/AT//xAAUEQEAAAAAAAAAAAAAAAAAAAAQ/9oACAECAQE/AT//xAAZEAACAwEAAAAAAAAAAAAAAAAQEQABQZH/2gAIAQEABj8CDt9Oz//EABoQAAMAAwEAAAAAAAAAAAAAAAABESEx8WH/2gAIAQEAAT8hSdFXB6yGJeqLSuniP//aAAwDAQACAAMAAAAQM8//xAAUEQEAAAAAAAAAAAAAAAAAAAAQ/9oACAEDAQE/ED//xAAUEQEAAAAAAAAAAAAAAAAAAAAQ/9oACAECAQE/ED//xAAcEAEBAAICAwAAAAAAAAAAAAABEQAhMVFBgdH/2gAIAQEAAT8QRWru8seZ32xOmlYjHaL3IsmIVZZreB+T0fc//9k=&apos;); background-size: cover; display: block;&quot;
   &gt;&lt;/span&gt;
   &lt;img
         class=&quot;gatsby-resp-image-image&quot;
         alt=&quot;img&quot;
         title=&quot;img&quot;
-        src=&quot;/static/96e685978fc69f570028e99092a42fc4/6aca1/13_6.jpg&quot;
-        srcset=&quot;/static/96e685978fc69f570028e99092a42fc4/d2f63/13_6.jpg 163w,
-/static/96e685978fc69f570028e99092a42fc4/c989d/13_6.jpg 325w,
-/static/96e685978fc69f570028e99092a42fc4/6aca1/13_6.jpg 650w,
-/static/96e685978fc69f570028e99092a42fc4/7c09c/13_6.jpg 975w,
-/static/96e685978fc69f570028e99092a42fc4/3ce61/13_6.jpg 1227w&quot;
+        src=&quot;/static/9fa8081ae548fd3b8d0f88c34b59f787/6aca1/11_5.jpg&quot;
+        srcset=&quot;/static/9fa8081ae548fd3b8d0f88c34b59f787/d2f63/11_5.jpg 163w,
+/static/9fa8081ae548fd3b8d0f88c34b59f787/c989d/11_5.jpg 325w,
+/static/9fa8081ae548fd3b8d0f88c34b59f787/6aca1/11_5.jpg 650w,
+/static/9fa8081ae548fd3b8d0f88c34b59f787/7c09c/11_5.jpg 975w,
+/static/9fa8081ae548fd3b8d0f88c34b59f787/85367/11_5.jpg 1183w&quot;
         sizes=&quot;(max-width: 650px) 100vw, 650px&quot;
         style=&quot;width:100%;height:100%;margin:0;vertical-align:middle;position:absolute;top:0;left:0;&quot;
         loading=&quot;lazy&quot;
         decoding=&quot;async&quot;
       /&gt;
     &lt;/span&gt;&lt;/p&gt;
-&lt;h3&gt;Convolutional Neural Network(CNN)&lt;/h3&gt;
-&lt;p&gt;첫 Layer는 대부분 Convolutional Layer를 사용한다. 다음 Layer들은 다양한 Layer를 교차시켜 사용을 한다. 오른쪽(뒷쪽)으로 갈 수록 두 세개 정도의 Fully connected Layer가 존재한다. 2012년도에 CNN이 널리 알려지게 됬는데 그 당시 대부분이 Convolution, Pooling, Fully-connected Layer로 구성이 되어있었다. 그 중 가장 중요한 것이 Convoluitional Layer이다.&lt;/p&gt;
-&lt;p&gt;이에는 종류가 다음과 같이 여러개 존재한다. &lt;strong&gt;Pooling layer는 여러 Dimension에 존재하는 feature들을 적은 Dimention으로 줄이는 역할&lt;/strong&gt;을 한다. &lt;strong&gt;Fully-connected layer는 Targeting을 하는 역할&lt;/strong&gt;을 한다. 전통적인 방법에는 Fully connected Layer를 많이 사용했다.&lt;/p&gt;
+&lt;h3&gt;LSTM and GRU&lt;/h3&gt;
+&lt;p&gt;RNN은 &lt;strong&gt;Vanishing Problem&lt;/strong&gt;이 극심하게 생길 수 있다. 그 문제를 해결하기 위해 LSTM이 있다. Input과 Output Forget gate를 가지고 있다.&lt;/p&gt;
 &lt;p&gt;&lt;span
       class=&quot;gatsby-resp-image-wrapper&quot;
       style=&quot;position: relative; display: block; margin-left: auto; margin-right: auto; max-width: 650px; &quot;
     &gt;
       &lt;span
     class=&quot;gatsby-resp-image-background-image&quot;
-    style=&quot;padding-bottom: 69.32515337423312%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/jpeg;base64,/9j/2wBDABALDA4MChAODQ4SERATGCgaGBYWGDEjJR0oOjM9PDkzODdASFxOQERXRTc4UG1RV19iZ2hnPk1xeXBkeFxlZ2P/2wBDARESEhgVGC8aGi9jQjhCY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2P/wgARCAAOABQDASIAAhEBAxEB/8QAGAAAAwEBAAAAAAAAAAAAAAAAAAIDAQX/xAAUAQEAAAAAAAAAAAAAAAAAAAAA/9oADAMBAAIQAxAAAAHubJCgwf/EABoQAAICAwAAAAAAAAAAAAAAAAECABASEyP/2gAIAQEAAQUCrWCWaN0XMCf/xAAUEQEAAAAAAAAAAAAAAAAAAAAQ/9oACAEDAQE/AT//xAAUEQEAAAAAAAAAAAAAAAAAAAAQ/9oACAECAQE/AT//xAAZEAEAAgMAAAAAAAAAAAAAAAABEBExQZH/2gAIAQEABj8Ci1ewUGdx/8QAGxABAQEAAgMAAAAAAAAAAAAAAREAIVFBYeH/2gAIAQEAAT8hRv3VOssUXrBvnj1i0WZWRGm//9oADAMBAAIAAwAAABAAD//EABQRAQAAAAAAAAAAAAAAAAAAABD/2gAIAQMBAT8QP//EABQRAQAAAAAAAAAAAAAAAAAAABD/2gAIAQIBAT8QP//EABsQAQEBAQEAAwAAAAAAAAAAAAERACFBUXGh/9oACAEBAAE/ECprPIsC6g4C118ArQNORPwhH93IgqBh9RzP2CHN/9k=&apos;); background-size: cover; display: block;&quot;
+    style=&quot;padding-bottom: 63.190184049079754%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/jpeg;base64,/9j/2wBDABALDA4MChAODQ4SERATGCgaGBYWGDEjJR0oOjM9PDkzODdASFxOQERXRTc4UG1RV19iZ2hnPk1xeXBkeFxlZ2P/2wBDARESEhgVGC8aGi9jQjhCY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2P/wgARCAANABQDASIAAhEBAxEB/8QAFwABAQEBAAAAAAAAAAAAAAAAAAIDBf/EABQBAQAAAAAAAAAAAAAAAAAAAAD/2gAMAwEAAhADEAAAAe2UQ1H/xAAWEAEBAQAAAAAAAAAAAAAAAAAQAQL/2gAIAQEAAQUCJkh//8QAFBEBAAAAAAAAAAAAAAAAAAAAEP/aAAgBAwEBPwE//8QAFBEBAAAAAAAAAAAAAAAAAAAAEP/aAAgBAgEBPwE//8QAGBAAAgMAAAAAAAAAAAAAAAAAARAgMUH/2gAIAQEABj8C1WYf/8QAGhABAAMAAwAAAAAAAAAAAAAAAQARMRAhQf/aAAgBAQABPyFu4FPGD26t7HXl/9oADAMBAAIAAwAAABDjz//EABQRAQAAAAAAAAAAAAAAAAAAABD/2gAIAQMBAT8QP//EABQRAQAAAAAAAAAAAAAAAAAAABD/2gAIAQIBAT8QP//EAB0QAAICAQUAAAAAAAAAAAAAAAEhABFBEDFhcYH/2gAIAQEAAT8QrPDgw1dvZub4CZjUVQPkYIAPGn//2Q==&apos;); background-size: cover; display: block;&quot;
   &gt;&lt;/span&gt;
   &lt;img
         class=&quot;gatsby-resp-image-image&quot;
         alt=&quot;img&quot;
         title=&quot;img&quot;
-        src=&quot;/static/fe5464dc034beefe5bd900f43c8fa138/6aca1/13_7.jpg&quot;
-        srcset=&quot;/static/fe5464dc034beefe5bd900f43c8fa138/d2f63/13_7.jpg 163w,
-/static/fe5464dc034beefe5bd900f43c8fa138/c989d/13_7.jpg 325w,
-/static/fe5464dc034beefe5bd900f43c8fa138/6aca1/13_7.jpg 650w,
-/static/fe5464dc034beefe5bd900f43c8fa138/7c09c/13_7.jpg 975w,
-/static/fe5464dc034beefe5bd900f43c8fa138/71c77/13_7.jpg 1221w&quot;
+        src=&quot;/static/b1ae8fca9731f475f9042f8172018683/6aca1/11_6.jpg&quot;
+        srcset=&quot;/static/b1ae8fca9731f475f9042f8172018683/d2f63/11_6.jpg 163w,
+/static/b1ae8fca9731f475f9042f8172018683/c989d/11_6.jpg 325w,
+/static/b1ae8fca9731f475f9042f8172018683/6aca1/11_6.jpg 650w,
+/static/b1ae8fca9731f475f9042f8172018683/7c09c/11_6.jpg 975w,
+/static/b1ae8fca9731f475f9042f8172018683/9657e/11_6.jpg 1216w&quot;
         sizes=&quot;(max-width: 650px) 100vw, 650px&quot;
         style=&quot;width:100%;height:100%;margin:0;vertical-align:middle;position:absolute;top:0;left:0;&quot;
         loading=&quot;lazy&quot;
         decoding=&quot;async&quot;
       /&gt;
     &lt;/span&gt;&lt;/p&gt;
-&lt;h3&gt;Convolution Layer&lt;/h3&gt;
-&lt;p&gt;영상 처리에서 많이 쓰였던 Convolution operator와 동일하다. 입력 영상이 있고 Convolution mask (3x3 5x5)를 영상으로부터 통과시키고 한칸씩 이동하여 스캔을 완료한다. x의 (n-1)을 밑 Layer의 Feature라고 할 수 있다.&lt;/p&gt;
+&lt;h3&gt;Emerging Generative Models&lt;/h3&gt;
 &lt;p&gt;&lt;span
       class=&quot;gatsby-resp-image-wrapper&quot;
       style=&quot;position: relative; display: block; margin-left: auto; margin-right: auto; max-width: 650px; &quot;
     &gt;
       &lt;span
     class=&quot;gatsby-resp-image-background-image&quot;
-    style=&quot;padding-bottom: 69.93865030674846%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/jpeg;base64,/9j/2wBDABALDA4MChAODQ4SERATGCgaGBYWGDEjJR0oOjM9PDkzODdASFxOQERXRTc4UG1RV19iZ2hnPk1xeXBkeFxlZ2P/2wBDARESEhgVGC8aGi9jQjhCY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2P/wgARCAAOABQDASIAAhEBAxEB/8QAGAAAAgMAAAAAAAAAAAAAAAAAAAQCAwX/xAAUAQEAAAAAAAAAAAAAAAAAAAAA/9oADAMBAAIQAxAAAAHcIrDRQH//xAAbEAABBAMAAAAAAAAAAAAAAAAAAQMREgQiI//aAAgBAQABBQIkohaTHXg25p//xAAUEQEAAAAAAAAAAAAAAAAAAAAQ/9oACAEDAQE/AT//xAAUEQEAAAAAAAAAAAAAAAAAAAAQ/9oACAECAQE/AT//xAAZEAACAwEAAAAAAAAAAAAAAAAAEQECEEH/2gAIAQEABj8CzuVghtn/xAAbEAACAwADAAAAAAAAAAAAAAABEQAhMUFRof/aAAgBAQABPyE7vsoArB52Cwu17FAp9RZzYCMGpgaZ/9oADAMBAAIAAwAAABAwD//EABQRAQAAAAAAAAAAAAAAAAAAABD/2gAIAQMBAT8QP//EABQRAQAAAAAAAAAAAAAAAAAAABD/2gAIAQIBAT8QP//EABwQAAICAgMAAAAAAAAAAAAAAAERACExcUFRYf/aAAgBAQABPxB3xGwln5gxcDk2vGwARNhyIwpNnZuApQRLZ25//9k=&apos;); background-size: cover; display: block;&quot;
+    style=&quot;padding-bottom: 68.71165644171779%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/jpeg;base64,/9j/2wBDABALDA4MChAODQ4SERATGCgaGBYWGDEjJR0oOjM9PDkzODdASFxOQERXRTc4UG1RV19iZ2hnPk1xeXBkeFxlZ2P/2wBDARESEhgVGC8aGi9jQjhCY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2P/wgARCAAOABQDASIAAhEBAxEB/8QAGAABAAMBAAAAAAAAAAAAAAAAAAECAwX/xAAUAQEAAAAAAAAAAAAAAAAAAAAA/9oADAMBAAIQAxAAAAHuJoGg/8QAFxABAQEBAAAAAAAAAAAAAAAAARACE//aAAgBAQABBQJnMjpn/8QAFBEBAAAAAAAAAAAAAAAAAAAAEP/aAAgBAwEBPwE//8QAFBEBAAAAAAAAAAAAAAAAAAAAEP/aAAgBAgEBPwE//8QAFhABAQEAAAAAAAAAAAAAAAAAAEEg/9oACAEBAAY/AlXH/8QAHRAAAgIBBQAAAAAAAAAAAAAAAREAIRAxQZGh8P/aAAgBAQABPyEFv3F4ZYS7F64AFAcxz//aAAwDAQACAAMAAAAQ88//xAAUEQEAAAAAAAAAAAAAAAAAAAAQ/9oACAEDAQE/ED//xAAUEQEAAAAAAAAAAAAAAAAAAAAQ/9oACAECAQE/ED//xAAZEAEBAQEBAQAAAAAAAAAAAAABEQAhYXH/2gAIAQEAAT8QgVZfWAoX7FN1ztneUElazrkrGc6sFC7/2Q==&apos;); background-size: cover; display: block;&quot;
   &gt;&lt;/span&gt;
   &lt;img
         class=&quot;gatsby-resp-image-image&quot;
         alt=&quot;img&quot;
         title=&quot;img&quot;
-        src=&quot;/static/79751681a6e942c1895b44713731b14f/6aca1/13_8.jpg&quot;
-        srcset=&quot;/static/79751681a6e942c1895b44713731b14f/d2f63/13_8.jpg 163w,
-/static/79751681a6e942c1895b44713731b14f/c989d/13_8.jpg 325w,
-/static/79751681a6e942c1895b44713731b14f/6aca1/13_8.jpg 650w,
-/static/79751681a6e942c1895b44713731b14f/7c09c/13_8.jpg 975w,
-/static/79751681a6e942c1895b44713731b14f/b52a8/13_8.jpg 1267w&quot;
+        src=&quot;/static/a3f9f437e448c3dd6e5b2980e9b256a3/6aca1/11_7.jpg&quot;
+        srcset=&quot;/static/a3f9f437e448c3dd6e5b2980e9b256a3/d2f63/11_7.jpg 163w,
+/static/a3f9f437e448c3dd6e5b2980e9b256a3/c989d/11_7.jpg 325w,
+/static/a3f9f437e448c3dd6e5b2980e9b256a3/6aca1/11_7.jpg 650w,
+/static/a3f9f437e448c3dd6e5b2980e9b256a3/7c09c/11_7.jpg 975w,
+/static/a3f9f437e448c3dd6e5b2980e9b256a3/e4b8a/11_7.jpg 1207w&quot;
         sizes=&quot;(max-width: 650px) 100vw, 650px&quot;
         style=&quot;width:100%;height:100%;margin:0;vertical-align:middle;position:absolute;top:0;left:0;&quot;
         loading=&quot;lazy&quot;
         decoding=&quot;async&quot;
       /&gt;
     &lt;/span&gt;&lt;/p&gt;
-&lt;h3&gt;Convolution Operation&lt;/h3&gt;
-&lt;p&gt;알고리즘이 같다고 하더라도 &lt;strong&gt;Mask의 값에 따라 완전히 다른 것을 만들 수 있다.&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;CNN에서 &lt;strong&gt;Convolution Mask가 Weight에 해당&lt;/strong&gt;한다. 이 Convolutional mask 자체가 학습을 해야 하는 Weight가 된다.&lt;/p&gt;
-&lt;p&gt;&lt;span
-      class=&quot;gatsby-resp-image-wrapper&quot;
-      style=&quot;position: relative; display: block; margin-left: auto; margin-right: auto; max-width: 650px; &quot;
-    &gt;
-      &lt;span
-    class=&quot;gatsby-resp-image-background-image&quot;
-    style=&quot;padding-bottom: 68.09815950920245%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/jpeg;base64,/9j/2wBDABALDA4MChAODQ4SERATGCgaGBYWGDEjJR0oOjM9PDkzODdASFxOQERXRTc4UG1RV19iZ2hnPk1xeXBkeFxlZ2P/2wBDARESEhgVGC8aGi9jQjhCY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2P/wgARCAAOABQDASIAAhEBAxEB/8QAGAAAAwEBAAAAAAAAAAAAAAAAAAMFAgT/xAAUAQEAAAAAAAAAAAAAAAAAAAAA/9oADAMBAAIQAxAAAAGw2b2DDIf/xAAZEAEAAwEBAAAAAAAAAAAAAAABAAIDEBH/2gAIAQEAAQUCbBwqEtoe00LBoM//xAAUEQEAAAAAAAAAAAAAAAAAAAAQ/9oACAEDAQE/AT//xAAUEQEAAAAAAAAAAAAAAAAAAAAQ/9oACAECAQE/AT//xAAaEAABBQEAAAAAAAAAAAAAAAAAARARITFB/9oACAEBAAY/AtdSpOn/xAAcEAADAQACAwAAAAAAAAAAAAABESEAMUFRcbH/2gAIAQEAAT8hLEEp7zPSWac0vnGRNJ+aeR5zZCCt/9oADAMBAAIAAwAAABDTz//EABQRAQAAAAAAAAAAAAAAAAAAABD/2gAIAQMBAT8QP//EABQRAQAAAAAAAAAAAAAAAAAAABD/2gAIAQIBAT8QP//EABwQAQEAAgMBAQAAAAAAAAAAAAERADEhQVGR0f/aAAgBAQABPxChqkZ4K95oqhS7mHIXzFW3Eo03g7B7lICQYP3JHkSob+5//9k=&apos;); background-size: cover; display: block;&quot;
-  &gt;&lt;/span&gt;
-  &lt;img
-        class=&quot;gatsby-resp-image-image&quot;
-        alt=&quot;img&quot;
-        title=&quot;img&quot;
-        src=&quot;/static/f4727f8ac7e1c5d121079233bd8ba063/6aca1/13_9.jpg&quot;
-        srcset=&quot;/static/f4727f8ac7e1c5d121079233bd8ba063/d2f63/13_9.jpg 163w,
-/static/f4727f8ac7e1c5d121079233bd8ba063/c989d/13_9.jpg 325w,
-/static/f4727f8ac7e1c5d121079233bd8ba063/6aca1/13_9.jpg 650w,
-/static/f4727f8ac7e1c5d121079233bd8ba063/7c09c/13_9.jpg 975w,
-/static/f4727f8ac7e1c5d121079233bd8ba063/90a02/13_9.jpg 1293w&quot;
-        sizes=&quot;(max-width: 650px) 100vw, 650px&quot;
-        style=&quot;width:100%;height:100%;margin:0;vertical-align:middle;position:absolute;top:0;left:0;&quot;
-        loading=&quot;lazy&quot;
-        decoding=&quot;async&quot;
-      /&gt;
-    &lt;/span&gt;&lt;/p&gt;
-&lt;h3&gt;Convolution Layers&lt;/h3&gt;
-&lt;p&gt;Multi channel 로 구성되기도 한다. &lt;strong&gt;해당 Neural을 결정하는 channel이 한 개가 아니라 여러 개일 수도 있다.&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;&lt;span
-      class=&quot;gatsby-resp-image-wrapper&quot;
-      style=&quot;position: relative; display: block; margin-left: auto; margin-right: auto; max-width: 650px; &quot;
-    &gt;
-      &lt;span
-    class=&quot;gatsby-resp-image-background-image&quot;
-    style=&quot;padding-bottom: 67.48466257668711%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/jpeg;base64,/9j/2wBDABALDA4MChAODQ4SERATGCgaGBYWGDEjJR0oOjM9PDkzODdASFxOQERXRTc4UG1RV19iZ2hnPk1xeXBkeFxlZ2P/2wBDARESEhgVGC8aGi9jQjhCY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2P/wgARCAANABQDASIAAhEBAxEB/8QAGAAAAgMAAAAAAAAAAAAAAAAAAAMCBAX/xAAUAQEAAAAAAAAAAAAAAAAAAAAA/9oADAMBAAIQAxAAAAHcJVxg4P/EABsQAAIBBQAAAAAAAAAAAAAAAAABAgMQERIx/9oACAEBAAEFAhPJoh8owcbf/8QAFBEBAAAAAAAAAAAAAAAAAAAAEP/aAAgBAwEBPwE//8QAFBEBAAAAAAAAAAAAAAAAAAAAEP/aAAgBAgEBPwE//8QAGRAAAgMBAAAAAAAAAAAAAAAAARAAAhEh/9oACAEBAAY/ApxnbEr/xAAdEAEBAAEEAwAAAAAAAAAAAAABEQAQITFBUWGh/9oACAEBAAE/IUbx9ybsecN9Rq3nBUWezKKq96f/2gAMAwEAAgADAAAAECMP/8QAFBEBAAAAAAAAAAAAAAAAAAAAEP/aAAgBAwEBPxA//8QAFBEBAAAAAAAAAAAAAAAAAAAAEP/aAAgBAgEBPxA//8QAHRABAQACAQUAAAAAAAAAAAAAAREAITEQQVFx0f/aAAgBAQABPxCtE15r7m/glIfGV0SVXOIQmk7hm+1tDVHn30//2Q==&apos;); background-size: cover; display: block;&quot;
-  &gt;&lt;/span&gt;
-  &lt;img
-        class=&quot;gatsby-resp-image-image&quot;
-        alt=&quot;img&quot;
-        title=&quot;img&quot;
-        src=&quot;/static/8ba7c5b67eec2d1378fdaabf0e9cff28/6aca1/13_10.jpg&quot;
-        srcset=&quot;/static/8ba7c5b67eec2d1378fdaabf0e9cff28/d2f63/13_10.jpg 163w,
-/static/8ba7c5b67eec2d1378fdaabf0e9cff28/c989d/13_10.jpg 325w,
-/static/8ba7c5b67eec2d1378fdaabf0e9cff28/6aca1/13_10.jpg 650w,
-/static/8ba7c5b67eec2d1378fdaabf0e9cff28/7c09c/13_10.jpg 975w,
-/static/8ba7c5b67eec2d1378fdaabf0e9cff28/efc8b/13_10.jpg 1240w&quot;
-        sizes=&quot;(max-width: 650px) 100vw, 650px&quot;
-        style=&quot;width:100%;height:100%;margin:0;vertical-align:middle;position:absolute;top:0;left:0;&quot;
-        loading=&quot;lazy&quot;
-        decoding=&quot;async&quot;
-      /&gt;
-    &lt;/span&gt;&lt;/p&gt;
-&lt;h3&gt;Dilated Convolution(astrous Convolution)&lt;/h3&gt;
-&lt;p&gt;mask의 dense가 좀 넓다. 예를 들어 두 칸에 하나를 뽑아내는 등으로 &lt;strong&gt;계산량이 감소&lt;/strong&gt;하게 된다. Weight의 개수도 감소하게 되고 파라미터도 줄어들며 Training이 더 수월해진다.&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;3x3 mask가 5x5 영역을 커버하고 있으므로 적은 파라미터로 넓은 Context를 처리할 수 있게 된다.&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;&lt;span
-      class=&quot;gatsby-resp-image-wrapper&quot;
-      style=&quot;position: relative; display: block; margin-left: auto; margin-right: auto; max-width: 650px; &quot;
-    &gt;
-      &lt;span
-    class=&quot;gatsby-resp-image-background-image&quot;
-    style=&quot;padding-bottom: 68.09815950920245%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/jpeg;base64,/9j/2wBDABALDA4MChAODQ4SERATGCgaGBYWGDEjJR0oOjM9PDkzODdASFxOQERXRTc4UG1RV19iZ2hnPk1xeXBkeFxlZ2P/2wBDARESEhgVGC8aGi9jQjhCY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2P/wgARCAAOABQDASIAAhEBAxEB/8QAFwAAAwEAAAAAAAAAAAAAAAAAAAECBf/EABQBAQAAAAAAAAAAAAAAAAAAAAD/2gAMAwEAAhADEAAAAdtyihh//8QAGRABAAMBAQAAAAAAAAAAAAAAAgABERAS/9oACAEBAAEFAuUMivScJ9T/xAAUEQEAAAAAAAAAAAAAAAAAAAAQ/9oACAEDAQE/AT//xAAUEQEAAAAAAAAAAAAAAAAAAAAQ/9oACAECAQE/AT//xAAXEAADAQAAAAAAAAAAAAAAAAAAARBB/9oACAEBAAY/Apo0Kf/EABoQAQADAQEBAAAAAAAAAAAAAAEAESFBUXH/2gAIAQEAAT8h2+wfrAtum9YBBedyMasgX2f/2gAMAwEAAgADAAAAEEMP/8QAFBEBAAAAAAAAAAAAAAAAAAAAEP/aAAgBAwEBPxA//8QAFBEBAAAAAAAAAAAAAAAAAAAAEP/aAAgBAgEBPxA//8QAGxABAQEBAQADAAAAAAAAAAAAAREAIXGBkbH/2gAIAQEAAT8QtD59cwHA8upbtld3YuhRPTC1nUBv7gqH03//2Q==&apos;); background-size: cover; display: block;&quot;
-  &gt;&lt;/span&gt;
-  &lt;img
-        class=&quot;gatsby-resp-image-image&quot;
-        alt=&quot;img&quot;
-        title=&quot;img&quot;
-        src=&quot;/static/d47e7f8eb57679aaf958085619ce6ac1/6aca1/13_11.jpg&quot;
-        srcset=&quot;/static/d47e7f8eb57679aaf958085619ce6ac1/d2f63/13_11.jpg 163w,
-/static/d47e7f8eb57679aaf958085619ce6ac1/c989d/13_11.jpg 325w,
-/static/d47e7f8eb57679aaf958085619ce6ac1/6aca1/13_11.jpg 650w,
-/static/d47e7f8eb57679aaf958085619ce6ac1/7c09c/13_11.jpg 975w,
-/static/d47e7f8eb57679aaf958085619ce6ac1/481c6/13_11.jpg 1245w&quot;
-        sizes=&quot;(max-width: 650px) 100vw, 650px&quot;
-        style=&quot;width:100%;height:100%;margin:0;vertical-align:middle;position:absolute;top:0;left:0;&quot;
-        loading=&quot;lazy&quot;
-        decoding=&quot;async&quot;
-      /&gt;
-    &lt;/span&gt;&lt;/p&gt;
-&lt;h3&gt;Convolution Layer&lt;/h3&gt;
-&lt;p&gt;영상 처리에서 많이 쓰였던 Convolution operator와 동일하다. 입력 영상이 있고 Convolution mask (3x3 5x5)를 영상으로부터 통과시키고 한칸씩 이동하여 스캔을 완료한다./
-x의 (n-1)을 밑 Layer의 Feature라고 할 수 있다.&lt;/p&gt;
-&lt;p&gt;&lt;span
-      class=&quot;gatsby-resp-image-wrapper&quot;
-      style=&quot;position: relative; display: block; margin-left: auto; margin-right: auto; max-width: 650px; &quot;
-    &gt;
-      &lt;span
-    class=&quot;gatsby-resp-image-background-image&quot;
-    style=&quot;padding-bottom: 66.25766871165644%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/jpeg;base64,/9j/2wBDABALDA4MChAODQ4SERATGCgaGBYWGDEjJR0oOjM9PDkzODdASFxOQERXRTc4UG1RV19iZ2hnPk1xeXBkeFxlZ2P/2wBDARESEhgVGC8aGi9jQjhCY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2P/wgARCAANABQDASIAAhEBAxEB/8QAGAAAAgMAAAAAAAAAAAAAAAAAAAIBAwX/xAAUAQEAAAAAAAAAAAAAAAAAAAAA/9oADAMBAAIQAxAAAAHcEgsED//EABgQAQEBAQEAAAAAAAAAAAAAAAABAhIT/9oACAEBAAEFAkTEi7dPR//EABQRAQAAAAAAAAAAAAAAAAAAABD/2gAIAQMBAT8BP//EABQRAQAAAAAAAAAAAAAAAAAAABD/2gAIAQIBAT8BP//EABYQAQEBAAAAAAAAAAAAAAAAABAxAP/aAAgBAQAGPwJhN//EABsQAAMBAQADAAAAAAAAAAAAAAABETFhIdHh/9oACAEBAAE/IWnX7MeCl13SFChZnRV9H//aAAwDAQACAAMAAAAQYA//xAAUEQEAAAAAAAAAAAAAAAAAAAAQ/9oACAEDAQE/ED//xAAUEQEAAAAAAAAAAAAAAAAAAAAQ/9oACAECAQE/ED//xAAdEAEBAAIBBQAAAAAAAAAAAAABEQAxQVFhkdHw/9oACAEBAAE/EL4qPd7xryG6typirJVvIugzeR1bFhBrIL9eM//Z&apos;); background-size: cover; display: block;&quot;
-  &gt;&lt;/span&gt;
-  &lt;img
-        class=&quot;gatsby-resp-image-image&quot;
-        alt=&quot;img&quot;
-        title=&quot;img&quot;
-        src=&quot;/static/d900268b3dea673310bf2b15b50a3d48/6aca1/13_12.jpg&quot;
-        srcset=&quot;/static/d900268b3dea673310bf2b15b50a3d48/d2f63/13_12.jpg 163w,
-/static/d900268b3dea673310bf2b15b50a3d48/c989d/13_12.jpg 325w,
-/static/d900268b3dea673310bf2b15b50a3d48/6aca1/13_12.jpg 650w,
-/static/d900268b3dea673310bf2b15b50a3d48/7c09c/13_12.jpg 975w,
-/static/d900268b3dea673310bf2b15b50a3d48/949c1/13_12.jpg 1261w&quot;
-        sizes=&quot;(max-width: 650px) 100vw, 650px&quot;
-        style=&quot;width:100%;height:100%;margin:0;vertical-align:middle;position:absolute;top:0;left:0;&quot;
-        loading=&quot;lazy&quot;
-        decoding=&quot;async&quot;
-      /&gt;
-    &lt;/span&gt;&lt;/p&gt;
-&lt;h3&gt;Separable Convolution&lt;/h3&gt;
-&lt;p&gt;2차원 Convolution을 적용하고 &lt;strong&gt;Channel간 이루어지는 Convolution이 이루어진다.&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;&lt;span
-      class=&quot;gatsby-resp-image-wrapper&quot;
-      style=&quot;position: relative; display: block; margin-left: auto; margin-right: auto; max-width: 650px; &quot;
-    &gt;
-      &lt;span
-    class=&quot;gatsby-resp-image-background-image&quot;
-    style=&quot;padding-bottom: 67.48466257668711%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/jpeg;base64,/9j/2wBDABALDA4MChAODQ4SERATGCgaGBYWGDEjJR0oOjM9PDkzODdASFxOQERXRTc4UG1RV19iZ2hnPk1xeXBkeFxlZ2P/2wBDARESEhgVGC8aGi9jQjhCY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2P/wgARCAANABQDASIAAhEBAxEB/8QAFwAAAwEAAAAAAAAAAAAAAAAAAAIDBf/EABQBAQAAAAAAAAAAAAAAAAAAAAD/2gAMAwEAAhADEAAAAdt1cmUD/8QAGRAAAgMBAAAAAAAAAAAAAAAAEBEAAQIi/9oACAEBAAEFAhWVF0P/xAAUEQEAAAAAAAAAAAAAAAAAAAAQ/9oACAEDAQE/AT//xAAUEQEAAAAAAAAAAAAAAAAAAAAQ/9oACAECAQE/AT//xAAWEAADAAAAAAAAAAAAAAAAAAAQIEH/2gAIAQEABj8CFT//xAAbEAACAgMBAAAAAAAAAAAAAAABEQAhEDFBYf/aAAgBAQABPyEgvc5Atdi9zo4vcf/aAAwDAQACAAMAAAAQw8//xAAUEQEAAAAAAAAAAAAAAAAAAAAQ/9oACAEDAQE/ED//xAAUEQEAAAAAAAAAAAAAAAAAAAAQ/9oACAECAQE/ED//xAAdEAEBAAIBBQAAAAAAAAAAAAABEQAhQRAxUWGB/9oACAEBAAE/EAraXy4Okv3O9ZRV484XCFafTx0//9k=&apos;); background-size: cover; display: block;&quot;
-  &gt;&lt;/span&gt;
-  &lt;img
-        class=&quot;gatsby-resp-image-image&quot;
-        alt=&quot;img&quot;
-        title=&quot;img&quot;
-        src=&quot;/static/3c44bfb084335a085094743be49211ab/6aca1/13_13.jpg&quot;
-        srcset=&quot;/static/3c44bfb084335a085094743be49211ab/d2f63/13_13.jpg 163w,
-/static/3c44bfb084335a085094743be49211ab/c989d/13_13.jpg 325w,
-/static/3c44bfb084335a085094743be49211ab/6aca1/13_13.jpg 650w,
-/static/3c44bfb084335a085094743be49211ab/7c09c/13_13.jpg 975w,
-/static/3c44bfb084335a085094743be49211ab/9657e/13_13.jpg 1216w&quot;
-        sizes=&quot;(max-width: 650px) 100vw, 650px&quot;
-        style=&quot;width:100%;height:100%;margin:0;vertical-align:middle;position:absolute;top:0;left:0;&quot;
-        loading=&quot;lazy&quot;
-        decoding=&quot;async&quot;
-      /&gt;
-    &lt;/span&gt;&lt;/p&gt;
-&lt;h3&gt;Max-Pooling Layer&lt;/h3&gt;
-&lt;p&gt;입력 feature map을 일정한 크기로 나누고 &lt;strong&gt;Maximum 값으로 작은 Map을 만든다.&lt;/strong&gt; 어떤 영역으로 들어오게 되는 데이터는 하나의 성분이다!! 라는 개념으로 사용되고 그 중 &lt;strong&gt;가장 센 값이 대표 성분을 가진다라고 판단&lt;/strong&gt;하여 최대값을 택하게 된다.&lt;/p&gt;
+&lt;h3&gt;Deep Convolutional GAN&lt;/h3&gt;
+&lt;p&gt;GAN의 학습 방법
+&lt;strong&gt;경쟁자를 통한 학습&lt;/strong&gt;을 하게 된다. Generator는 위조 지폐를 만드는 사람에 비유를 하고 Discrimator는 경찰이라고 볼 수 있다. Discrim의 입장에서 진짜 Sample과 위조 Sampel의 차이를 학습한다. Generator는 Discrim이 분별해낸는 차이를 없애내는 학습을 계속 진행한다. CNN을 적용시키면 DCGAN을 얻게 된다.&lt;/p&gt;
 &lt;style class=&quot;grvsc-styles&quot;&gt;
   .grvsc-container {
     overflow: auto;
