@@ -45,16 +45,14 @@ const About = () => {
         <Main>
           <Introduce><img src={profile} alt="profile" style={{width: 230, float:"right"}}/></Introduce>
           <Typing>
-              <Item>꾸</Item> 
-              <Item>준</Item>
-              <Item>히</Item>
-              <Item>성</Item>
-              <Item>장</Item>
+              <Item>성</Item> 
+              <Item>실</Item>
+              <Item>하</Item>
+              <Item>게</Item>
+              <Item>공</Item>
+              <Item>부</Item>
               <Item>하</Item>
               <Item>는</Item>
-              <Item>학</Item>
-              <Item>부</Item>
-              <Item>생</Item>
           </Typing>
 
           <TopMessage>
@@ -63,20 +61,20 @@ const About = () => {
             <br></br><br></br><br></br><br></br>
           </TopMessage>
 
-          <BottomMessage>
+          {/* <BottomMessage>
           <br></br><br></br><br></br>
             "네 마음을 다하고 목숨을 다하고 뜻을 다하여 주 너의 하나님을 사랑하라"
             <br></br><br></br><br></br><br></br>
-          </BottomMessage>
+          </BottomMessage> */}
           
 
-          <Container dangerouslySetInnerHTML={{ __html: markdown4 ?? "" }}
+          <Container dangerouslySetInnerHTML={{ __html: markdown10 ?? "" }}
             rhythm={rhythm}
           ></Container>
 
           <LeftLine1><img src={line1} alt="line"/></LeftLine1>
           <RightLine1><img src={line1} alt="line"/></RightLine1>
-          <Container2 dangerouslySetInnerHTML={{ __html: markdown ?? "" }}
+          <Container2 dangerouslySetInnerHTML={{ __html: markdown2 ?? "" }}
             rhythm={rhythm}
           ></Container2>
 
@@ -89,27 +87,27 @@ const About = () => {
 
           <LeftLine2><img src={line1} alt="line"/></LeftLine2>
           <RightLine2><img src={line1} alt="line"/></RightLine2>
-          <Container3 dangerouslySetInnerHTML={{ __html: markdown2 ?? "" }}
+          <Container3 dangerouslySetInnerHTML={{ __html: markdown1 ?? "" }}
             rhythm={rhythm}
           ></Container3>
 
-          <ContainerProjectDate dangerouslySetInnerHTML={{ __html: markdown6 ?? "" }}
+          <ContainerProjectDate dangerouslySetInnerHTML={{ __html: markdown3 ?? "" }}
             rhythm={rhythm}
           ></ContainerProjectDate>
           <ProjectImg>
             <img src={project2} alt="project2" style={{width: 780}}/>
           </ProjectImg>
-          <ContainerProject dangerouslySetInnerHTML={{ __html: markdown1 ?? "" }}
+          <ContainerProject dangerouslySetInnerHTML={{ __html: markdown6 ?? "" }}
             rhythm={rhythm}
           ></ContainerProject>
 
-          <ContainerProjectDate dangerouslySetInnerHTML={{ __html: markdown5 ?? "" }}
+          <ContainerProjectDate dangerouslySetInnerHTML={{ __html: markdown4 ?? "" }}
             rhythm={rhythm}
           ></ContainerProjectDate>
           <ProjectImg>
             <img src={project7} alt="project7" style={{width: 780}}/>
           </ProjectImg>
-          <ContainerProject dangerouslySetInnerHTML={{ __html: markdown3 ?? "" }}
+          <ContainerProject dangerouslySetInnerHTML={{ __html: markdown5 ?? "" }}
             rhythm={rhythm}
           ></ContainerProject>
           
@@ -119,7 +117,7 @@ const About = () => {
           <ProjectImg>
             <img src={blog} alt="blog_img" style={{width: 780}}/>
           </ProjectImg>
-          <ContainerProject dangerouslySetInnerHTML={{ __html: markdown10 ?? "" }}
+          <ContainerProject dangerouslySetInnerHTML={{ __html: markdown ?? "" }}
             rhythm={rhythm}
           ></ContainerProject>
 
@@ -146,7 +144,7 @@ const ContainerStudy = styled(Markdown).attrs({
 `
 
 const Back = styled.div`
-background: linear-gradient(to right, #fc354c, #0abfbc);
+// background: white
 `
 
 const ProjectImg = styled.div`
@@ -184,7 +182,7 @@ const circleMoveSmall = keyframes`
 
 const TopMessage = styled.div`
   position: absolute;
-  left: 370px;
+  left: 100px;
   top: 320px;
   font-size: 1.5rem;
   font-weight: 500;
@@ -202,7 +200,6 @@ const TopMessage = styled.div`
     top: 430px;
     line-height: 1.75rem;
     font-weight: 550;
-    animation: ${circleMoveSmall} 14s ease-in-out infinite;
   }
 `
 const BottomMessage = styled.div`
@@ -231,14 +228,29 @@ const BottomMessage = styled.div`
 
 const Typing = styled.div`
   position: absolute;
-  left: 430px;
-  top: 165px;
+  left: 280px;
+  top: 162px;
   font-size: 2.8rem;
   font-weight: 800;
-  @media (max-width: ${({ theme }) => theme.device.sm}) {
+  @media (max-width: ${({ theme }) => theme.device.xs}) {
     left: 33px;
     top: 332px;
     font-size: 2.0rem;
+  }
+  @media (max-width: ${({ theme }) => theme.device.sm}) {
+    left: 30px;
+    top: 332px;
+    font-size: 2.0rem;
+  }
+  @media (max-width: ${({ theme }) => theme.device.md}) {
+    left: 100px;
+    top: 162px;
+    font-size: 2.7rem;
+  }
+  @media (max-width: ${({ theme }) => theme.device.lg}) {
+    left: 23%;
+    top: 164px;
+    font-size: 2.7rem;
   }
 `
 
@@ -310,6 +322,9 @@ const Introduce = styled.div`
   padding-right: 8%;
   @media (max-width: ${({ theme }) => theme.device.sm}) {
     padding-right: 18%;
+  }
+  @media (max-width: ${({ theme }) => theme.device.md}) {
+    padding-right: 14%;
   }
 `
 
