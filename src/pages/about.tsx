@@ -11,6 +11,8 @@ import profile from "../images/profile.png"
 import line1 from "../images/line1.png"
 import project2 from "../images/project2.png"
 import project7 from "../images/project7.png"
+import project8 from "../images/project8.jpg"
+import project9 from "../images/project9.jpg"
 import blog from "../images/blog.png"
 
 const About = () => {
@@ -37,6 +39,12 @@ const About = () => {
   const markdown8 = data.allMarkdownRemark.edges[8].node.html
   const markdown9 = data.allMarkdownRemark.edges[9].node.html
   const markdown10 = data.allMarkdownRemark.edges[10].node.html
+  const markdown11 = data.allMarkdownRemark.edges[11].node.html
+  const markdown12 = data.allMarkdownRemark.edges[12].node.html
+  const markdown13 = data.allMarkdownRemark.edges[13].node.html
+  const markdown14 = data.allMarkdownRemark.edges[14].node.html
+  const markdown15 = data.allMarkdownRemark.edges[15].node.html
+  const markdown16 = data.allMarkdownRemark.edges[16].node.html
 
   return (
     <Layout>
@@ -44,16 +52,6 @@ const About = () => {
       <SEO title="About" />
         <Main>
           <Introduce><img src={profile} alt="profile" style={{width: 230, float:"right"}}/></Introduce>
-          <Typing>
-              <Item>성</Item> 
-              <Item>실</Item>
-              <Item>하</Item>
-              <Item>게</Item>
-              <Item>공</Item>
-              <Item>부</Item>
-              <Item>하</Item>
-              <Item>는</Item>
-          </Typing>
 
           <TopMessage>
           <br></br><br></br><br></br>
@@ -61,33 +59,32 @@ const About = () => {
             <br></br><br></br><br></br><br></br>
           </TopMessage>
 
-          {/* <BottomMessage>
-          <br></br><br></br><br></br>
-            "네 마음을 다하고 목숨을 다하고 뜻을 다하여 주 너의 하나님을 사랑하라"
-            <br></br><br></br><br></br><br></br>
-          </BottomMessage> */}
-          
-
           <Container dangerouslySetInnerHTML={{ __html: markdown10 ?? "" }}
             rhythm={rhythm}
           ></Container>
 
           <LeftLine1><img src={line1} alt="line"/></LeftLine1>
           <RightLine1><img src={line1} alt="line"/></RightLine1>
-          <Container2 dangerouslySetInnerHTML={{ __html: markdown2 ?? "" }}
+          <Container2 dangerouslySetInnerHTML={{ __html: markdown1 ?? "" }}
             rhythm={rhythm}
           ></Container2>
 
+          <ContainerStudy dangerouslySetInnerHTML={{ __html: markdown11 ?? "" }}
+            rhythm={rhythm}
+          ></ContainerStudy>
           <ContainerStudy dangerouslySetInnerHTML={{ __html: markdown7 ?? "" }}
             rhythm={rhythm}
           ></ContainerStudy>
           <ContainerStudy dangerouslySetInnerHTML={{ __html: markdown8 ?? "" }}
             rhythm={rhythm}
           ></ContainerStudy>
+          <ContainerStudy dangerouslySetInnerHTML={{ __html: markdown12 ?? "" }}
+            rhythm={rhythm}
+          ></ContainerStudy>
 
           <LeftLine2><img src={line1} alt="line"/></LeftLine2>
           <RightLine2><img src={line1} alt="line"/></RightLine2>
-          <Container3 dangerouslySetInnerHTML={{ __html: markdown1 ?? "" }}
+          <Container3 dangerouslySetInnerHTML={{ __html: markdown2 ?? "" }}
             rhythm={rhythm}
           ></Container3>
 
@@ -121,6 +118,25 @@ const About = () => {
             rhythm={rhythm}
           ></ContainerProject>
 
+          <ContainerProjectDate dangerouslySetInnerHTML={{ __html: markdown13 ?? "" }}
+            rhythm={rhythm}
+          ></ContainerProjectDate>
+          <ProjectImg>
+            <img src={project8} alt="project8" style={{width: 780}}/>
+          </ProjectImg>
+          <ContainerProject dangerouslySetInnerHTML={{ __html: markdown14 ?? "" }}
+            rhythm={rhythm}
+          ></ContainerProject>
+
+          <ContainerProjectDate dangerouslySetInnerHTML={{ __html: markdown15 ?? "" }}
+            rhythm={rhythm}
+          ></ContainerProjectDate>
+          <ProjectImg>
+            <img src={project9} alt="project9" style={{width: 780}}/>
+          </ProjectImg>
+          <ContainerProject dangerouslySetInnerHTML={{ __html: markdown16 ?? "" }}
+            rhythm={rhythm}
+          ></ContainerProject>
         </Main>
         </Back>
     </Layout>
