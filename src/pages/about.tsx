@@ -13,6 +13,7 @@ import project2 from "../images/project2.png"
 import project7 from "../images/project7.png"
 import project8 from "../images/project8.jpg"
 import project9 from "../images/project9.jpg"
+import project10 from "../images/project10.png"
 import blog from "../images/blog.png"
 
 const About = () => {
@@ -45,6 +46,8 @@ const About = () => {
   const markdown14 = data.allMarkdownRemark.edges[14].node.html
   const markdown15 = data.allMarkdownRemark.edges[15].node.html
   const markdown16 = data.allMarkdownRemark.edges[16].node.html
+  const markdown17 = data.allMarkdownRemark.edges[17].node.html
+  const markdown18 = data.allMarkdownRemark.edges[18].node.html
 
   return (
     <Layout>
@@ -115,6 +118,16 @@ const About = () => {
             <img src={blog} alt="blog_img" style={{width: 780}}/>
           </ProjectImg>
           <ContainerProject dangerouslySetInnerHTML={{ __html: markdown ?? "" }}
+            rhythm={rhythm}
+          ></ContainerProject>
+
+          <ContainerProjectDate dangerouslySetInnerHTML={{ __html: markdown18 ?? "" }}
+            rhythm={rhythm}
+          ></ContainerProjectDate>
+          <ProjectImg>
+            <img src={project10} alt="project10" style={{width: 780}}/>
+          </ProjectImg>
+          <ContainerProject dangerouslySetInnerHTML={{ __html: markdown17 ?? "" }}
             rhythm={rhythm}
           ></ContainerProject>
 
