@@ -15,6 +15,9 @@ import project8 from "../images/project8.jpg"
 import project9 from "../images/project9.jpg"
 import project10 from "../images/project10.png"
 import blog from "../images/blog.png"
+import bible from "../images/bible.png"
+import bible2 from "../images/white_bible.png"
+import paper from "../images/deep_paper.png"
 
 const About = () => {
   const data = useStaticQuery<Query>(graphql`
@@ -48,23 +51,26 @@ const About = () => {
   const markdown16 = data.allMarkdownRemark.edges[16].node.html
   const markdown17 = data.allMarkdownRemark.edges[17].node.html
   const markdown18 = data.allMarkdownRemark.edges[18].node.html
+  const markdown19 = data.allMarkdownRemark.edges[19].node.html
+  const markdown20 = data.allMarkdownRemark.edges[20].node.html
 
   return (
     <Layout>
-      <Back>
       <SEO title="About" />
         <Main>
           <Introduce><img src={profile} alt="profile" style={{width: 230, float:"right"}}/></Introduce>
 
-          <TopMessage>
-          <br></br><br></br><br></br>
-            "네 마음을 다하고 목숨을 다하고 뜻을 다하여 주 너의 하나님을 사랑하라"
-            <br></br><br></br><br></br><br></br>
-          </TopMessage>
 
           <Container dangerouslySetInnerHTML={{ __html: markdown10 ?? "" }}
             rhythm={rhythm}
           ></Container>
+
+          <Bible>
+            <img src={bible} alt="bible"></img>
+          </Bible>
+          <Bible>
+            <img src={bible2} alt="white_bible"></img>
+          </Bible>
 
           <LeftLine1><img src={line1} alt="line"/></LeftLine1>
           <RightLine1><img src={line1} alt="line"/></RightLine1>
@@ -150,8 +156,17 @@ const About = () => {
           <ContainerProject dangerouslySetInnerHTML={{ __html: markdown16 ?? "" }}
             rhythm={rhythm}
           ></ContainerProject>
+
+          <ContainerProjectDate dangerouslySetInnerHTML={{ __html: markdown19 ?? "" }}
+            rhythm={rhythm}
+          ></ContainerProjectDate>
+          <ProjectImg>
+            <img src={paper} alt="paper" style={{width: 780}}/>
+          </ProjectImg>
+          <ContainerProject dangerouslySetInnerHTML={{ __html: markdown20 ?? "" }}
+            rhythm={rhythm}
+          ></ContainerProject>
         </Main>
-        </Back>
     </Layout>
   )
 }
@@ -172,10 +187,6 @@ const ContainerStudy = styled(Markdown).attrs({
   }
 `
 
-const Back = styled.div`
-// background: white
-`
-
 const ProjectImg = styled.div`
   display: flex;
   justify-content: center;
@@ -191,109 +202,13 @@ const ProjectImg = styled.div`
   }
 `
 
-const circleMove = keyframes`
-  0%, 100% {
-    clip-path: circle(12% at 90% 50%);
-  }
-  50% {
-    clip-path: circle(12% at 10% 50%);
-  }
-`;
-
-const circleMoveSmall = keyframes`
-  0%, 100% {
-    clip-path: circle(16% at 90% 50%);
-  }
-  50% {
-    clip-path: circle(16% at 10% 50%);
-  }
-`;
-
-const TopMessage = styled.div`
-  position: absolute;
-  left: 100px;
-  top: 320px;
-  font-size: 1.5rem;
-  font-weight: 500;
-  word-spacing: 5px;
-  font-weight: 500;
-  background: linear-gradient(to top, #ff4e50, #f9d423);
-  color: white;
-  clip-path: circle(7% at 60% 85%);
-  animation: ${circleMove} 14s ease-in-out infinite;
-  @media (max-width: ${({ theme }) => theme.device.sm}) {
-    left: 0px;
-    font-size: 1.25rem;
-    padding-left: 40px;
-    padding-right: 40px;
-    top: 430px;
-    line-height: 1.75rem;
-    font-weight: 550;
-  }
-`
-const BottomMessage = styled.div`
-  position: absolute;
-  left: 370px;
-  top: 320px;
-  font-size: 1.5rem;
-  font-weight: 500;
-  word-spacing: 5px;
-  font-weight: 500;
-  background: linear-gradient(to top, #ff4e50, #f9d423);
-  color: white;
-  clip-path: circle(7% at 60% 85%);
-  animation: ${circleMove} 18s ease-in-out infinite;
-  @media (max-width: ${({ theme }) => theme.device.sm}) {
-    left: 0px;
-    font-size: 1.25rem;
-    padding-left: 40px;
-    padding-right: 40px;
-    top: 430px;
-    line-height: 1.75rem;
-    font-weight: 550;
-    animation: ${circleMoveSmall} 18s ease-in-out infinite;
-  }
-  `
-
-const Typing = styled.div`
-  position: absolute;
-  left: 280px;
-  top: 162px;
-  font-size: 2.8rem;
-  font-weight: 800;
-  @media (max-width: ${({ theme }) => theme.device.xs}) {
-    left: 33px;
-    top: 332px;
-    font-size: 2.0rem;
-  }
-  @media (max-width: ${({ theme }) => theme.device.sm}) {
-    left: 30px;
-    top: 332px;
-    font-size: 2.0rem;
-  }
-  @media (max-width: ${({ theme }) => theme.device.md}) {
-    left: 100px;
-    top: 162px;
-    font-size: 2.7rem;
-  }
-  @media (max-width: ${({ theme }) => theme.device.lg}) {
-    left: 23%;
-    top: 164px;
-    font-size: 2.7rem;
-  }
-`
-
-const flip = keyframes`
-  0%, 80% {
-    transform: rotateY(360deg)
-  }
-`;
-
-const Item = styled.span`
-  position: relative;
-  display: inline-block;
-  animation: ${flip} 3s infinite;
-  animation-delay: calc(.2s * var(--i))
+const Bible = styled.div`
+  display: flex;
+  justify-content: center;
+  margin-left: 8%;
+  width: 800px;
+  height: 50px;
+  padding-bottom: 0;
 `
 
 const RightLine1 = styled.div`
