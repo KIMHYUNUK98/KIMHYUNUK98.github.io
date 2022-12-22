@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+Sitemap: https://kimhyunuk98.github.io/sitemap/sitemap-index.xml
+Host: https://kimhyunuk98.github.io
